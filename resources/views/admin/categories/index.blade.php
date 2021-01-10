@@ -11,7 +11,6 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Название</th>
-                        <th scope="col">Путь</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,7 +21,6 @@
                                     <a href="">{{ $category->name }}</a>
                                 </td>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->getPath() }}</td>
                                 <td>
                                     <div class="d-flex flex-row">
                                         <form method="POST" action="{{ route('categories.first', $category) }}" class="mr-1">
