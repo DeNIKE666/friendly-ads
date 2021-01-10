@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function index()
     {
-        //
+        $categories = app('rinvex.categories.category')->defaultOrder()->withDepth()->get();
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -82,4 +85,59 @@ class CategoryController extends Controller
     {
         //
     }
+
+
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function first(Category $category)
+    {
+        if ($first = $category->siblings()->defaultOrder()->first()) {
+            $category->insertBeforeNode($first);
+        }
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function last(Category $category)
+    {
+        if ($last = $category->siblings()->defaultOrder('desc')->first()) {
+            $category->insertAfterNode($last);
+        }
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function up(Category $category)
+    {
+        $category->up();
+
+        return redirect()->route('categories.index');
+    }
+
+
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function down(Category $category)
+    {
+        $category->down();
+
+        return redirect()->route('categories.index');
+    }
+
 }

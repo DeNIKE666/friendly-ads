@@ -15412,6 +15412,48 @@
      
 }
 
+    namespace Illuminate\Database\Schema { 
+            /**
+     * 
+     *
+     */ 
+        class Blueprint {
+                    /**
+         * 
+         *
+         * @see \Kalnoy\Nestedset\NestedSetServiceProvider::register()
+         * @static 
+         */ 
+        public static function nestedSet()
+        {
+                        return \Illuminate\Database\Schema\Blueprint::nestedSet();
+        }
+                    /**
+         * 
+         *
+         * @see \Kalnoy\Nestedset\NestedSetServiceProvider::register()
+         * @static 
+         */ 
+        public static function dropNestedSet()
+        {
+                        return \Illuminate\Database\Schema\Blueprint::dropNestedSet();
+        }
+                    /**
+         * 
+         *
+         * @see \Spatie\SchemalessAttributes\SchemalessAttributesServiceProvider::register()
+         * @param string $columnName
+         * @static 
+         */ 
+        public static function schemalessAttributes($columnName = 'schemaless_attributes')
+        {
+                        return \Illuminate\Database\Schema\Blueprint::schemalessAttributes($columnName);
+        }
+         
+    }
+     
+}
+
     namespace Illuminate\Routing { 
             /**
      * 
