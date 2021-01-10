@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
@@ -48,12 +47,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
      */
-    public function show($id)
+
+    public function show(Category $category)
     {
         //
     }
@@ -82,7 +79,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-
     /**
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
@@ -96,7 +92,6 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
 
     }
-
 
     /**
      * @param Category $category
@@ -137,7 +132,6 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
-
 
     /**
      * @param Category $category
