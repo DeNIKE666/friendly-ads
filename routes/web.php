@@ -11,16 +11,17 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('categories' , \App\Http\Controllers\Admin\CategoryController::class)->names('categories');
 
-   // Управление пользователями
-
-    Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('users');
-
-    Route::group(['prefix' => 'categories/{category}', 'as' => 'categories.'], function () {
+    Route::prefix('categories/{category}')->as('categories.')->group(function () {
         Route::post('/first', [\App\Http\Controllers\Admin\CategoryController::class , 'first'])->name('first');
         Route::post('/up', [\App\Http\Controllers\Admin\CategoryController::class , 'up'])->name('up');
         Route::post('/down', [\App\Http\Controllers\Admin\CategoryController::class , 'down'])->name('down');
         Route::post('/last',[\App\Http\Controllers\Admin\CategoryController::class , 'last'])->name('last');
     });
+
+   // Управление пользователями
+
+    Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('users');
+
 
 });
 
