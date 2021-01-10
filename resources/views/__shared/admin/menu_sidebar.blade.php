@@ -45,14 +45,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('users.index') }}">
                         <i class="fal fa-users"></i>
                         <p>Все пользователи</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('users.create') }}">
                         <i class="fal fa-user-plus"></i>
                         <p>Создать пользователя</p>
                     </a>
