@@ -74,6 +74,8 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
+        $category->getSlugOptions();
+
         $category->update($request->all());
 
         return redirect()->route('categories.index');

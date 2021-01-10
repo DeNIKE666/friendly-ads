@@ -13,6 +13,7 @@
                         <label for="name">Имя категории:</label>
                         <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $category->name) }}">
                     </div>
+
                     <div class="form-group">
                         <label for="parent_id" class="col-form-label">Родительская категория:</label>
                         <select id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is-invalid' : '' }}" name="parent_id">
