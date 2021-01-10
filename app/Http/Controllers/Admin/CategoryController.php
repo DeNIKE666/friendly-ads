@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\categoryCreateAdmin;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Integer;
 
 class CategoryController extends Controller
 {
@@ -21,24 +23,29 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function create()
     {
-        //
+        $categories = app('rinvex.categories.category')->defaultOrder()->withDepth()->get();
+
+        return view('admin.categories.create', compact('categories'));
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+
+    public function store(categoryCreateAdmin $request)
     {
-        //
+        $request->validated();
+
+        app('rinvex.categories.category')->create($request->all());
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -53,37 +60,42 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
      */
-    public function edit($id)
+
+    public function edit(Category $category)
     {
-        //
+        $categories = app('rinvex.categories.category')->defaultOrder()->withDepth()->get();
+
+        return view('admin.categories.edit', compact('category','categories'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->update($request->all());
+
+        return redirect()->route('categories.index');
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('categories.index');
+
     }
 
 

@@ -8,14 +8,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('categories.create') }}">
                         <i class="fal fa-layer-plus"></i>
                         <p>Добавить категорию</p>
                     </a>
 
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('categories.index') }}">
                         <i class="fal fa-list"></i>
                         <p>Все категории</p>
                     </a>
