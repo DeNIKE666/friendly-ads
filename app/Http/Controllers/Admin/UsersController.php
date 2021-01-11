@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\createUser;
+use App\Jobs\senderMail;
 use App\Mail\Admin\createUserNotify;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Service\NotifySender;
 use App\Service\TelegramNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -19,11 +21,6 @@ class UsersController extends Controller
 
     public function index()
     {
-
-        $text = sprintf(config('messages.admin.createUser') , 'test' , '123');
-
-        TelegramNotify::send(269952908, $text);
-
         $users = User::orderByDesc('created_at')->paginate(10);
 
         return view('admin.users.index', compact('users'));
@@ -47,30 +44,24 @@ class UsersController extends Controller
     {
         $request->validated();
 
-        // Формируем отправляемый текст в конфиге
+        // Создание пользователя
 
-        $text = sprintf(config('messages.admin.createUser'),
-            $request->input('username') ,
-            $request->input('password') ,
+        $user = User::create([
+            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'telegram_id' => $request->input('telegram_id'),
+            'password' => bcrypt($request->input('password'))
+        ]);
+
+        // Отправляем уведомление в телеграм и на почту
+
+        $user->notify(
+            (new \App\Notifications\Admin\createUser(
+                $user,
+                $request->input('password')
+            ))
         );
-
-        // Создаем пользователя
-
-        $user = User::create($request->merge(['password' => bcrypt($request->input('password'))])->all());
-
-        // Отправляем данные на почту
-
-        Mail::send(new createUserNotify(
-                $request->input('email'),
-                $text
-            )
-        );
-
-        // Отправляем данные в телегу пользователю
-
-        if ($user->telegram_id):
-            TelegramNotify::send($request->input('telegram_id') ,$text);
-        endif;
 
         return redirect()->route('users.index');
     }
