@@ -54,8 +54,6 @@ class UsersController extends Controller
             'password' => bcrypt($request->input('password'))
         ]);
 
-        // Отправляем уведомление в телеграм и на почту
-
         $user->notify(
             (new \App\Notifications\Admin\createUser(
                 $user,

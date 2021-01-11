@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
+use App\Notifications\Admin\createUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,23 +15,19 @@ class senderMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $user, $password;
+
+    public function __construct(User $user, $password)
     {
-        //
+        $this->user = $user;
+        $this->password = $password;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
+
     public function handle()
     {
-        //
+       $this->user->notify(
+           (new createUser($this->user, $this->password))
+       );
     }
 }
