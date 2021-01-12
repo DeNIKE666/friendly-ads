@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\createUser;
-use App\Jobs\senderMail;
-use App\Mail\Admin\createUserNotify;
+
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Service\NotifySender;
-use App\Service\TelegramNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+
 
 class UsersController extends Controller
 {
@@ -21,7 +18,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::orderByDesc('created_at')->paginate(10);
+        $users = (new UserRepository())->getUsersAll();
 
         return view('admin.users.index', compact('users'));
     }
@@ -46,13 +43,7 @@ class UsersController extends Controller
 
         // Создание пользователя
 
-        $user = User::create([
-            'name' => $request->input('name'),
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'telegram_id' => $request->input('telegram_id'),
-            'password' => bcrypt($request->input('password'))
-        ]);
+        $user = (new UserRepository())->create();
 
         $user->notify(
             (new \App\Notifications\Admin\createUser(
