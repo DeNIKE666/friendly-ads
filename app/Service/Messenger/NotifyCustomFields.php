@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Messenger;
 
 
-use App\Service\Telegram\SenderMessage;
+use App\Service\Messenger\Telegram\SenderMessage;
 
 class NotifyCustomFields
 {

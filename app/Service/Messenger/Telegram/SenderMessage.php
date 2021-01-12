@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service\Telegram;
+namespace App\Service\Messenger\Telegram;
 
 
 use BotMan\BotMan\Facades\BotMan;

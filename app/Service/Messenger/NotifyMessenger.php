@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Messenger;
 
 use Illuminate\Notifications\Notification;
 
