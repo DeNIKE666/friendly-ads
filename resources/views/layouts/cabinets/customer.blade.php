@@ -65,7 +65,7 @@
     </div>
 
 
-    @include('__shared.cabinet.menu_sidebar')
+    @include('__shared.cabinets.menu_customer_sidebar')
 
     <div class="main-panel">
         <div class="content">

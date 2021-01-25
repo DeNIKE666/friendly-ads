@@ -6,7 +6,7 @@
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ mix('/assets/cabinets/css/atlantis.css') }}">
+    <link rel="stylesheet" href="{{ mix('/assets/cabinet/css/atlantis.css') }}">
 </head>
 <body>
 <div class="wrapper">
@@ -14,7 +14,7 @@
         <!-- Logo Header -->
         <div class="logo-header d-flex justify-content-start" data-background-color="white">
             <a href="/" class="logo">
-                <span>АДМИНКА</span>
+                <span>КАБИНЕТ</span>
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -65,7 +65,7 @@
     </div>
 
 
-    @include('__shared.admin.menu_sidebar')
+    @include('__shared.cabinets.menu_executor_sidebar')
 
     <div class="main-panel">
         <div class="content">
@@ -80,8 +80,8 @@
         </footer>
     </div>
 </div>
-<script src="{{ mix('/assets/cabinets/js/vendor_atlantis.js') }}"></script>
-<script src="{{ asset('/assets/cabinets/js/atlantis2.js')}}"></script>
+<script src="{{ mix('/assets/cabinet/js/vendor_atlantis.js') }}"></script>
+<script src="{{ asset('/assets/cabinet/js/atlantis2.js')}}"></script>
 @stack('scripts')
 </body>
 </html>

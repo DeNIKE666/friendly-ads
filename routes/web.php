@@ -1,7 +1,11 @@
 <?php
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('cabinet')->middleware('auth')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
+});
+
+Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Главная панели
 

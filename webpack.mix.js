@@ -11,11 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/sass/atlantis.scss', 'public/assets/cabinet/css').options({
+mix.sass('resources/sass/atlantis.scss', 'public/assets/cabinets/css').options({
     processCssUrls: false
 }).version()
-    .copy('resources/sass/atlantis/fonts' , 'public/assets/cabinet/fonts')
-    .copy('resources/js/atlantis/atlantis2.js' , 'public/assets/cabinet/js')
+    .copy('resources/sass/atlantis/fonts' , 'public/assets/cabinets/fonts')
+    .copy('resources/js/atlantis/atlantis2.js' , 'public/assets/cabinets/js')
 
 mix.scripts([
     'resources/js/atlantis/core/jquery.3.2.1.min.js',
@@ -45,4 +45,4 @@ mix.scripts([
     'resources/js/atlantis/plugin/owl-carousel/owl.carousel.min.js',
     'resources/js/atlantis/plugin/jquery.magnific-popup/jquery.magnific-popup.min.js',
     'resources/js/atlantis/plugin/chart-js/chart.min.js',
-], 'public/assets/cabinet/js/vendor_atlantis.js').version();
+], 'public/assets/cabinets/js/vendor_atlantis.js').version();

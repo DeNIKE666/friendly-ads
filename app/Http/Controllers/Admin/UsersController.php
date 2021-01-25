@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\createUser;
 
-use App\Models\Site;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use Doctrine\DBAL\Schema\AbstractAsset;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {

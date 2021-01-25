@@ -4,7 +4,7 @@
         <div class="sidebar-content">
             <ul class="nav nav-primary">
                 <li class="nav-section">
-                    <h4 class="text-section">Навигация</h4>
+                    <h4 class="text-section">Навигация исполнителя</h4>
                 </li>
 
                 <li class="nav-item">
