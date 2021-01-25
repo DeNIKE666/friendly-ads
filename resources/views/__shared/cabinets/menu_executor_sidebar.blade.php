@@ -3,14 +3,22 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
+
                 <li class="nav-section">
-                    <h4 class="text-section">Навигация исполнителя</h4>
+                    <h4 class="text-section">Сайты</h4>
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('executor.sites.index') }}">
+                        <i class="fal fa-sitemap"></i>
+                        <p>Все сайты</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('executor.sites.create') }}">
                         <i class="fal fa-layer-plus"></i>
-                        <p>РАЗДЕЛ 1</p>
+                        <p>Добавить сайт</p>
                     </a>
                 </li>
 

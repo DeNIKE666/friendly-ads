@@ -3,6 +3,10 @@
 
 Route::prefix('cabinet')->middleware('auth')->group(function () {
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
+
+    // Executor
+
+    Route::resource('sites' , \App\Http\Controllers\Cabinet\Executor\SiteController::class)->names('executor.sites');
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
@@ -27,6 +31,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
    // Управление пользователями
 
     Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('users');
+
+    // Информация по юзеру
 
     Route::prefix('detail/{user}')->as('users.')->group(function () {
         Route::get('/sites', [\App\Http\Controllers\Admin\UsersController::class , 'sites'])->name('sites');

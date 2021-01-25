@@ -64,7 +64,6 @@
         <!-- End Navbar -->
     </div>
 
-
     @include('__shared.cabinets.menu_executor_sidebar')
 
     <div class="main-panel">
