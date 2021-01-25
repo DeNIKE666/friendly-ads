@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('isAdmin')->default(0);
             $table->integer('isBanned')->default(0);
+            $table->integer('type_account')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

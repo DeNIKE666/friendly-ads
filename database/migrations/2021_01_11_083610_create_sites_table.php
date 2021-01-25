@@ -15,6 +15,7 @@ class CreateSitesTable extends Migration
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
             $table->string('url')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

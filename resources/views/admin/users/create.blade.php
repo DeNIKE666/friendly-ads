@@ -29,6 +29,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="type_account">Тип аккаунта:</label>
+                        <select id="type_account" class="form-control @error('type_account') is-invalid @enderror" name="type_account">
+                            <option value="">-- Выберите тип аккаунта</option>
+                            <option value="1">Администратор</option>
+                            <option value="2">Пользователь</option>
+                        </select>
+                        @error('type_account')
+                          <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="email">E-mail:</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Введите Email адрес пользователя" value="{{ old('email') }}">
                         @error('email')

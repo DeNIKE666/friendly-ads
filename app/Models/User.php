@@ -55,7 +55,8 @@ class User extends Authenticatable
         'email',
         'password',
         'isBanned',
-        'isAdmin'
+        'isAdmin',
+        'type_account'
     ];
 
     /**
@@ -77,4 +78,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Сайты пользователя
+     */
+
+    public function sites()
+    {
+        return $this->hasMany(Site::class);
+    }
 }

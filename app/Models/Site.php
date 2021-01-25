@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Site extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'url',
+        'category_id',
+        'user_id',
+        'short',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

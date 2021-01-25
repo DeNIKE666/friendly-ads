@@ -27,6 +27,7 @@
                         <th scope="col">Логин</th>
                         <th scope="col">Почта</th>
                         <th scope="col">Телеграм</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,11 @@
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->telegram_id ?: 'Не указан' }}</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('users.sites', $user) }}" class="btn btn-sm btn-outline-primary"><span class="fal fa-sitemap"></span></a>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>

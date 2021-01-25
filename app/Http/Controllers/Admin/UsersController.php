@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\createUser;
 
+use App\Models\Site;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Doctrine\DBAL\Schema\AbstractAsset;
 use Illuminate\Http\Request;
 
 
@@ -87,6 +89,13 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         //
+    }
+
+    public function sites(User $user)
+    {
+        return view('admin.users.sites', [
+            'sites' => $user->sites
+        ]);
     }
 
     /**
