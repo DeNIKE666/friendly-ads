@@ -21,15 +21,16 @@
                         <img class="card-img-top" src="{{ asset('images/no-image.jpg') }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title mb-2 fw-mediumbold">{{ $site->title }}</h5>
-                            <p class="card-text">Категория: <span class="badge badge-default">{{ $site->category->name }}</span></p>
+                            <p class="card-text">Категория: <span class="badge badge-default float-right">{{ $site->category->name }}</span></p>
                             <p class="card-text">Активация:
                                 @if($site->activated == 0)
-                                    <span class="badge badge-danger">в процессе активации</span>
+                                    <span class="badge badge-danger float-right">в процессе активации</span>
                                 @else
-                                    <span class="badge badge-success">активирован</span>
+                                    <span class="badge badge-success float-right">активирован</span>
                                 @endif
                             </p>
-                            <p class="card-text">Рейтинг: <span class="badge badge-default">{{ $site->rating }}</span></p>
+                            <p class="card-text">Рейтинг: <span class="badge badge-default float-right">{{ $site->rating }}</span></p>
+                            <hr>
                             <div class="d-flex justify-content-lg-between">
                                 <a href="{{ $site->url }}" class="btn btn-primary mr-1"><i class="fad fa-external-link"></i></a>
                                 <a href="{{ $site->url }}" class="btn btn-danger"><i class="far fa-trash"></i></a>
