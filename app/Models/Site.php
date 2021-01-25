@@ -15,6 +15,8 @@ class Site extends Model
         'category_id',
         'user_id',
         'short',
+        'rating',
+        'activated'
     ];
 
     /**
@@ -25,4 +27,8 @@ class Site extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected $casts = [
+        'rating' => 'decimal:1'
+    ];
 }

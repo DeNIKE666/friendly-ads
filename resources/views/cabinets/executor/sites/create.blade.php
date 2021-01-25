@@ -22,15 +22,15 @@
 
                     <div class="form-group">
                         <label for="title">Название сайта: </label>
-                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" {{ old('title') }}>
+                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title') }}">
                         @error('title')
-                          <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="url">Ссылка на сайт: </label>
-                        <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" id="url" {{ old('url') }}>
+                        <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" id="url" value="{{ old('url') }}">
                         @error('url')
                           <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                         <label for="short">Описание вашего сайта: </label>
-                        <textarea name="short" class="form-control @error('short') is-invalid @enderror" id="short" {{ old('short') }} rows="3" placeholder="Введите описание минимум 150 символов максимум 300"></textarea>
+                        <textarea name="short" class="form-control @error('short') is-invalid @enderror" id="short" rows="3" placeholder="Введите описание минимум 150 символов максимум 300">{{ old('short') }}</textarea>
                         @error('short')
                           <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror

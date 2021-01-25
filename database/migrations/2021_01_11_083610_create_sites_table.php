@@ -17,12 +17,15 @@ class CreateSitesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
-            $table->unsignedInteger('category_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedInteger('category_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('short')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
+
+            $table->float('rating')->default(0);
+            $table->integer('activated')->default(0);
 
             $table->timestamps();
         });

@@ -16,18 +16,33 @@
     <div class="page-inner mt--5">
         <div class="row">
             @forelse($sites as $site)
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card">
-                        <img class="card-img-top" src="{{ asset('images/325x215.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/no-image.jpg') }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title mb-2 fw-mediumbold">{{ $site->title }}</h5>
-                            <p class="card-text">{{ $site->short }}</p>
-                            <p class="card-text">Категория: {{ $site->category->name }}</p>
-                            <a href="{{ $site->url }}" class="btn btn-warning">Перейти</a>
+                            <p class="card-text">Категория: <span class="badge badge-default">{{ $site->category->name }}</span></p>
+                            <p class="card-text">Активация:
+                                @if($site->activated == 0)
+                                    <span class="badge badge-danger">в процессе активации</span>
+                                @else
+                                    <span class="badge badge-success">активирован</span>
+                                @endif
+                            </p>
+                            <p class="card-text">Рейтинг: <span class="badge badge-default">{{ $site->rating }}</span></p>
+                            <div class="d-flex justify-content-lg-between">
+                                <a href="{{ $site->url }}" class="btn btn-primary mr-1"><i class="fad fa-external-link"></i></a>
+                                <a href="{{ $site->url }}" class="btn btn-danger"><i class="far fa-trash"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             @empty
+                <div class="col-md-12">
+                    <div class="alert alert-warning" role="alert">
+                        Извините, у вас на данный момент нет сайтов <a href="{{ route('executor.sites.create') }}"><b>добавьте</b></a> ваши сайты в систему.
+                    </div>
+                </div>
             @endforelse
         </div>
     </div>
