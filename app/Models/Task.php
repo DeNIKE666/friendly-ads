@@ -22,4 +22,9 @@ class Task extends Model
         'site_count',
         'period'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
