@@ -76,13 +76,17 @@
                             <td>
                                 <div class="d-flex justify-content-end">
                                     <a href="{{ route('admin.sites.edit', $site) }}" class="btn btn-warning btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
-                                    <a href="{{ route('admin.sites.destroy', $site) }}" class="btn btn-danger btn-sm w-100  mr-1"><i class="fal fa-trash"></i></a>
+                                    <form action="{{ route('admin.sites.destroy', $site) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit"  class="btn btn-danger btn-sm w-100  mr-1"><i class="fal fa-trash"></i></button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center fw-bold">НЕТ САЙТОВ</td>
+                            <td colspan="7" class="text-center fw-bold">НЕТ САЙТОВ</td>
                         </tr>
                     @endforelse
                     </tbody>
