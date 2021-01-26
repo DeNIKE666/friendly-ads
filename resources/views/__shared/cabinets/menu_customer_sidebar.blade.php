@@ -9,37 +9,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('performers') }}">
                         <i class="fal fa-user-chart"></i>
-                        <p>Исполнителями</p>
+                        <p>Исполнители</p>
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="">
-                        <i class="fal fa-users-crown"></i>
-                        <p>Командой</p>
-                    </a>
-                </li>
-
-
-                <li class="nav-section">
-                    <h4 class="text-section">Сайты</h4>
-                </li>
-
-                <li class="nav-item">
-                    <a href="">
-                        <i class="fal fa-sitemap"></i>
-                        <p>Мои сайты</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="">
-                        <i class="fal fa-clock"></i>
-                        <p>В работе</p>
-                    </a>
-                </li>
 
                 <li class="nav-section">
                     <h4 class="text-section">Финансы</h4>

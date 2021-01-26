@@ -9,14 +9,10 @@ use Illuminate\Support\Collection;
 
 class UserRepository
 {
-    /**
-     * @return LengthAwarePaginator
-     */
 
     public function getUsersAll()
     {
-        return User::orderByDesc('created_at')
-            ->paginate(10);
+        return User::withCount('sites')->orderByDesc('sites_count')->paginate(50);
     }
 
     /**

@@ -7,6 +7,10 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
     // Executor
 
     Route::resource('sites' , \App\Http\Controllers\Cabinet\Executor\SiteController::class)->names('executor.sites');
+
+    // Customer
+
+    Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('performers');
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
