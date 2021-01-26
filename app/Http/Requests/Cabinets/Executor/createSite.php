@@ -24,28 +24,29 @@ class createSite extends FormRequest
     public function rules()
     {
         return [
-            'title'       => ['required' , 'string'],
-            'url'         => ['required' , 'string'],
-            'short'       => ['required' , 'string', 'min:100' , 'max:300'],
-            'parent_id'   => ['required'],
+            'title'         => ['required' , 'string'],
+            'url'           => ['required' , 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/' , 'string'],
+            'short'         => ['required' , 'string', 'min:100' , 'max:300'],
+            'category_id'   => ['required'],
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required'     => 'Названия сайта обязательно к заполнению',
-            'title.string'       => 'Названия сайта должно быть строкой',
+            'title.required'       => 'Названия сайта обязательно к заполнению',
+            'title.string'         => 'Названия сайта должно быть строкой',
 
-            'url.required'       => 'Ссылка сайта обязательно к заполнению',
-            'url.string'         => 'Ссылка сайта должно быть строкой',
+            'url.required'         => 'Ссылка сайта обязательно к заполнению',
+            'url.string'           => 'Ссылка сайта должно быть строкой',
+            'url.regex'            => 'Некоректный адрес сайта',
 
-            'short.required'     => 'Описание сайта обязательно к заполнению',
-            'short.string'       => 'Описание сайта должно быть строкой',
-            'short.min'          => 'Описание сайта минимальное кол-во не мение :min символов',
-            'short.max'          => 'Описание сайта вы привысили максимальное число символов, разрешено не более :max символов',
+            'short.required'       => 'Описание сайта обязательно к заполнению',
+            'short.string'         => 'Описание сайта должно быть строкой',
+            'short.min'            => 'Описание сайта минимальное кол-во не мение :min символов',
+            'short.max'            => 'Описание сайта вы привысили максимальное число символов, разрешено не более :max символов',
 
-            'parent_id.required' => 'Необходимо выбрать категорию'
+            'category_id.required' => 'Необходимо выбрать категорию'
         ];
     }
 }

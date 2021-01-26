@@ -37,13 +37,9 @@ class SiteController extends Controller
 
     public function store(createSite $request)
     {
-        Site::create([
-            'title'       => $request->input('title'),
-            'url'         => $request->input('url'),
-            'short'       => $request->input('short'),
-            'category_id' => $request->input('parent_id'),
-            'user_id'     => auth()->user()->id
-        ]);
+        $request->merge(['user_id' => auth()->user()->id]);
+
+        Site::create($request->all());
 
         return redirect()->route('executor.sites.index');
     }

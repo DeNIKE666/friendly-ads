@@ -10,6 +10,7 @@ class CabinetController extends Controller
 {
     public function index()
     {
+
         switch (Auth::user()->type_account) {
             case 2:
                 return view('cabinets.customer.index');

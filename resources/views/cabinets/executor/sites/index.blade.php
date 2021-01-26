@@ -14,37 +14,43 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="row">
-            @forelse($sites as $site)
-                <div class="col-md-3">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ asset('images/no-image.jpg') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title mb-2 fw-mediumbold">{{ $site->title }}</h5>
-                            <p class="card-text">Категория: <span class="badge badge-default float-right">{{ $site->category->name }}</span></p>
-                            <p class="card-text">Активация:
-                                @if($site->activated == 0)
-                                    <span class="badge badge-danger float-right">в процессе активации</span>
-                                @else
-                                    <span class="badge badge-success float-right">активирован</span>
-                                @endif
-                            </p>
-                            <p class="card-text">Рейтинг: <span class="badge badge-default float-right">{{ $site->rating }}</span></p>
-                            <hr>
-                            <div class="d-flex justify-content-lg-between">
-                                <a href="{{ $site->url }}" class="btn btn-primary mr-1"><i class="fad fa-external-link"></i></a>
-                                <a href="{{ $site->url }}" class="btn btn-danger"><i class="far fa-trash"></i></a>
-                            </div>
-                        </div>
+        <div class="card">
+            <div class="card-body table-responsive">
+                @if($sites->isEmpty())
+                    <div class="alert alert-danger mt-3" role="alert">
+                        У вас еще нет сайтов, но вы можете добавить их в систему <a href="{{ route('executor.sites.create') }}"><b>добавить</b></a>
                     </div>
-                </div>
-            @empty
-                <div class="col-md-12">
-                    <div class="alert alert-warning" role="alert">
-                        Извините, у вас на данный момент нет сайтов <a href="{{ route('executor.sites.create') }}"><b>добавьте</b></a> ваши сайты в систему.
-                    </div>
-                </div>
-            @endforelse
+                @else
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ссылка</th>
+                            <th scope="col">Рейтинг</th>
+                            <th scope="col">Категория</th>
+                            <th scope="col">Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($sites as $site)
+                            <tr>
+                                <td>{{ $site->id }}</td>
+                                <td>{{ $site->url }}</td>
+                                <td>{{ $site->rating }}</td>
+                                <td>{{ $site->category->name }}</td>
+                                <td>
+                                    @if($site->activated)
+                                        <span class="badge badge-success">активирован</span>
+                                    @else
+                                        <span class="badge badge-danger">не активирован</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
         </div>
     </div>
 @endsection
