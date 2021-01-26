@@ -58,36 +58,40 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function edit(Task $task)
     {
-        //
+        $categories = (new CategoryRepository())->getAll();
+
+        return view('cabinets.customer.task.edit', compact('categories','task'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param createTask $request
+     * @param Task $task
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Task $task)
+
+    public function update(createTask $request, Task $task)
     {
-        //
+        $task->update($request->all());
+
+        return redirect()->route('customer.tasks.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
+
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->route('customer.tasks.index');
     }
 }

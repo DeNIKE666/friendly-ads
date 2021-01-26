@@ -31,8 +31,7 @@ class CreateTasksTable extends Migration
                 ->on('categories')
                 ->onDelete('CASCADE');
 
-            $table->decimal('min_sum', 9,1)->default(0);
-            $table->decimal('max_sum', 9,1)->default(0);
+            $table->decimal('amount', 9,1)->default(0);
 
             $table->string('type_task')->nullable();
             $table->string('type_position')->nullable();

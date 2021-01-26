@@ -25,22 +25,32 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Мин сумма</th>
-                            <th scope="col">Макс сумма</th>
+                            <th scope="col">Сумма</th>
                             <th scope="col">Требуется сайтов</th>
                             <th scope="col">Категория</th>
                             <th scope="col">Период</th>
+                            <th scope="col"></th>
+
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($tasks as $task)
                             <tr>
                                 <td>{{ $task->id }}</td>
-                                <td>{{ $task->min_sum }} руб. </td>
-                                <td>{{ $task->max_sum }} руб. </td>
+                                <td>{{ $task->amount }} руб. </td>
                                 <td>{{ $task->site_count }}</td>
                                 <td>{{ $task->category->name }}</td>
                                 <td>{{ $task->period }} дней</td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ route('customer.tasks.edit', $task) }}" class="btn btn-warning btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
+                                        <form action="{{ route('customer.tasks.destroy', $task) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit"  class="btn btn-danger btn-sm w-100  mr-1"><i class="fal fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
