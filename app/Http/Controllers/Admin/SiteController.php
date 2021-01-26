@@ -95,13 +95,15 @@ class SiteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Site $site
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+
+    public function destroy(Site $site)
     {
-        //
+        $site->delete();
+
+        return redirect()->route('admin.sites.index');
     }
 }

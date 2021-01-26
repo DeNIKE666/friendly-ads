@@ -37,6 +37,12 @@
                         @enderror
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="rating">Рейтинг: </label>
+                        <input type="text" name="rating" class="form-control" id="rating" value="{{ old('rating', $site->rating) }}">
+                    </div>
+
                     <div class="form-group">
                         <label for="short">Описание вашего сайта: </label>
                         <textarea name="short" class="form-control @error('short') is-invalid @enderror" id="short" rows="3" placeholder="Введите описание минимум 150 символов максимум 300">{{ old('short', $site->short) }}</textarea>
@@ -48,6 +54,7 @@
                     @include('__shared.component.categories', ['categories' => $categories, 'current' => $site])
 
                     @include('__shared.component.users', ['users' => $users , 'current' => $site])
+
 
                     <div class="form-group">
                         <label for="activated">Активация:</label>
