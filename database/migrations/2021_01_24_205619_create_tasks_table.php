@@ -36,6 +36,8 @@ class CreateTasksTable extends Migration
 
             $table->string('type_task')->nullable();
             $table->string('type_position')->nullable();
+            $table->integer('site_count')->nullable();
+            $table->integer('period')->nullable();
 
             $table->timestamps();
         });

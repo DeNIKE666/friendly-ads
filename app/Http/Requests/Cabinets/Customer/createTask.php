@@ -31,6 +31,8 @@ class createTask extends FormRequest
             'type_task'     => ['required'],
             'type_position' => ['required'],
             'category_id'   => ['required'],
+            'site_count'    => ['required' , 'numeric' , 'min:10'],
+            'period'        => ['required' , 'numeric' , 'min:1']
         ];
     }
 
@@ -55,6 +57,9 @@ class createTask extends FormRequest
             'type_task.required'     => 'Тип задачи должен быть обязательно выбран',
             'type_position.required' => 'Тип позиции размещения должен быть обязательно выбран',
             'category_id.required'   => 'Категория должна быть обязательно выбрана',
+
+            'site_count.required'    => 'Кол-во сайтов обязательно для заполнения',
+            'period.required'        => 'Необходимо выбрать переод продвижения',
         ];
     }
 }

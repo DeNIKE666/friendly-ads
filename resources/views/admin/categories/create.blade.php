@@ -16,7 +16,7 @@
                         @enderror
                     </div>
 
-                    @include('__shared.component.categories', compact('categories'))
+                    @include('__shared.component.admin.categories', compact('categories'))
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">СОЗДАТЬ</button>

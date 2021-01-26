@@ -18,6 +18,8 @@ class Task extends Model
         'min_sum',
         'max_sum',
         'type_task',
-        'type_position'
+        'type_position',
+        'site_count',
+        'period'
     ];
 }
