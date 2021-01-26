@@ -12,7 +12,10 @@ class UserRepository
 
     public function getUsersAll()
     {
-        return User::withCount('sites')->orderByDesc('sites_count')->paginate(50);
+        return User::withCount('sites')
+            ->orderByDesc('sites_count')
+            ->having('sites_count', '>', 0)
+            ->paginate(100);
     }
 
     /**
