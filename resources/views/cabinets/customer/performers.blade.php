@@ -16,7 +16,6 @@
     </div>
 
     <div class="page-inner mt--5">
-
         <div class="card full-height">
             <div class="card-body">
                 @foreach($users as $user)
@@ -36,6 +35,5 @@
                 @endforeach
             </div>
         </div>
-
     </div>
 @endsection

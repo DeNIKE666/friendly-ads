@@ -14,7 +14,7 @@ class UserRepository
     {
         return User::withCount('sites')
             ->orderByDesc('sites_count')
-            ->having('sites_count', '>', 0)
+            ->having('sites_count', '>=', 0)
             ->paginate(100);
     }
 
