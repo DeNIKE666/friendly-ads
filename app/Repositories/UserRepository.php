@@ -12,7 +12,7 @@ class UserRepository
 
     public function getUsersAll()
     {
-        return User::withCount('sites')
+        return User::where('type_account' , 3)->withCount('sites')
             ->orderByDesc('sites_count')
             ->having('sites_count', '>=', 0)
             ->paginate(100);

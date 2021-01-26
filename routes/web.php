@@ -2,6 +2,7 @@
 
 
 Route::prefix('cabinet')->middleware('auth')->group(function () {
+
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
 
     // Executor
@@ -10,7 +11,9 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     // Customer
 
-    Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('performers');
+    Route::resource('tasks' , \App\Http\Controllers\Cabinet\Customer\TaskController::class)->names('customer.tasks');
+
+    Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('customer.performers');
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {

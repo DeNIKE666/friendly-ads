@@ -9,12 +9,29 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('performers') }}">
+                    <a href="{{ route('customer.performers') }}">
                         <i class="fal fa-user-chart"></i>
                         <p>Исполнители</p>
                     </a>
                 </li>
 
+                <li class="nav-section">
+                    <h4 class="text-section">Задачи</h4>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('customer.tasks.index') }}">
+                        <i class="fal fa-tasks"></i>
+                        <p>Мои задания</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('customer.tasks.create') }}">
+                        <i class="fal fa-plus-circle"></i>
+                        <p>Создать задание</p>
+                    </a>
+                </li>
 
                 <li class="nav-section">
                     <h4 class="text-section">Финансы</h4>

@@ -15,6 +15,28 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->unsignedInteger('category_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->jsonb('parameters')->nullable();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('CASCADE');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('CASCADE');
+
+            $table->decimal('min_sum', 9,1)->default(0);
+            $table->decimal('max_sum', 9,1)->default(0);
+
+            $table->string('type_task')->nullable();
+            $table->string('type_position')->nullable();
+
             $table->timestamps();
         });
     }
