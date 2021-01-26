@@ -26,7 +26,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/last',[\App\Http\Controllers\Admin\CategoryController::class , 'last'])->name('last');
     });
 
-    Route::resource('tasks' , \App\Http\Controllers\Admin\TasksController::class)->names('tasks');
+    // Управление сайтами
+
+    Route::resource('sites' , \App\Http\Controllers\Admin\SiteController::class)->names('admin.sites');
 
    // Управление пользователями
 

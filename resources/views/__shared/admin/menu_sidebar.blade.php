@@ -22,20 +22,20 @@
                 </li>
 
                 <li class="nav-section">
-                    <h4 class="text-section">Продвижение</h4>
+                    <h4 class="text-section">Сайты</h4>
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
-                        <i class="fad fa-tasks-alt"></i>
-                        <p>Задания</p>
+                    <a href="{{ route('admin.sites.index') }}">
+                        <i class="fal fa-sitemap"></i>
+                        <p>Все сайты</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
-                        <i class="fal fa-paper-plane"></i>
-                        <p>Выполняются</p>
+                    <a href="{{ route('admin.sites.create') }}">
+                        <i class="fal fa-layer-plus"></i>
+                        <p>Добавить сайт</p>
                     </a>
                 </li>
 
