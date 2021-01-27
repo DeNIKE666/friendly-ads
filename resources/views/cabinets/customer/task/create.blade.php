@@ -1,4 +1,4 @@
-@extends('layouts.cabinets.customer')
+@extends('layouts.cabinet')
 
 @section('title' , 'Добавить новую задачу')
 
@@ -28,7 +28,7 @@
                             <p class="pt-2 mb-0">3. Запомните, чем больше сайтов вы выбираете тем дороже стоит продвижение ну и эффект трафика тоже значительно прибавиться.</p>
                         </div>
 
-                        <form action="{{ route('customer.tasks.store') }}" method="POST">
+                        <form id="task-form" action="{{ route('customer.tasks.store') }}" method="POST">
                             <div class="row">
 
                                 @csrf
@@ -129,7 +129,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Добавить задание</button>
+                                        <button type="submit" id="add-task" class="btn btn-primary">Добавить задание</button>
                                     </div>
                                 </div>
                             </div>

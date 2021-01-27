@@ -86,6 +86,7 @@
 <script src="{{ mix('/assets/cabinet/js/vendor_atlantis.js') }}"></script>
 <script src="{{ asset('/assets/cabinet/js/atlantis2.js')}}"></script>
 <script src="{{ asset('assets/cabinet/js/calc.js')}}"></script>
+<script src="{{ asset('assets/cabinet/js/subscribe.js')}}"></script>
 @stack('scripts')
 
 <script>

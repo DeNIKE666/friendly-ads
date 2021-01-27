@@ -1,4 +1,4 @@
-@extends('layouts.cabinets.customer')
+@extends('layouts.cabinet')
 
 @section('title' , 'Исполнители')
 

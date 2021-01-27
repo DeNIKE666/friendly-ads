@@ -1,14 +1,26 @@
 <?php
 
-
 Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
-    Route::post('/change-account', [\App\Http\Controllers\Cabinet\CabinetController::class, 'changeAccount'])->name('cabinet.change');
+
+    // Управление аккаунтом
+
+    Route::prefix('account')->group(function () {
+        Route::post('/change-account', [\App\Http\Controllers\Cabinet\CabinetController::class, 'changeAccount'])->name('cabinet.change');
+    });
 
     // Исполнитель
 
     Route::middleware(['can:executor'])->group(function () {
+
+        Route::prefix('offers')->group(function () {
+            Route::get('/' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'index'])->name('executor.offers');
+            Route::post('/subscribe' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'subscribeTask'])->name('executor.subscribe.task');
+            Route::post('/unsubscribe/{task}' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'unSubscribe'])->name('executor.unsubscribe.task');
+            Route::get('/show/{task}' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'showTask'])->name('executor.show.task');
+        });
+
         Route::resource('sites' , \App\Http\Controllers\Cabinet\Executor\SiteController::class)->names('executor.sites');
     });
 

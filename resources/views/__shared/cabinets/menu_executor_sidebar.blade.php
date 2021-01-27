@@ -25,6 +25,26 @@
                     </a>
                 </li>
 
+                <li class="nav-section">
+                    <h4 class="text-section">Работа</h4>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('executor.offers') }}">
+                        <i class="fal fa-briefcase"></i>
+                        <p>Все предложения</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="">
+                        <i class="fal fa-paper-plane"></i>
+                        <p>Мои предложения</p>
+                    </a>
+                </li>
+
+
+
             </ul>
         </div>
     </div>

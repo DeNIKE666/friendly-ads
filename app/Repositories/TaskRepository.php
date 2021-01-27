@@ -29,4 +29,11 @@ class TaskRepository
             ->orderBy('created_at')
             ->paginate(10);
     }
+
+    public function isSubscribeTask(Task $task)
+    {
+        return $task->subscribe()
+            ->where('subscribe_user_id', auth()->user()->id)
+            ->first();
+    }
 }

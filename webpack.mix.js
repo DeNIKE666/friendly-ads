@@ -17,6 +17,7 @@ mix.sass('resources/sass/atlantis.scss', 'public/assets/cabinet/css').options({
     .copy('resources/sass/atlantis/fonts' , 'public/assets/cabinet/fonts')
     .copy('resources/js/atlantis/atlantis2.js' , 'public/assets/cabinet/js')
     .copy('resources/js/atlantis/calc.js' , 'public/assets/cabinet/js')
+    .copy('resources/js/atlantis/subscribe.js' , 'public/assets/cabinet/js')
 
 mix.scripts([
     'resources/js/atlantis/core/jquery.3.2.1.min.js',

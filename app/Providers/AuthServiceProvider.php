@@ -37,9 +37,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin', function ($user) {
             return $user->type_account == 1;
         });
-
-      //  Gate::before(function ($user) {
-           // return $user->type_account == 1;
-       // });
     }
 }

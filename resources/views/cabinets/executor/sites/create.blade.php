@@ -1,4 +1,4 @@
-@extends('layouts.cabinets.executor')
+@extends('layouts.cabinet')
 
 @section('title' , 'Добавление нового сайта')
 

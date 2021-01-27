@@ -1,4 +1,4 @@
-@extends('layouts.cabinets.customer')
+@extends('layouts.cabinet')
 
 @section('title' , 'Мои задания')
 
@@ -16,8 +16,8 @@
     <div class="page-inner mt--5">
         <div class="card card-body">
             @if($tasks->isEmpty())
-                <div class="alert alert-danger mt-3" role="alert">
-                    У вас еще нет сайтов, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
+                <div class="alert alert-danger mb-0" role="alert">
+                    У вас еще нет задач, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
                 </div>
             @else
             <table>
@@ -62,5 +62,6 @@
         <div class="d-flex justify-content-center">
             {{ $tasks->links() }}
         </div>
+
     </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.cabinets.customer')
+@extends('layouts.cabinet')
 
 @section('title' , 'Редактировать задание')
 
@@ -135,64 +135,4 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            $(document).ready(function () {
-
-                let data = {
-                    price: 0,
-                    period: 0
-                }
-
-                let amount    = $('#amount');
-                let period    = $('#period');
-                let siteCount = $('#site_count');
-
-                amount.change(function () {
-                    data.price = $(this).val();
-                })
-
-                amount.keyup(function () {
-                    data.price  = parseInt($(this).val());
-                    data.period = parseInt(period.val());
-                    setCalc();
-                })
-
-                function setCalc() {
-                    let days = 0;
-                    if (data.period < 3)
-                        days = 0;
-                    if (data.period === 3)
-                        days = 150;
-                    else if (data.period === 7)
-                        days = 300
-                    else if (data.period === 14)
-                        days = 450
-                    else if (data.period === 30)
-                        days = 850
-
-                    if (data.period > data.price) return;
-
-                    let siteSum = 0;
-                    if (siteCount.val() > 5)
-                        siteSum = 350;
-                    else if (data.period > 10)
-                        siteSum = 900
-
-
-                    let final = (data.price - siteSum - days) / 250;
-
-                    console.log(final)
-
-                    let siteCount_int = parseFloat(final).toFixed(0)
-
-                    if (siteCount_int > 0)
-                        siteCount.val(parseFloat(siteCount_int).toFixed(0))
-                }
-
-
-            })
-        </script>
-    @endpush
 @endsection
