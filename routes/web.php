@@ -4,19 +4,24 @@
 Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
+    Route::post('/change-account', [\App\Http\Controllers\Cabinet\CabinetController::class, 'changeAccount'])->name('cabinet.change');
 
-    // Executor
+    // Исполнитель
 
-    Route::resource('sites' , \App\Http\Controllers\Cabinet\Executor\SiteController::class)->names('executor.sites');
+    Route::middleware(['can:executor'])->group(function () {
+        Route::resource('sites' , \App\Http\Controllers\Cabinet\Executor\SiteController::class)->names('executor.sites');
+    });
 
-    // Customer
+    // Клиент
 
-    Route::resource('tasks' , \App\Http\Controllers\Cabinet\Customer\TaskController::class)->names('customer.tasks');
+    Route::middleware(['can:customer'])->group(function () {
+        Route::resource('tasks' , \App\Http\Controllers\Cabinet\Customer\TaskController::class)->names('customer.tasks');
+        Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('customer.performers');
+    });
 
-    Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('customer.performers');
 });
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
 
     // Главная панели
 

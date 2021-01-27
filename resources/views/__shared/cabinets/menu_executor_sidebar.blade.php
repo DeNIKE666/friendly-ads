@@ -2,6 +2,9 @@
 <div class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
+
+            @include('__shared.cabinets.user')
+
             <ul class="nav nav-primary">
 
                 <li class="nav-section">

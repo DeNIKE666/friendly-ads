@@ -10,18 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class CabinetController extends Controller
 {
     /**
-     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
     public function index()
     {
-        switch (Auth::user()->type_account) {
-            case 2:
-                return view('cabinets.customer.index');
-            case 3:
-                return view('cabinets.executor.index');
-        }
-        return false;
+        return view('cabinets.index');
     }
 
     /**
@@ -33,5 +27,17 @@ class CabinetController extends Controller
         $users = (new UserRepository())->getUsersAll();
 
         return view('cabinets.customer.performers', compact('users'));
+    }
+
+    // поручник ржевский
+
+    public function changeAccount(Request $request)
+    {
+        auth()->user()->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'type'    => 'account_change'
+        ]);
     }
 }

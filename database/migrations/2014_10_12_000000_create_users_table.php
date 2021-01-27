@@ -21,8 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('isAdmin')->default(0);
+            $table->decimal('balance', 9,1)->default(0);
             $table->integer('isBanned')->default(0);
+            $table->time('timeBlocked')->nullable();
             $table->integer('type_account')->default(1);
             $table->rememberToken();
             $table->timestamps();

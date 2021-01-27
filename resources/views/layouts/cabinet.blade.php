@@ -64,8 +64,11 @@
         <!-- End Navbar -->
     </div>
 
-
-    @include('__shared.cabinets.menu_customer_sidebar')
+    @can('customer')
+        @include('__shared.cabinets.menu_customer_sidebar')
+    @elsecan('executor')
+        @include('__shared.cabinets.menu_executor_sidebar')
+    @endcan
 
     <div class="main-panel">
         <div class="content">
@@ -84,5 +87,26 @@
 <script src="{{ asset('/assets/cabinet/js/atlantis2.js')}}"></script>
 <script src="{{ asset('assets/cabinet/js/calc.js')}}"></script>
 @stack('scripts')
+
+<script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('.change').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('cabinet.change') }}",
+            data: {type_account: $(this).data('account')},
+            success: function (data) {
+                if (data.success)
+                    window.location.href = "{{ route('cabinets') }}"
+            }
+        })
+    })
+</script>
 </body>
 </html>

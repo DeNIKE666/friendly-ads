@@ -27,6 +27,6 @@ class TaskRepository
     {
         return Task::query()->where('user_id', auth()->user()->id)
             ->orderBy('created_at')
-            ->paginate(1);
+            ->paginate(10);
     }
 }

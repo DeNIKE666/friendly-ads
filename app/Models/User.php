@@ -54,8 +54,9 @@ class User extends Authenticatable
         'telegram_id',
         'email',
         'password',
+        'balance',
         'isBanned',
-        'isAdmin',
+        'timeBlocked',
         'type_account'
     ];
 

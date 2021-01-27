@@ -26,7 +26,7 @@ class createSite extends FormRequest
         return [
             'title'         => ['required' , 'string'],
             'url'           => ['required' , 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/' , 'string'],
-            'short'         => ['required' , 'string', 'min:100' , 'max:300'],
+            'short'         => ['required' , 'string', 'min:30' , 'max:100'],
             'category_id'   => ['required'],
         ];
     }
