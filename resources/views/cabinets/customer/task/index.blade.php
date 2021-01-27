@@ -14,49 +14,53 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="card">
-            <div class="card-body table-responsive">
-                @if($tasks->isEmpty())
-                    <div class="alert alert-danger mt-3" role="alert">
-                        У вас еще нет сайтов, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
-                    </div>
-                @else
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Сумма</th>
-                            <th scope="col">Требуется сайтов</th>
-                            <th scope="col">Категория</th>
-                            <th scope="col">Период</th>
-                            <th scope="col"></th>
+        <div class="card card-body">
+            @if($tasks->isEmpty())
+                <div class="alert alert-danger mt-3" role="alert">
+                    У вас еще нет сайтов, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
+                </div>
+            @else
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Выделенный бюджет</th>
+                    <th scope="col">Требуется сайтов</th>
+                    <th scope="col">Категория</th>
+                    <th scope="col">Период</th>
+                    <th scope="col">Просмотров</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($tasks as $task)
-                            <tr>
-                                <td>{{ $task->id }}</td>
-                                <td>{{ $task->amount }} руб. </td>
-                                <td>{{ $task->site_count }}</td>
-                                <td>{{ $task->category->name }}</td>
-                                <td>{{ $task->period }} дней</td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="{{ route('customer.tasks.edit', $task) }}" class="btn btn-warning btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
-                                        <form action="{{ route('customer.tasks.destroy', $task) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit"  class="btn btn-danger btn-sm w-100  mr-1"><i class="fal fa-trash"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
+                @foreach($tasks as $task)
+                    <tr>
+                        <td data-label="#">{{ $task->id }}</td>
+                        <td data-label="Выделенный бюджет">{{ $task->amount }} руб. </td>
+                        <td data-label="Требуется сайтов">{{ $task->site_count }}</td>
+                        <td data-label="Категория">{{ $task->category->name }}</td>
+                        <td data-label="Период">{{ $task->period }} дней. </td>
+                        <td data-label="Просмотров">{{ $task->views }}</td>
+                        <td data-label="">
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('customer.tasks.edit', $task) }}" class="btn btn-primary btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
+                                <form action="{{ route('customer.tasks.destroy', $task) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit"  class="btn btn-danger btn-sm w-100  mr-1"><i class="fal fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+
+        <div class="d-flex justify-content-center">
+            {{ $tasks->links() }}
         </div>
     </div>
 @endsection

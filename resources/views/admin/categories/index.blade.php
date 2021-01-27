@@ -3,25 +3,36 @@
 @section('title' , 'Управление категориями')
 
 @section('content')
-    <div class="page-inner">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">Категории</h2>
+                    <h5 class="text-white op-7 mb-2">Список всех категорий добавленых в проект</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
         <div class="card">
             <div class="card-body">
-                <table class="table table-striped">
+                <table>
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Название</th>
                         <th scope="col">Путь</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($categories as $category)
                         <tr>
-                            <td>
+                            <td data-label="Название">
                                 @for ($i = 0; $i < $category->depth; $i++) &mdash; @endfor
                                 <a href="">{{ $category->name }}</a>
                             </td>
-                            <td>{{ $category->getPath() }}</td>
-                            <td>
+                            <td data-label="Путь">{{ $category->getPath() }}</td>
+                            <td data-label="Действия">
                                 <div class="d-flex justify-content-end">
                                     <form class="mr-1">
                                         <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary"><span class="fad fa-edit"></span></a>

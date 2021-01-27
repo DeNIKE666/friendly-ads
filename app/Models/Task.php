@@ -19,7 +19,8 @@ class Task extends Model
         'type_task',
         'type_position',
         'site_count',
-        'period'
+        'period',
+        'views'
     ];
 
     public function category()
