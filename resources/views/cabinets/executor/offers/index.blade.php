@@ -32,7 +32,9 @@
                                     </div>
                                     <div class="info-post ml-2">
                                         <p class="username">{{ $offer->user->username }}</p>
-                                        <p class="date text-muted">{{ $offer->title }}</p>
+                                        <div style="width: 285px">
+                                            {{ $offer->title }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="separator-solid"></div>

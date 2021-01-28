@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,5 +40,10 @@ class CabinetController extends Controller
             'success' => true,
             'type'    => 'account_change'
         ]);
+    }
+
+    public function showProfile(User $user)
+    {
+        return view('cabinets.account.profile', compact('user'));
     }
 }

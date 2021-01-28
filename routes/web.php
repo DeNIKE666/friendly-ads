@@ -3,6 +3,7 @@
 Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
+    Route::get('/profile/{user}', [\App\Http\Controllers\Cabinet\CabinetController::class, 'showProfile'])->name('cabinet.show.profile');
 
     // Управление аккаунтом
 

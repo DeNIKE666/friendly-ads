@@ -17,7 +17,7 @@
         <div class="row">
             @if($offers->isEmpty())
                 <div class="col-md-12">
-                    <div class="card card-body">
+                    <div class="card">
                         <div class="alert alert-danger mb-0" role="alert">
                             На данный момент нет откликов.
                         </div>
@@ -35,7 +35,9 @@
                                 </div>
                                 <div class="info-post ml-2">
                                     <p class="username">{{ $offer->task->user->username }}</p>
-                                    <p class="date text-muted">{{ $offer->task->title }}</p>
+                                    <div style="width: 285px">
+                                        {{ $offer->task->title }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="separator-solid"></div>
@@ -63,6 +65,11 @@
 
                             <div class="d-flex justify-content-between">
                                 @if($offer->task->yourSubscribe->isNotEmpty())
+
+                                    <a href="{{ route('executor.show.task', $offer->task) }}" class="btn btn-primary btn-rounded">
+                                        <i class="fal fa-eye"></i> Просмотр
+                                    </a>
+
                                     <button data-id="{{ $offer->task->id }}" class="btn btn-danger btn-rounded unsubscribe">
                                         Отозвать отклик
                                     </button>

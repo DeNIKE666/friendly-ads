@@ -24,7 +24,9 @@
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{ $task->user->username }}</p>
-                                <p class="date text-muted">{{ $task->title }}</p>
+                                <div style="width: 285px">
+                                    {{ $task->title }}
+                                </div>
                             </div>
                         </div>
                         <div class="separator-solid"></div>
@@ -48,12 +50,30 @@
                             <b>{{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
                         </p>
 
+                        <ol class="activity-feed" >
+                            @foreach($task->subscribe as $executor)
+                                <li class="feed-item feed-item-success">
+                                    <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
+                                        <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
+                                    </span>
+                                    <span class="text">сделал отклик на вашу задачу</span>
+                                </li>
+                            @endforeach
+                        </ol>
 
-                        @if($isSubscribe)
-                            <button data-id="{{ $task->id }}" class="btn btn-danger btn-rounded unsubscribe">Отписаться </button>
-                        @else
-                            <button data-id="{{ $task->id }}" class="btn btn-success btn-rounded subscribe">Подписаться </button>
-                        @endif
+                        <hr>
+
+                        <div class="d-flex justify-content-end">
+                            @if($isSubscribe)
+                                <button data-id="{{ $task->id }}" class="btn btn-danger btn-rounded unsubscribe">
+                                    Отписаться
+                                </button>
+                            @else
+                                <button data-id="{{ $task->id }}" class="btn btn-success btn-rounded subscribe">
+                                    Подписаться
+                                </button>
+                            @endif
+                        </div>
 
                     </div>
                 </div>
