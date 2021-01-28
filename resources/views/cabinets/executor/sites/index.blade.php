@@ -14,9 +14,9 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="card card-body">
+        <div class="card">
             @if($sites->isEmpty())
-                <div class="alert alert-danger mt-3" role="alert">
+                <div class="alert alert-danger m-0" role="alert">
                     У вас еще нет сайтов, но вы можете добавить их в систему <a href="{{ route('executor.sites.create') }}"><b>добавить</b></a>
                 </div>
             @else

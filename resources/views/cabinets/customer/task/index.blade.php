@@ -29,6 +29,7 @@
                     <th scope="col">Категория</th>
                     <th scope="col">Период</th>
                     <th scope="col">Просмотров</th>
+                    <th scope="col">Откликов</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <td data-label="Категория">{{ $task->category->name }}</td>
                         <td data-label="Период">{{ $task->period }} дней. </td>
                         <td data-label="Просмотров">{{ $task->views }}</td>
+                        <td data-label="Откликов">{{ $task->subscribe->count() }}</td>
                         <td data-label="">
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('customer.tasks.edit', $task) }}" class="btn btn-primary btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
