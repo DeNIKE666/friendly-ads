@@ -15,11 +15,10 @@
     </div>
     <div class="page-inner mt--5">
         <div class="row">
-
             @if($offers->isEmpty())
                 <div class="col-md-12">
                     <div class="alert alert-danger mb-0" role="alert">
-                        У вас еще нет задач, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
+                        На данный момент нет новых предложений, ожидайте когда кто-то разместит задание.
                     </div>
                 </div>
             @else

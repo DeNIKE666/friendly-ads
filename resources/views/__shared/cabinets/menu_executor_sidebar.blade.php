@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('executor.subs.task') }}">
                         <i class="fal fa-paper-plane"></i>
                         <p>Мои предложения</p>
                     </a>

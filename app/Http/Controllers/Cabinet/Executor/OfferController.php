@@ -21,48 +21,27 @@ class OfferController extends Controller
         return view('cabinets.executor.offers.index', compact('offers'));
     }
 
+
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
 
     public function subscribeTask(Request $request)
     {
-        $check = SubscribeTask::where('task_id', $request->input('id'))->first();
-
-        if ($check)
-            return response()->json([
-                'type' => 'error',
-                'message' => 'Вы уже подписаны на это задание'
-            ], 403);
-        else
-
-        $task = SubscribeTask::create([
+        return SubscribeTask::query()->updateOrCreate([
             'task_id' => $request->input('id'),
             'subscribe_user_id' => auth()->user()->id
         ]);
-
-        return response()->json([
-            'type'    => 'success',
-            'message' => 'Вы успешно подписались на задание',
-            'task'    => $task
-        ], 200);
     }
 
     /**
      * @param Task $task
-     * @return \Illuminate\Http\JsonResponse
      */
 
     public function unSubscribe(Task $task)
     {
-       $task->subscribe()->delete();
-
-        return response()->json([
-            'type' => 'success',
-            'message' => 'Вы отписались от задания'
-        ], 200);
-
+       $task->yourSubscribe()->delete();
     }
 
     /**
@@ -81,5 +60,16 @@ class OfferController extends Controller
         $task->increment('views', 1);
 
         return view('cabinets.executor.offers.show', compact('task' , 'isSubscribe'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
+    public function subsTasks()
+    {
+       $offers = (new TaskRepository())->subsOffers();
+
+       return view('cabinets.executor.offers.subs', compact('offers'));
     }
 }

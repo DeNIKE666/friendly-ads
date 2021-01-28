@@ -14,4 +14,9 @@ class SubscribeTask extends Model
         'subscribe_user_id'
     ];
 
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
 }
