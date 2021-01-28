@@ -14,7 +14,7 @@ class TaskRepository
 
     public function getAll()
     {
-        return Task::query()
+        return Task::with('subscribe')
             ->orderBy('created_at')
             ->paginate(10);
     }
