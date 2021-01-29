@@ -25,7 +25,7 @@ class CabinetController extends Controller
 
     public function performers()
     {
-        $users = (new UserRepository())->getUsersAll();
+        $users = (new UserRepository())->getAllExecutors();
 
         return view('cabinets.customer.performers', compact('users'));
     }

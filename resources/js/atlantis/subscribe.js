@@ -27,7 +27,7 @@ $(document).ready(function () {
     $('.subscribe').on('click', function () {
         $.ajax({
             type: 'POST',
-            url: "/cabinet/offers/subscribe",
+            url: "/cabinet/offers/subscribe/" + $(this).data('id'),
             data: {id: $(this).data('id')},
             success: function (data) {
                 window.location.reload();

@@ -21,27 +21,28 @@ class OfferController extends Controller
         return view('cabinets.executor.offers.index', compact('offers'));
     }
 
-
     /**
      * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @param Task $task
+     * @return \Illuminate\Database\Eloquent\Model
      */
 
-    public function subscribeTask(Request $request)
+    public function subscribeTask(Request $request, Task $task)
     {
-        return SubscribeTask::query()->updateOrCreate([
-            'task_id' => $request->input('id'),
+        return $task->subscribe()->create([
+            'task_id'           => $request->input('id'),
             'subscribe_user_id' => auth()->user()->id
         ]);
     }
 
     /**
      * @param Task $task
+     * @return mixed
      */
 
     public function unSubscribe(Task $task)
     {
-       $task->yourSubscribe()->delete();
+        return $task->subscribe()->delete();
     }
 
     /**

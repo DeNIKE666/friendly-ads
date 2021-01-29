@@ -17,7 +17,7 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
 
         Route::prefix('offers')->group(function () {
             Route::get('/' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'index'])->name('executor.offers');
-            Route::post('/subscribe' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'subscribeTask'])->name('executor.subscribe.task');
+            Route::post('/subscribe/{task}' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'subscribeTask'])->name('executor.subscribe.task');
             Route::post('/unsubscribe/{task}' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'unSubscribe'])->name('executor.unsubscribe.task');
             Route::get('/show/{task}' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'showTask'])->name('executor.show.task');
             Route::get('/tasks' , [\App\Http\Controllers\Cabinet\Executor\OfferController::class , 'subsTasks'])->name('executor.subs.task');

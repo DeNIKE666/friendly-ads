@@ -6,15 +6,33 @@ namespace App\Repositories;
 use App\Models\User;
 use \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
 
+    /**
+     * @return Collection
+     */
+
     public function getUsersAll()
     {
-        return User::where('type_account' , 3)->withCount('sites')
-            ->orderByDesc('sites_count')
-            ->having('sites_count', '>=', 0)
+        return User::orderBy('created_at' , 'desc')
+            ->get();
+    }
+
+    /**
+     * @return mixed
+     */
+
+    public function getAllExecutors()
+    {
+        return User::ExecutorAccounts()
+            ->with('sites')
+            ->join('sites', 'users.id', '=', 'sites.user_id')
+            ->select(DB::raw('users.*, sum(rating) as rating'))
+            ->orderBy('rating', 'desc')
+            ->groupBy('user_id')
             ->paginate(100);
     }
 

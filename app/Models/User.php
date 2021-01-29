@@ -86,6 +86,16 @@ class User extends Authenticatable
 
     public function sites()
     {
-        return $this->hasMany(Site::class,'user_id');
+        return $this->hasMany(Site::class);
+    }
+
+    public function scopeCustomerAccounts()
+    {
+        $this->where('type_account', 2);
+    }
+
+    public function scopeExecutorAccounts($query)
+    {
+        $query->where('type_account', 3);
     }
 }

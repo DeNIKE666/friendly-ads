@@ -15,11 +15,7 @@ class TaskRepository
 
     public function getAll()
     {
-        // На которых уже подписан пользователь
-
-        $subs = SubscribeTask::where('subscribe_user_id', auth()->user()->id)->pluck('task_id');
-
-        return Task::query()->whereNotIn('id', $subs)->paginate(10);
+        return Task::query()->paginate(50);
     }
 
     /**
@@ -46,11 +42,14 @@ class TaskRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
 
     public function subsOffers()
     {
-        return SubscribeTask::query()->where('subscribe_user_id', auth()->user()->id)->get();
+       return Task::query()->leftJoin('subscribe_tasks' , 'tasks.id' , '=', 'subscribe_tasks.task_id')
+            ->where('subscribe_tasks.subscribe_user_id', '=', auth()->user()->id)
+            ->select('tasks.*')
+            ->groupBy('tasks.id')->paginate(100);
     }
 }

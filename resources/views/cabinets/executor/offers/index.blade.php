@@ -63,7 +63,7 @@
 
                                     <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a >
 
-                                    @if($offer->yourSubscribe->isNotEmpty())
+                                    @if($offer->yourSubscribe)
                                         <button data-id="{{ $offer->id }}" class="btn btn-danger btn-rounded unsubscribe"> Отозвать отклик</button>
                                     @else
                                         <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded subscribe"> Откликнутся</button>

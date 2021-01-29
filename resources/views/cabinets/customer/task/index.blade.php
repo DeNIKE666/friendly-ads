@@ -14,11 +14,12 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="card card-body">
             @if($tasks->isEmpty())
+            <div class="card">
                 <div class="alert alert-danger mb-0" role="alert">
                     У вас еще нет задач, но вы можете добавить их в систему <a href="{{ route('customer.tasks.create') }}"><b>добавить</b></a>
                 </div>
+            </div>
             @else
             <table>
                 <thead>
@@ -59,7 +60,6 @@
                 </tbody>
             </table>
             @endif
-        </div>
 
         <div class="d-flex justify-content-center">
             {{ $tasks->links() }}

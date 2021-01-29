@@ -15,7 +15,8 @@
     </div>
     <div class="page-inner mt--5">
         <div class="row">
-            @if($offers->isEmpty())
+
+            @if(!$offers->count())
                 <div class="col-md-12">
                     <div class="card">
                         <div class="alert alert-danger mb-0" role="alert">
@@ -24,57 +25,57 @@
                     </div>
                 </div>
             @else
+
             @foreach($offers as $offer)
                 <div id="subscribe-task" class="col-md-3">
                     <div class="card card-post card-round">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="avatar">
-                                    <img src="{{ asset('images/noavatar.png') }}" alt="..."
-                                         class="avatar-img rounded-circle">
+                                    <img src="{{ asset('images/noavatar.png') }}" alt="..." class="avatar-img rounded-circle">
                                 </div>
                                 <div class="info-post ml-2">
-                                    <p class="username">{{ $offer->task->user->username }}</p>
+                                    <p class="username">{{ $offer->title }}</p>
                                     <div style="width: 285px">
-                                        {{ $offer->task->title }}
+                                        {{ $offer->user->username }}
                                     </div>
                                 </div>
                             </div>
                             <div class="separator-solid"></div>
-                            <p class="card-category text-info mb-1"><a href="#">{{ $offer->task->category->name }}</a>
+                            <p class="card-category text-info mb-1"><a href="#">{{ $offer->category->name }}</a>
                             </p>
-                            <p class="card-text text-black-50">{{ $offer->task->limitDescription() }}</p>
-                            <p class="card-text m-0">Бюджет: <b>{{ $offer->task->amount }}</b> руб. </p>
+                            <p class="card-text text-black-50">{{ $offer->limitDescription() }}</p>
+                            <p class="card-text m-0">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
                             <p class="card-text m-0">Бюджет на сайт: <b>550</b> руб. </p>
-                            <p class="card-text m-0">Срок: <b>{{ $offer->task->period }}</b> дней. </p>
+                            <p class="card-text m-0">Срок: <b>{{ $offer->period }}</b> дней. </p>
 
                             <p class="card-text m-0">
                                 Тип контента:
-                                <b>{{ config('ads_friendly.type_task.' . $offer->task->type_task ) }} </b>
+                                <b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b>
                             </p>
 
                             <p class="card-text">
                                 Позиция размещения:
-                                <b>{{ config('ads_friendly.type_position.' . $offer->task->type_position ) }} </b>
+                                <b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b>
                             </p>
 
                             <p class="card-text text-secondary">
                                 Требуется сайтов:
-                                <b>{{ $offer->task->site_count }} / {{ $offer->task->subscribe->count() }}  </b>
+                                <b>{{ $offer->site_count }} / {{ $offer->subscribe()->count() }}  </b>
                             </p>
 
                             <div class="d-flex justify-content-between">
-                                @if($offer->task->yourSubscribe->isNotEmpty())
+                                @if($offer->yourSubscribe)
 
-                                    <a href="{{ route('executor.show.task', $offer->task) }}" class="btn btn-primary btn-rounded">
+                                    <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded">
                                         <i class="fal fa-eye"></i> Просмотр
                                     </a>
 
-                                    <button data-id="{{ $offer->task->id }}" class="btn btn-danger btn-rounded unsubscribe">
+                                    <button data-id="{{ $offer->id }}" class="btn btn-danger btn-rounded unsubscribe">
                                         Отозвать отклик
                                     </button>
                                 @else
-                                    <button data-id="{{ $offer->task->id }}" class="btn btn-success btn-rounded subscribe">
+                                    <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded subscribe">
                                         Откликнутся
                                     </button>
                                 @endif

@@ -31,7 +31,7 @@ class Task extends Model
 
     public function limitDescription()
     {
-        return Str::of($this->description)->lower()->limit(100 , '...');
+        return Str::of($this->description)->lower()->limit(10 , '...');
     }
 
     /**
@@ -61,22 +61,23 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
 
     public function subscribe()
     {
-        return $this->hasMany(SubscribeTask::class);
+        return $this->hasMany(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
     }
 
+
     /**
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
 
     public function yourSubscribe()
     {
-        return $this->hasMany(SubscribeTask::class)->where('subscribe_user_id', auth()->user()->id);
+        return $this->hasOne(SubscribeTask::class);
     }
 }
