@@ -7,7 +7,7 @@
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                 <div>
-                    <h2 class="text-white pb-2 fw-bold">Отклики ( {{ $offers->count() }} )</h2>
+                    <h2 class="text-white pb-2 fw-bold">Отклики (<span id="subsCount">{{ $offers->count() }}</span>)</h2>
                     <h5 class="text-white op-7 mb-2">Мои отклики на предложение заказчиков</h5>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             @else
 
             @foreach($offers as $offer)
-                <div id="subscribe-task" class="col-md-3">
+                <div id="subscribe-task-{{ $offer->id }}" class="col-md-3">
                     <div class="card card-post card-round">
                         <div class="card-body">
                             <div class="d-flex">

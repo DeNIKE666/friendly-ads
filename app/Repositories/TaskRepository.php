@@ -17,7 +17,7 @@ class TaskRepository
     {
         return Task::query()->with(['user', 'category'])->where(function (Builder $query)  {
             $query->doesntHave('subscribe');
-        })->paginate(30);
+        })->orderBy('created_at' , 'desc')->paginate(50);
     }
 
     /**

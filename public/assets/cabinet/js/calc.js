@@ -53,7 +53,7 @@ $(document).ready(function () {
 
         let dopOptions = days + siteSum;
 
-        let final = (data.price - dopOptions) / 550;
+        let final = (data.price - dopOptions) / 250;
 
         let siteCount_int = parseFloat(final).toFixed(0)
 

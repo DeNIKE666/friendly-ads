@@ -1,11 +1,19 @@
 $(document).ready(function () {
     $('.unsubscribe').on('click', function () {
+
+        let          id = $(this).data('id')
+        let subsCount =  parseInt($('#subsCount').text());
+
         $.ajax({
             type: 'POST',
-            url: "/cabinet/offers/unsubscribe/" + $(this).data('id') ,
-            data: {id: $(this).data('id')},
-            success: function (data) {
-                window.location.reload();
+            url: "/cabinet/offers/unsubscribe/" + id,
+            data: {id: id},
+            success: function () {
+                $('#subscribe-task-' + id).hide()
+
+                subsCount--
+
+                $('#subsCount').text(subsCount)
             },
             error: function (data) {
                 $.notify({
