@@ -68,7 +68,7 @@ class Task extends Model
 
     public function subscribe()
     {
-        return $this->hasMany(SubscribeTask::class , 'task_id');
+        return $this->hasMany(SubscribeTask::class);
     }
 
 

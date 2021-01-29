@@ -7,7 +7,7 @@
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                 <div>
-                    <h2 class="text-white pb-2 fw-bold">Отклики</h2>
+                    <h2 class="text-white pb-2 fw-bold">Отклики ( {{ $offers->count() }} )</h2>
                     <h5 class="text-white op-7 mb-2">Мои отклики на предложение заказчиков</h5>
                 </div>
             </div>
@@ -15,8 +15,7 @@
     </div>
     <div class="page-inner mt--5">
         <div class="row">
-
-            @if(!$offers->count())
+            @if(! $offers->count())
                 <div class="col-md-12">
                     <div class="card">
                         <div class="alert alert-danger mb-0" role="alert">

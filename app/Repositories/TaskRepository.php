@@ -3,8 +3,8 @@
 
 namespace App\Repositories;
 
-use App\Models\SubscribeTask;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
 
 class TaskRepository
 {
@@ -15,10 +15,9 @@ class TaskRepository
 
     public function getAll()
     {
-        $tasks = SubscribeTask::whereSubscribeUserId(auth()->user()->id)
-            ->pluck('task_id');
-
-        return Task::query()->whereNotIn('id', $tasks)->paginate(30);
+        return Task::query()->with(['user', 'category'])->where(function (Builder $query)  {
+            $query->doesntHave('subscribe');
+        })->paginate(30);
     }
 
     /**
