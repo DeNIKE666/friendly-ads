@@ -12,14 +12,25 @@ class UserRepository
 {
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
 
     public function getUsersAll()
     {
+        return User::withCount('sites')->orderBy('sites_count' , 'desc')->paginate(50);
+    }
+
+
+    /**
+     * @return Collection
+     */
+
+    public function userAllOptions()
+    {
         return User::orderBy('created_at' , 'desc')
             ->get();
     }
+
 
     /**
      * @return mixed

@@ -3,19 +3,22 @@
 
 namespace App\Repositories;
 
-
 use App\Models\SubscribeTask;
 use App\Models\Task;
 
 class TaskRepository
 {
+
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
 
     public function getAll()
     {
-        return Task::query()->paginate(50);
+        $tasks = SubscribeTask::whereSubscribeUserId(auth()->user()->id)
+            ->pluck('task_id');
+
+        return Task::query()->whereNotIn('id', $tasks)->paginate(30);
     }
 
     /**

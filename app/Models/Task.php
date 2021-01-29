@@ -68,7 +68,7 @@ class Task extends Model
 
     public function subscribe()
     {
-        return $this->hasMany(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
+        return $this->hasMany(SubscribeTask::class , 'task_id');
     }
 
 
@@ -78,6 +78,6 @@ class Task extends Model
 
     public function yourSubscribe()
     {
-        return $this->hasOne(SubscribeTask::class);
+        return $this->hasOne(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
     }
 }

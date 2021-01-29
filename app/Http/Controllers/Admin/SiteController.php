@@ -34,7 +34,7 @@ class SiteController extends Controller
         // Категории
         $categories = (new CategoryRepository())->getAll();
         // Пользователи
-        $users      = (new UserRepository())->getUsersAll();
+        $users      = (new UserRepository())->userAllOptions();
 
         return view('admin.sites.create', compact('categories' , 'users'));
     }
@@ -74,7 +74,7 @@ class SiteController extends Controller
         // Категории
         $categories = (new CategoryRepository())->getAll();
         // Пользователи
-        $users      = (new UserRepository())->getUsersAll();
+        $users      = (new UserRepository())->userAllOptions();
 
         return view('admin.sites.edit', compact('site' , 'categories' , 'users'));
     }

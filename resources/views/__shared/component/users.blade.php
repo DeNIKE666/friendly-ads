@@ -5,7 +5,7 @@
         @foreach ($users as $user)
             <option value="{{ $user->id }}"
                     @isset($current)
-                        {{ $user->id == $current->user_id ? 'selected' : '' }}
+                        {{ $user->id == $current ? 'selected' : '' }}
                     @endisset
                     {{ $user->id == old('user_id') ? ' selected' : '' }}>
                 {{ $user->username }}

@@ -27,6 +27,8 @@
                     <th scope="col">Логин</th>
                     <th scope="col">Почта</th>
                     <th scope="col">Телеграм</th>
+                    <th scope="col">Сайтов</th>
+                    <th scope="col">Рейтинг</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -38,6 +40,8 @@
                         <td data-label="Логин">{{ $user->username }}</td>
                         <td data-label="Почта">{{ $user->email }}</td>
                         <td data-label="Телеграм">{{ $user->telegram_id ?: 'Не указан' }}</td>
+                        <td data-label="Сайтов">{{ $user->sites->count() }}</td>
+                        <td data-label="Рейтинг">{{ $user->sites->sum('rating') }}</td>
                         <td>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('users.sites', $user) }}" class="btn btn-sm btn-outline-primary"><span class="fal fa-sitemap"></span></a>

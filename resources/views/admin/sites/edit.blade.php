@@ -51,9 +51,10 @@
                         @enderror
                     </div>
 
+
                     @include('__shared.component.categories', ['categories' => $categories, 'current' => $site])
 
-                    @include('__shared.component.users', ['users' => $users , 'current' => $site])
+                    @include('__shared.component.users', ['users' => $users , 'current' => $site->user_id])
 
 
                     <div class="form-group">
