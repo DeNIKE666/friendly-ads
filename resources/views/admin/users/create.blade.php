@@ -31,13 +31,31 @@
                     <div class="form-group">
                         <label for="type_account">Тип аккаунта:</label>
                         <select id="type_account" class="form-control @error('type_account') is-invalid @enderror" name="type_account">
-                            <option value="">-- Выберите тип аккаунта</option>
+                            <option value="" selected>-- Выберите тип аккаунта</option>
                             <option value="1">Администратор</option>
                             <option value="2">Пользователь</option>
                         </select>
                         @error('type_account')
                           <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="isBanned">Забанен:</label>
+                        <select id="isBanned" class="form-control" name="isBanned">
+                            <option value="" selected>-- Выберите статус аккаунта</option>
+                            <option value="1" {{ old('isBanned') == '1' ? 'selected' : '' }}>Забанен</option>
+                            <option value="0" {{ old('isBanned') == '0' ? 'selected' : '' }}>Не забанен</option>
+                        </select>
+
+                        <select id="timeBlocked" class="form-control mt-3" name="timeBlocked">
+                            <option value="" selected>-- Выберите время блокировки</option>
+                            <option value="1"  {{ old('timeBlocked') == '1' ? 'selected' : '' }}>1 день</option>
+                            <option value="3"  {{ old('timeBlocked') == '3' ? 'selected' : '' }}>3 дня</option>
+                            <option value="7"  {{ old('timeBlocked') == '7' ? 'selected' : '' }}>1 неделя</option>
+                            <option value="14" {{ old('timeBlocked') == '14' ? 'selected' : '' }}>2 недели</option>
+                            <option value="30" {{ old('timeBlocked') == '30' ? 'selected' : '' }}>месяц</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -59,6 +77,12 @@
                     <div class="form-group">
                         <label for="telegram_id">TELEGRAM ID:</label>
                         <input type="text" class="form-control" id="telegram_id" name="telegram_id" placeholder="Введите TELEGRAM ID для оповещений" value="{{ old('telegram_id') }}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="balance">Баланс:</label>
+                        <input type="text" class="form-control" id="balance" name="balance" placeholder="1 500" value="{{ old('balance') }}">
                     </div>
 
                     <div class="form-group">

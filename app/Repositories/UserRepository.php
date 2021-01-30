@@ -79,7 +79,10 @@ class UserRepository
             'email'        => request()->input('email'),
             'telegram_id'  => request()->input('telegram_id'),
             'password'     => bcrypt(request()->input('password')),
-            'type_account' => request()->input('type_account')
+            'type_account' => request()->input('type_account'),
+            'balance'      => request()->input('balance'),
+            'isBanned'     => request()->input('isBanned'),
+            'timeBlocked'  => request()->input('timeBlocked'),
         ]);
     }
 }
