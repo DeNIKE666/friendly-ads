@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cabinet\Executor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinets\Executor\addSubscribe;
 use App\Models\SubscribeTask;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
@@ -22,16 +23,25 @@ class OfferController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param addSubscribe $request
      * @param Task $task
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\JsonResponse
      */
 
-    public function subscribeTask(Request $request, Task $task)
+    public function subscribeTask(addSubscribe $request, Task $task)
     {
+        if ($task->subscribe()->YourSubscribe()->count() > 0):
+            return response()->json([
+                'message' => 'Вы уже подписаны на это задание, подпишитесь на другое.'
+            ], 422);
+        endif;
+
+        $sites = implode(', ' , $request->input('sites'));
+
         return $task->subscribe()->create([
             'task_id'           => $request->input('id'),
-            'subscribe_user_id' => auth()->user()->id
+            'subscribe_user_id' => auth()->user()->id,
+            'sites'             => $sites
         ]);
     }
 

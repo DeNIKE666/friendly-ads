@@ -15,9 +15,11 @@ class TaskRepository
 
     public function getAll()
     {
+        $isCategoriesSites = auth()->user()->sites()->pluck('category_id');
+
         return Task::query()->with(['user', 'category'])->where(function (Builder $query)  {
             $query->doesntHave('subscribe');
-        })->orderBy('created_at' , 'desc')->paginate(50);
+        })->whereIn('category_id' , $isCategoriesSites)->paginate(50);
     }
 
     /**

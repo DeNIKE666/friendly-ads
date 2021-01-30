@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -80,4 +81,5 @@ class Task extends Model
     {
         return $this->hasOne(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
     }
+
 }

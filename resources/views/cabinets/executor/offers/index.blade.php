@@ -3,6 +3,13 @@
 @section('title' , 'Предложения заказчиков')
 
 @section('content')
+
+    @push('styles')
+        <style>
+            .select2-search__field { width: 100% !important; }
+        </style>
+    @endpush
+
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -23,7 +30,7 @@
                 </div>
             @else
                 @foreach($offers as $offer)
-                    <div id="subscribe-task" class="col-md-3">
+                    <div id="subscribe-task" data-id="{{ $offer->id }}" class="col-md-3">
                         <div class="card card-post card-round">
                             <div class="card-body">
                                 <div class="d-flex">
@@ -32,15 +39,15 @@
                                     </div>
                                     <div class="info-post ml-2">
                                         <p class="username">{{ $offer->user->username }}</p>
-                                        <div style="width: 285px">
+                                        <div style="width: 285px" id="projectTitleTask">
                                             {{ $offer->title }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="separator-solid"></div>
-                                <p class="card-category text-info mb-1"><a href="#">{{ $offer->category->name }}</a></p>
                                 <p class="card-text text-black-50">{{ $offer->limitDescription() }}</p>
                                 <p class="card-text m-0">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
+                                <p class="card-text m-0">Категория: <b>{{ $offer->category->name }}</b></p>
                                 <p class="card-text m-0">Бюджет на сайт: <b>550</b> руб. </p>
                                 <p class="card-text m-0">Срок: <b>{{ $offer->period }}</b> дней. </p>
 
@@ -66,7 +73,7 @@
                                     @if($offer->yourSubscribe)
                                         <button data-id="{{ $offer->id }}" class="btn btn-danger btn-rounded unsubscribe"> Отозвать отклик</button>
                                     @else
-                                        <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded subscribe"> Откликнутся</button>
+                                        <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded task"> Откликнутся</button>
                                     @endif
                                 </div>
                             </div>
@@ -76,4 +83,55 @@
             @endif
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Подписка на задачу</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    @if(! auth()->user()->sites()->IsActive()->count())
+                        <div class="alert alert-danger" role="alert">
+                            Извините, у вас нет активированных сайтов, вам необходимо <a href="{{ route('executor.sites.create') }}"><b>добавить</b></a> сайт в систему и дождаться активации.
+                        </div>
+                    @else
+                        <div class="alert alert-info" role="alert">
+                            Отлично, вас заинтересовал проект.
+                            Укажите пожалуйста из вашего списка сайты на которых вы готовы разместить рекламу данного заказчика.
+                        </div>
+                    @endif
+                        <div class="select2-input select2-warning">
+                            <select id="multiple" name="sites[]" class="form-control is-invalid" multiple="multiple">
+                                @foreach(auth()->user()->sites()->isActive()->get() as $site)
+                                    <option value="{{ $site->url }}">{{ $site->url }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    <div id="errors"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary subscribe">Добавить</button>
+                    <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('scripts')
+        <script>
+            $('#multiple').select2({
+                width: '100%',
+                placeholder: "Выберите сайт",
+                allowClear: true,
+                theme: "bootstrap"
+            });
+        </script>
+    @endpush
 @endsection

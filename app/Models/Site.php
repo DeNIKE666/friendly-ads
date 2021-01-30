@@ -34,6 +34,11 @@ class Site extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeIsActive($query)
+    {
+        return $query->where('activated', 1);
+    }
+
     protected $casts = [
         'rating' => 'decimal:1'
     ];

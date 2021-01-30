@@ -325,28 +325,61 @@ $(document).ready(function () {
         })
     })
 
-    $('.subscribe').on('click', function () {
-        $.ajax({
-            type: 'POST',
-            url: "/cabinet/offers/subscribe/" + $(this).data('id'),
-            data: {id: $(this).data('id')},
-            success: function (data) {
-                window.location.reload();
-            },
-            error: function (data) {
-                $.notify({
-                    icon: 'flaticon-alarm-1',
-                    title: 'Ошибка',
-                    message: data.responseJSON.message,
-                }, {
-                    type: 'danger',
-                    placement: {
-                        from: "top",
-                        align: "center"
-                    },
-                    time: 1000,
-                });
-            }
-        })
+    $('.task').on('click', function () {
+
+        let id =  $(this).data('id')
+
+        let modal = $('#modal').modal({
+            keyboard: true,
+            show: true,
+        });
+
+        $('.subscribe').off('click').on('click', function () {
+
+            let sites = $('#multiple').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/cabinet/offers/subscribe/" + id,
+                data: {
+                    id: id,
+                    sites: sites
+                },
+                success: function (data) {
+                    $(".close-modal").trigger("click");
+                    swal("Успешно", "Вы подписались на это задание, все ваши подписки находятся в разделе мои отклики", {
+                        icon : "success",
+                        buttons: {
+                            confirm: {
+                                className : 'btn btn-success'
+                            }
+                        },
+                    });
+                },
+                error: function (data) {
+
+                    let errors = $('#errors');
+
+                    errors.find('span').remove();
+
+                    if (data.status === 422) {
+
+                        if (data.responseJSON.errors) {
+                            $.each(data.responseJSON.errors, function (field_name, error) {
+                                $('#errors').append('<span class="text-danger text-muted">' + error + '</span>');
+                            });
+                        } else {
+                            $('#errors').append('<span class="text-danger text-muted">' + data.responseJSON.message + '</span>');
+                        }
+                    }
+
+                    setTimeout(function () {
+                        errors.find('span').fadeOut('slow')
+                    }, 10000);
+                }
+            })
+
+          //  $(".close-modal").trigger("click");
+        });
     })
 })
