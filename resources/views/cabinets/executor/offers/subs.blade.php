@@ -24,7 +24,6 @@
                     </div>
                 </div>
             @else
-
             @foreach($offers as $offer)
                 <div id="subscribe-task-{{ $offer->id }}" class="col-md-3">
                     <div class="card card-post card-round">

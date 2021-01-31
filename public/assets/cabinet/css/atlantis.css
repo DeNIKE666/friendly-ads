@@ -26502,6 +26502,10 @@ table th {
   transform: translate(-50%, -50%);
 }
 
+.select2-search__field {
+  width: 100% !important;
+}
+
 /*      jQuery Ui     */
 .ui-draggable-handle {
   touch-action: none;

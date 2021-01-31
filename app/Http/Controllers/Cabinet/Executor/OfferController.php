@@ -8,6 +8,7 @@ use App\Models\SubscribeTask;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
@@ -45,6 +46,7 @@ class OfferController extends Controller
         ]);
     }
 
+
     /**
      * @param Task $task
      * @return mixed
@@ -52,7 +54,7 @@ class OfferController extends Controller
 
     public function unSubscribe(Task $task)
     {
-        return $task->subscribe()->delete();
+        return $task->subscribe()->YourSubscribeCurrent()->delete();
     }
 
     /**
@@ -66,11 +68,16 @@ class OfferController extends Controller
 
         $isSubscribe = (new TaskRepository())->isSubscribeTask($task);
 
+        $myOfferSites = '';
+        if ($isSubscribe) :
+            $myOfferSites =  Str::of($isSubscribe->sites)->explode(',');
+        endif;
+
         // Увелечение просмотров
 
         $task->increment('views', 1);
 
-        return view('cabinets.executor.offers.show', compact('task' , 'isSubscribe'));
+        return view('cabinets.executor.offers.show', compact('task' , 'isSubscribe' , 'myOfferSites'));
     }
 
     /**

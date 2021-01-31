@@ -307,6 +307,9 @@ $(document).ready(function () {
                 subsCount--
 
                 $('#subsCount').text(subsCount)
+
+                if (subsCount === 0)
+                    window.location.reload();
             },
             error: function (data) {
                 $.notify({
@@ -327,9 +330,11 @@ $(document).ready(function () {
 
     $('.task').on('click', function () {
 
+        let task = $('#subscribe-task')
+
         let id =  $(this).data('id')
 
-        let modal = $('#modal').modal({
+        $('#modal').modal({
             keyboard: true,
             show: true,
         });
@@ -347,6 +352,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     $(".close-modal").trigger("click");
+                    task.remove();
                     swal("Успешно", "Вы подписались на это задание, все ваши подписки находятся в разделе мои отклики", {
                         icon : "success",
                         buttons: {
@@ -363,7 +369,6 @@ $(document).ready(function () {
                     errors.find('span').remove();
 
                     if (data.status === 422) {
-
                         if (data.responseJSON.errors) {
                             $.each(data.responseJSON.errors, function (field_name, error) {
                                 $('#errors').append('<span class="text-danger text-muted">' + error + '</span>');
@@ -376,10 +381,10 @@ $(document).ready(function () {
                     setTimeout(function () {
                         errors.find('span').fadeOut('slow')
                     }, 10000);
+
                 }
             })
-
-          //  $(".close-modal").trigger("click");
         });
+
     })
 })

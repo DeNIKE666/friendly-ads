@@ -69,7 +69,7 @@ class Task extends Model
 
     public function subscribe()
     {
-        return $this->hasMany(SubscribeTask::class);
+        return $this->hasMany(SubscribeTask::class)->orderBy('created_at' , 'desc');
     }
 
 

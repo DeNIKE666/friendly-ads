@@ -25,7 +25,22 @@ class SubscribeTask extends Model
         return  $this->belongsTo(User::class , 'subscribe_user_id');
     }
 
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+
     public function scopeYourSubscribe(Builder $builder)
+    {
+        return $builder->where('subscribe_user_id', '=', auth()->user()->id);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder|Model|object|null
+     */
+
+    public function scopeYourSubscribeCurrent(Builder $builder)
     {
         return $builder->where('subscribe_user_id', '=', auth()->user()->id);
     }

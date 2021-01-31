@@ -15,7 +15,7 @@
     </div>
     <div class="page-inner mt--5">
         <div class="d-flex justify-content-center">
-            <div class="col-md-6">
+            <div id="subscribe-task" data-id="{{ $task->id }}" class="col-md-6">
                 <div class="card card-post card-round">
                     <div class="card-body">
                         <div class="d-flex">
@@ -50,34 +50,26 @@
                             <b>{{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
                         </p>
 
+                        @if(!$isSubscribe)
+                            <div class="alert alert-info" role="alert">
+                                У вас еще нет отклика на данное задание, но вы можете <b>оставить отклик</b>
+                            </div>
+                        @else
                         <ol class="activity-feed" >
                             @foreach($task->subscribe as $executor)
                                 <li class="feed-item feed-item-success">
                                     <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
                                         <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
                                     </span>
-                                    <span class="text">сделал отклик на вашу задачу</span>
+                                    <span class="text-muted text-black-50">сделал отклик</span>
                                 </li>
                             @endforeach
+                           @endif
                         </ol>
-
-                        <hr>
-
-                        <div class="d-flex justify-content-end">
-                            @if($isSubscribe)
-                                <button data-id="{{ $task->id }}" class="btn btn-danger btn-rounded unsubscribe">
-                                    Отписаться
-                                </button>
-                            @else
-                                <button data-id="{{ $task->id }}" class="btn btn-success btn-rounded subscribe">
-                                    Подписаться
-                                </button>
-                            @endif
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection

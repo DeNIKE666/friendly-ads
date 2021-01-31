@@ -4,12 +4,6 @@
 
 @section('content')
 
-    @push('styles')
-        <style>
-            .select2-search__field { width: 100% !important; }
-        </style>
-    @endpush
-
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
