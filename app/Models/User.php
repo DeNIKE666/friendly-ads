@@ -77,6 +77,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'isBanned' => 'boolean'
     ];
 
     /**
@@ -97,5 +98,10 @@ class User extends Authenticatable
     public function scopeExecutorAccounts($query)
     {
         $query->where('type_account', 3);
+    }
+
+    public function getTimeBlockedAttribute($value)
+    {
+        return $value;
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\createUser;
+
+use App\Http\Requests\Admin\Users\createUser;
+use App\Http\Requests\Admin\Users\updateUser;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
-
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -52,7 +52,7 @@ class UsersController extends Controller
             ))
         );
 
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -67,26 +67,25 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param updateUser $request
+     * @param User $user
      */
-    public function update(Request $request, User $user)
+
+    public function update(updateUser $request, User $user)
     {
-        //
+        $user->update($request->all());
+
+        return redirect()->route('admin.users.index');
     }
 
     public function sites(User $user)
@@ -97,13 +96,15 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
+
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('admin.users.index');
     }
 }

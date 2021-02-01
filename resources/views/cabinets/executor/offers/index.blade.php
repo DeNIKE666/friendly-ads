@@ -76,6 +76,7 @@
                 @endforeach
             @endif
         </div>
+        {{ $offers->links() }}
     </div>
 
     <!-- Modal -->

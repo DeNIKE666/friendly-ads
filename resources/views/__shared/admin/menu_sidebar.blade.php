@@ -39,20 +39,39 @@
                     </a>
                 </li>
 
+                <li class="nav-section">
+                    <h4 class="text-section">Задания</h4>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.tasks.index') }}">
+                        <i class="fal fa-clipboard-list-check"></i>
+                        <p>Все задания</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.tasks.create') }}">
+                        <i class="fal fa-plus"></i>
+                        <p>Добавить задание</p>
+                    </a>
+                </li>
+
+
 
                 <li class="nav-section">
                     <h4 class="text-section">Аккаунты</h4>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('users.index') }}">
+                    <a href="{{ route('admin.users.index') }}">
                         <i class="fal fa-users"></i>
                         <p>Все пользователи</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('users.create') }}">
+                    <a href="{{ route('admin.users.create') }}">
                         <i class="fal fa-user-plus"></i>
                         <p>Создать пользователя</p>
                     </a>

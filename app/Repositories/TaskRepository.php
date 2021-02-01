@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TaskRepository
 {
-
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

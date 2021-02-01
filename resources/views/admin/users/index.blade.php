@@ -11,8 +11,7 @@
                     <h5 class="text-white op-7 mb-2">Все пользователи сервиса</h5>
                 </div>
                 <div class="ml-md-auto py-2 py-md-0">
-                    <a href="{{ route('users.create') }}" class="btn btn-white btn-border btn-round mr-2">Создать нового
-                        пользователя</a>
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-white btn-border btn-round mr-2">Создать нового пользователя</a>
                 </div>
             </div>
         </div>
@@ -29,6 +28,8 @@
                     <th scope="col">Телеграм</th>
                     <th scope="col">Сайтов</th>
                     <th scope="col">Рейтинг</th>
+                    <th scope="col">Баланс</th>
+                    <th scope="col">Бан</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -42,9 +43,18 @@
                         <td data-label="Телеграм">{{ $user->telegram_id ?: 'Не указан' }}</td>
                         <td data-label="Сайтов">{{ $user->sites->count() }}</td>
                         <td data-label="Рейтинг">{{ $user->sites->sum('rating') }}</td>
+                        <td data-label="Баланс">{{ $user->balance }}</td>
+                        <td data-label="Рейтинг">{{ $user->isBanned ? 'забанен' : 'не забанен' }}</td>
                         <td>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('users.sites', $user) }}" class="btn btn-sm btn-outline-primary"><span class="fal fa-sitemap"></span></a>
+                                <a href="{{ route('users.sites', $user) }}" class="btn btn-sm btn-outline-secondary mr-1"><span class="fal fa-sitemap"></span></a>
+                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-outline-primary mr-1"><span class="fal fa-edit"></span></a>
+
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"><span class="fal fa-trash"></span></button>
+                                </form>
                             </div>
                         </td>
                     </tr>

@@ -16,7 +16,7 @@
     <div class="page-inner mt--5">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('users.store') }}" method="POST">
+                <form action="{{ route('admin.users.store') }}" method="POST">
 
                     @csrf
 

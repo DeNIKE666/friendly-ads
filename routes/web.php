@@ -56,9 +56,13 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
 
     Route::resource('sites' , \App\Http\Controllers\Admin\SiteController::class)->names('admin.sites');
 
+    // Управление тасками
+
+    Route::resource('tasks' , \App\Http\Controllers\Admin\TaskController::class)->names('admin.tasks');
+
    // Управление пользователями
 
-    Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('users');
+    Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('admin.users');
 
     // Информация по юзеру
 
