@@ -50,15 +50,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('admin.tasks.create') }}">
-                        <i class="fal fa-plus"></i>
-                        <p>Добавить задание</p>
-                    </a>
-                </li>
-
-
-
                 <li class="nav-section">
                     <h4 class="text-section">Аккаунты</h4>
                 </li>

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="category_id" class="col-form-label">Выбрать родительскую категорию:</label>
+    <label for="category_id" class="col-form-label">Выбрать категорию:</label>
     <select id="category_id" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" name="category_id">
         <option value="">-- Выберите категорию</option>
         @foreach ($categories as $parent)

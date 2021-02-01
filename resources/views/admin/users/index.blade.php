@@ -17,7 +17,14 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="card card-body">
+        <div class="card">
+            @if($users->isEmpty())
+                <div class="card">
+                    <div class="alert alert-danger mb-0" role="alert">
+                        В системе пока нет категорий
+                    </div>
+                </div>
+            @else
             <table>
                 <thead>
                 <tr>
@@ -34,7 +41,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($users as $user)
+                @foreach($users as $user)
                     <tr>
                         <td data-label="#">{{ $user->id }}</td>
                         <td data-label="Имя">{{ $user->name }}</td>
@@ -58,13 +65,10 @@
                             </div>
                         </td>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center">НЕТ ПОЛЬЗОВАТЕЛЕЙ</td>
-                    </tr>
-                @endforelse
+                 @endforeach
                 </tbody>
             </table>
+           @endif
         </div>
 
         <div class="d-flex justify-content-center">

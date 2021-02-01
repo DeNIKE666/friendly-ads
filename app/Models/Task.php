@@ -22,9 +22,13 @@ class Task extends Model
         'type_position',
         'site_count',
         'period',
-        'views'
+        'views',
+        'status'
     ];
 
+    protected $casts = [
+        'status' => 'boolean'
+    ];
 
     /**
      * @return \Illuminate\Support\Stringable
@@ -33,11 +37,6 @@ class Task extends Model
     public function limitDescription()
     {
         return Str::of(strip_tags($this->description))->lower()->limit(60 , '...');
-    }
-
-    public function getAmountAttribute($value)
-    {
-        return number_format($value, 0 , '.' , ' ');
     }
 
     /**
@@ -85,6 +84,11 @@ class Task extends Model
     public function yourSubscribe()
     {
         return $this->hasOne(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
+    }
+
+    public function scopeStatusActive(Builder $builder)
+    {
+        $builder->where('status', 1);
     }
 
 }

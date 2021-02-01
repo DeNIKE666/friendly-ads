@@ -15,7 +15,13 @@
     </div>
     <div class="page-inner mt--5">
         <div class="card">
-            <div class="card-body">
+            @if($categories->isEmpty())
+                <div class="card">
+                    <div class="alert alert-danger mb-0" role="alert">
+                        В системе пока нет категорий
+                    </div>
+                </div>
+            @else
                 <table>
                     <thead>
                     <tr>
@@ -35,29 +41,37 @@
                             <td data-label="Действия">
                                 <div class="d-flex justify-content-end">
                                     <form class="mr-1">
-                                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary"><span class="fad fa-edit"></span></a>
+                                        <a href="{{ route('categories.edit', $category) }}"
+                                           class="btn btn-sm btn-outline-primary"><span class="fad fa-edit"></span></a>
                                     </form>
 
-                                    <form method="POST" action="{{ route('categories.first', $category) }}" class="mr-1">
+                                    <form method="POST" action="{{ route('categories.first', $category) }}"
+                                          class="mr-1">
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-up"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary"><span
+                                                    class="fa fa-angle-double-up"></span></button>
                                     </form>
                                     <form method="POST" action="{{ route('categories.up', $category) }}" class="mr-1">
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-up"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary"><span
+                                                    class="fa fa-angle-up"></span></button>
                                     </form>
                                     <form method="POST" action="{{ route('categories.down', $category) }}" class="mr-1">
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-down"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary"><span
+                                                    class="fa fa-angle-down"></span></button>
                                     </form>
                                     <form method="POST" action="{{ route('categories.last', $category) }}" class="mr-1">
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-down"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary"><span
+                                                    class="fa fa-angle-double-down"></span></button>
                                     </form>
-                                    <form method="POST" action="{{ route('categories.destroy', $category) }}" class="mr-1">
+                                    <form method="POST" action="{{ route('categories.destroy', $category) }}"
+                                          class="mr-1">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary"><span class="fas fa-trash-alt"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary"><span
+                                                    class="fas fa-trash-alt"></span></button>
                                     </form>
                                 </div>
                             </td>
@@ -69,7 +83,7 @@
                     @endforelse
                     </tbody>
                 </table>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

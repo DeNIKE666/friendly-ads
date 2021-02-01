@@ -14,7 +14,12 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="card card-body">
+        <div class="card">
+            @if($sites->isEmpty())
+                <div class="alert alert-danger mb-0" role="alert">
+                    В системе пока нет сайтов пользователей
+                </div>
+            @else
             <table>
                 <thead>
                 <tr>
@@ -28,7 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($sites as $site)
+                @foreach($sites as $site)
                     <tr>
                         <td data-label="#">{{ $site->id }}</td>
                         <td data-label="Ссылка">{{ $site->url }}</td>
@@ -47,13 +52,10 @@
                             </div>
                         </td>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center fw-bold">НЕТ САЙТОВ</td>
-                    </tr>
-                @endforelse
+                  @endforeach
                 </tbody>
             </table>
+           @endif
         </div>
 
         <div class="d-flex justify-content-center">

@@ -16,9 +16,18 @@ class TaskRepository
     {
         $isCategoriesSites = auth()->user()->sites()->pluck('category_id');
 
-        return Task::query()->with(['user', 'category'])->where(function (Builder $query)  {
+        return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
             $query->doesntHave('YourSubscribe');
         })->whereIn('category_id' , $isCategoriesSites)->paginate(50);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+
+    public function getAllForAdmin()
+    {
+        return Task::with(['user', 'category'])->paginate(50);
     }
 
     /**

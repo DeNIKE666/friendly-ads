@@ -33,7 +33,8 @@ class TaskFactory extends Factory
             'type_position'   => 'sidebar',
             'site_count'      => mt_rand(10,50),
             'period'          => mt_rand(1,30),
-            'views'           => mt_rand(1000, 9999)
+            'views'           => mt_rand(1000, 9999),
+            'status'          => mt_rand(0,1)
         ];
     }
 }

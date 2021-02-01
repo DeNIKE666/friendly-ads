@@ -58,7 +58,7 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
 
     // Управление тасками
 
-    Route::resource('tasks' , \App\Http\Controllers\Admin\TaskController::class)->names('admin.tasks');
+    Route::resource('tasks' , \App\Http\Controllers\Admin\TasksController::class)->names('admin.tasks');
 
    // Управление пользователями
 
