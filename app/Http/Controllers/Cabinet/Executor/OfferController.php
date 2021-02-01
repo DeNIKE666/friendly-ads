@@ -68,16 +68,19 @@ class OfferController extends Controller
 
         $isSubscribe = (new TaskRepository())->isSubscribeTask($task);
 
-        $myOfferSites = '';
-        if ($isSubscribe) :
-            $myOfferSites =  Str::of($isSubscribe->sites)->explode(',');
-        endif;
+        // Сайты которые предоставил пользователь
+
+        $myOfferSites =  $isSubscribe ? Str::of($isSubscribe->sites)->explode(',') : '';
 
         // Увелечение просмотров
 
         $task->increment('views', 1);
 
-        return view('cabinets.executor.offers.show', compact('task' , 'isSubscribe' , 'myOfferSites'));
+        return view('cabinets.executor.offers.show', [
+            'task'         => $task,
+            'isSubscribe'  => $isSubscribe,
+            'myOfferSites' => $myOfferSites
+        ]);
     }
 
     /**

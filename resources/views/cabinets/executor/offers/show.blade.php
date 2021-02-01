@@ -61,7 +61,8 @@
                                     <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
                                         <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
                                     </span>
-                                    <span class="text-muted text-black-50">сделал отклик</span>
+                                    <span class="text-muted text-black-50">сделал отклик</span> <br>
+                                    <span class="text-muted text-black-50">получит <b>550 руб</b></span>
                                 </li>
                             @endforeach
                            @endif
