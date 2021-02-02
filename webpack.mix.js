@@ -47,3 +47,29 @@ mix.scripts([
     'resources/js/atlantis/plugin/chart-js/chart.min.js',
     'resources/js/atlantis/lk.js',
 ], 'public/assets/cabinet/js/vendor_atlantis.js').version();
+
+
+mix.styles([
+    'resources/assets/frontend/css/plugins.css',
+    'resources/assets/frontend/css/styles.css',
+    'resources/assets/frontend/css/default.css',
+], 'public/assets/frontend/css/main.css').version();
+
+mix.scripts([
+    'resources/assets/frontend/js/jquery.min.js',
+    'resources/assets/frontend/js/popper.min.js',
+    'resources/assets/frontend/js/bootstrap.min.js',
+    'resources/assets/frontend/js/select2.min.js',
+    'resources/assets/frontend/js/aos.js',
+    'resources/assets/frontend/js/perfect-scrollbar.jquery.min.js',
+    'resources/assets/frontend/js/owl.carousel.min.js',
+    'resources/assets/frontend/js/jquery.counterup.min.js',
+    'resources/assets/frontend/js/slick.js',
+    'resources/assets/frontend/js/bootstrap-datepicker.js',
+    'resources/assets/frontend/js/isotope.min.js',
+    'resources/assets/frontend/js/summernote.js',
+    'resources/assets/frontend/js/jQuery.style.switcher.js',
+    'resources/assets/frontend/js/counterup.min.js',
+    'resources/assets/frontend/js/custom.js',
+], 'public/assets/frontend/js/vendor.js').version();
+

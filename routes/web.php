@@ -1,5 +1,10 @@
 <?php
 
+Route::prefix('/')->group(function () {
+    Route::get('/' , [\App\Http\Controllers\Frontend\FrontendController::class , 'index'])->name('frontend');
+    Route::get('/about' , [\App\Http\Controllers\Frontend\FrontendController::class , 'about'])->name('frontend.about');
+});
+
 Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\Cabinet\CabinetController::class, 'index'])->name('cabinets');
@@ -63,6 +68,11 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
    // Управление пользователями
 
     Route::resource('users' , \App\Http\Controllers\Admin\UsersController::class)->names('admin.users');
+
+    // Управление пользователями
+
+    Route::resource('pages' , \App\Http\Controllers\Admin\PageController::class)->names('admin.pages');
+
 
     // Информация по юзеру
 

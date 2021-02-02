@@ -51,6 +51,24 @@
                 </li>
 
                 <li class="nav-section">
+                    <h4 class="text-section">Страницы</h4>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.pages.index') }}">
+                        <i class="fal fa-layer-group"></i>
+                        <p>Все страницы</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.pages.create') }}">
+                        <i class="fal fa-layer-plus"></i>
+                        <p>Создать страницу</p>
+                    </a>
+                </li>
+
+                <li class="nav-section">
                     <h4 class="text-section">Аккаунты</h4>
                 </li>
 
