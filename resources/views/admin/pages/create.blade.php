@@ -14,8 +14,7 @@
         </div>
     </div>
     <div class="page-inner mt--5">
-        <div class="d-flex justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card card-body">
                     <form action="{{ route('admin.pages.store') }}" method="POST">
                         @csrf
@@ -44,13 +43,81 @@
                     </form>
                 </div>
             </div>
-        </div>
     </div>
     @push('scripts')
-        <script>
-            ClassicEditor
-                .create( document.querySelector( '#editor' ) )
+        <script>ClassicEditor
+                .create( document.querySelector( '#editor' ), {
+
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'link',
+                            'alignment',
+                            'bulletedList',
+                            'numberedList',
+                            '|',
+                            'fontBackgroundColor',
+                            'indent',
+                            'outdent',
+                            'fontColor',
+                            'fontSize',
+                            'fontFamily',
+                            'removeFormat',
+                            'subscript',
+                            'superscript',
+                            'underline',
+                            '|',
+                            'horizontalLine',
+                            'imageInsert',
+                            'imageUpload',
+                            'htmlEmbed',
+                            'blockQuote',
+                            'insertTable',
+                            'mediaEmbed',
+                            'undo',
+                            'redo',
+                            'CKFinder'
+                        ]
+                    },
+                    language: 'ru',
+                    image: {
+                        toolbar: [
+                            'imageTextAlternative',
+                            'imageStyle:full',
+                            'imageStyle:side',
+                            'linkImage'
+                        ]
+                    },
+                    table: {
+                        contentToolbar: [
+                            'tableColumn',
+                            'tableRow',
+                            'mergeTableCells',
+                            'tableCellProperties',
+                            'tableProperties'
+                        ]
+                    },
+                    licenseKey: '',
+
+                } )
+                .then( editor => {
+                    window.editor = editor;
+
+
+
+
+
+
+
+
+                } )
                 .catch( error => {
+                    console.error( 'Oops, something went wrong!' );
+                    console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+                    console.warn( 'Build id: f8x1dtvm0054-6sitfv8rdkwi' );
                     console.error( error );
                 } );
         </script>

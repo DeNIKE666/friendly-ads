@@ -5,7 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title')</title>
+    <title>@yield('title', config('ads_friendly.meta.title'))</title>
+
+    <meta name="description" content="@yield('description' , config('ads_friendly.meta.description'))">
 
     <!-- All Plugins Css -->
     <link href="{{ mix('/assets/frontend/css/main.css') }}" rel="stylesheet">
@@ -320,6 +322,8 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <script src="{{ mix('/assets/frontend/js/vendor.js') }}"></script>
+
+@stack('scripts')
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->

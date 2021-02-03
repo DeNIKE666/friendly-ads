@@ -83,7 +83,7 @@
 </div>
 <script src="{{ mix('/assets/cabinet/js/vendor_atlantis.js') }}"></script>
 <script src="{{ asset('/assets/cabinet/js/atlantis2.js')}}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+<script src="{{ asset('assets/plugins/ckeditor/build/ckeditor.js')}}"></script>
 @stack('scripts')
 </body>
 </html>

@@ -15,10 +15,10 @@ class FrontendController extends Controller
 
     public function about()
     {
-        $about = Page::whereName('about')->first();
+        $page = Page::whereName('about')->first();
 
-        $about->increment('views',1);
+        $page->increment('views',1);
 
-        return view('frontend.about', compact('about'));
+        return view('frontend.about', compact('page'));
     }
 }
