@@ -29,7 +29,7 @@
     @if(request()->routeIs('frontend'))
         <!-- ============================ Hero Banner  Start================================== -->
             <div class="hero-header jumbo-banner text-center"
-                 style="background: url(https://fainaidea.com/wp-content/uploads/2017/02/yand.jpg);" data-overlay="6">
+                 style="background: url({{ asset('images/frontend/bg_header.png') }});" data-overlay="6">
                 <div class="container">
                     <h2>FUC - сервис по продвижению контента и заработка на своих сайтах</h2>
                     <p class="lead">Продвигайте любой контент за счёт цепей исполнителей</p>

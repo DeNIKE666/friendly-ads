@@ -36,7 +36,11 @@ class Task extends Model
 
     public function limitDescription()
     {
-        return Str::of(strip_tags($this->description))->lower()->limit(60 , '...');
+        return Str::of(strip_tags($this->description))->lower()->limit(85 , '...');
+    }
+
+    public function amount() {
+        return number_format($this->amount , 0 , ',' , ' ');
     }
 
     /**

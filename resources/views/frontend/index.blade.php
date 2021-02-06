@@ -3,553 +3,46 @@
 @section('title', 'Главная страница')
 
 @section('content')
-    <!-- ============================ Job Featured End ================================== -->
-    <section class="min-sec">
+
+    <section>
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                @foreach($tasks as $task)
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="wrf-joblist">
+                            <div class="wrf-job-title-wrap">
+                                <h4 class="wrf-job-title verified-job">
+                                    <a href="job-detail.html">
+                                        {{ $task->title }}
+                                    </a>
+                                </h4>
 
-                    <!-- Nav tabs -->
-                    <div class="d-block">
-                        <ul class="nav nav-tabs nav-advance bg-info" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#recent" role="tab">Дорогие задания</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#featured" role="tab">Средняя цена</a>
-                            </li>
-                        </ul>
-                        <!-- Nav tabs -->
-                    </div>
+                                <hr>
 
-                    <div class="tab-content">
-
-                        <!-- Recent Jobs -->
-                        <div class="tab-pane fade in show active" id="recent" role="tabpanel">
-                            <div class="row">
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/google.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Product Designer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Product Designer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Computer Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>UI/UX Designer</li>
-                                                        <li><span>Job Type:</span>Full Time</li>
-                                                        <li><span>Sallery:</span>$12000 - $15000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/asana.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Drupal Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Drupal Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Asana Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Drupal Developer</li>
-                                                        <li><span>Job Type:</span>Internship</li>
-                                                        <li><span>Sallery:</span>$18000 - $2000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/adwords.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Logo Designer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Logo Designer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Logo Studio
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Logo Designer</li>
-                                                        <li><span>Job Type:</span>Part Time</li>
-                                                        <li><span>Sallery:</span>$18000 - $2200 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/drive.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Magento Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Magento Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Maga Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Magento Developer</li>
-                                                        <li><span>Job Type:</span>Contract</li>
-                                                        <li><span>Sallery:</span>$15000 - $18000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/safari.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">WordPress Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">WordPress Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    safari Inc
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>WordPress Developer</li>
-                                                        <li><span>Job Type:</span>Full Time</li>
-                                                        <li><span>Sallery:</span>$20000 - $2200 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/photos.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">UI/UX Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">UI/UX Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Photopic Ltd
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>UI/UX Developer</li>
-                                                        <li><span>Job Type:</span>Part Time</li>
-                                                        <li><span>Sallery:</span>$14000 - $17000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                <ul class="p-0">
+                                    <li class="pb-3">Заказчик: {{ $task->user->username }}</li>
+                                    <li class="pb-2">Тип задания: <span class="highlight">{{ config('ads_friendly.type_task.' . $task->type_task) }}</span></li>
+                                    <li class="pb-2">Позиция размещения: <span class="highlight">{{ config('ads_friendly.type_position.' . $task->type_position) }}</span></li>
+                                    <li class="pb-2">Срок размещения: <span class="highlight">{{ $task->period }} дней.</span></li>
+                                    <li class="pb-2">Откликнулись: <span class="highlight">{{ $task->subscribe->count() }} исполнителей</span></li>
+                                </ul>
 
                             </div>
-                        </div>
+                            <div class="wrf-job-caption">
+                                <p class="content">{{ $task->description }}</p>
+                                <a href="/">Перейти к заданию</a>
 
-                        <!-- featured Jobs -->
-                        <div class="tab-pane fade" id="featured" role="tabpanel">
-                            <div class="row">
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/photos.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">UI/UX Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">UI/UX Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Photopic Ltd
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>UI/UX Developer</li>
-                                                        <li><span>Job Type:</span>Part Time</li>
-                                                        <li><span>Sallery:</span>$14000 - $17000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <span><i class="fal fa-eye"></i> {{ $task->views }}</span>
+                                    <span><i class="fal fa-ruble-sign"></i> {{ $task->amount() }}</span>
                                 </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/safari.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">WordPress Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">WordPress Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    safari Inc
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>WordPress Developer</li>
-                                                        <li><span>Job Type:</span>Full Time</li>
-                                                        <li><span>Sallery:</span>$20000 - $2200 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/drive.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Magento Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Magento Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Maga Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Magento Developer</li>
-                                                        <li><span>Job Type:</span>Contract</li>
-                                                        <li><span>Sallery:</span>$15000 - $18000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/adwords.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Logo Designer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Logo Designer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Logo Studio
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Logo Designer</li>
-                                                        <li><span>Job Type:</span>Part Time</li>
-                                                        <li><span>Sallery:</span>$18000 - $2200 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/asana.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Drupal Developer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Drupal Developer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Asana Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>Drupal Developer</li>
-                                                        <li><span>Job Type:</span>Internship</li>
-                                                        <li><span>Sallery:</span>$18000 - $2000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- Single job -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="job-middle-grid">
-                                        <div class="jmg-save">
-                                            <a href="#" class="jmg-save"><i class="ti-bookmark"></i></a>
-                                        </div>
-                                        <div class="jmg-left">
-                                            <div class="jmg-cmp-thumb">
-                                                <a href="job-detail.html"><img src="assets/img/google.png" alt="" /></a>
-                                            </div>
-                                            <div class="jmg-post-date">
-                                                <span>4 days ago</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="jmg-right">
-                                            <h4 class="jmg-title"><a href="job-detail.html">Product Designer</a></h4>
-                                            <div class="jmg-right-caption">
-
-                                                <div class="jmg-right-caption-text">
-                                                    <h4 class="jmg-company-title"><a href="job-detail.html">Product Designer</a></h4>
-                                                    Greewood city, Canada<br>
-                                                    Computer Solution
-                                                </div>
-
-                                                <div class="jmg-right-caption-text">
-                                                    <ul>
-                                                        <li><span>Designation:</span>UI/UX Designer</li>
-                                                        <li><span>Job Type:</span>Full Time</li>
-                                                        <li><span>Sallery:</span>$12000 - $15000 annually</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="jmg-skills">
-                                                <span class="skl-6">Web Design</span><span class="skl-2">Wordpress</span><span class="skl-3">Photoshop</span><span class="skl-5">3 more</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
-
                     </div>
-
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
-    <!-- ============================ Job Featured End ================================== -->
 
     <!-- ============================ Step How To Use Start ================================== -->
     <section class="min-sec">
@@ -665,4 +158,14 @@
         </div>
     </section>
     <!-- ============================ Counter Facts End ================================== -->
+
+    @push('scripts')
+        <script src="{{ asset('assets/frontend/js/show-hide-text.js') }}"></script>
+        <script>
+            new showHideText('.content', {
+                charQty     : 50,
+                ellipseText :"..."
+            });
+        </script>
+    @endpush
 @endsection

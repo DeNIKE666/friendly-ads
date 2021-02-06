@@ -20,10 +20,9 @@
                 </ul>
 
                 <ul class="nav-menu nav-menu-social align-to-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#login">
-                            <i class="ti-user mr-1"></i><span class="dn-lg">Войти/Регистрация</span>
-                        </a>
+                    <li class="d-flex justify-content-between">
+                        <a href="">1</a>
+                        <a href="">2</a>
                     </li>
                 </ul>
             </div>

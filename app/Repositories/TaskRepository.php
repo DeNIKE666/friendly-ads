@@ -65,4 +65,15 @@ class TaskRepository
            ->groupBy('tasks.id')
            ->paginate(100);
     }
+
+    /**
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+
+    public function taskFrontend()
+    {
+        return Task::query()
+            ->orderByDesc('amount')
+            ->limit(12)->get();
+    }
 }
