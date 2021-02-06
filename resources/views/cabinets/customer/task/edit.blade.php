@@ -77,13 +77,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="description">Описание задачи:</label>
-                                        <textarea name="description" id="description" type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Введите описание">{{ old('description', $task->description) }}</textarea>
+                                        <textarea name="description" id="editor" type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Введите описание">{{ old('description', $task->description) }}</textarea>
                                         @error('description')
                                         <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                                         @enderror
+                                        <p class="mt-3 mb-0">Слов введено: <span id="character-count"></span></p>
                                     </div>
                                 </div>
-
 
 
                                 <div class="col-md-6">
@@ -135,4 +135,46 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>ClassicEditor
+                .create( document.querySelector( '#editor' ), {
+                    wordCount: {
+                        onUpdate: stats => {
+                            if (stats.characters > 100) {
+                                $('textarea').attr('maxlength' , 100).attr('readOnly' , false)
+                            }
+                            $('#character-count').text(stats.characters);
+                        }
+                    },
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'alignment',
+                            'bulletedList',
+                            'numberedList',
+                            '|',
+                            'indent',
+                            'outdent',
+                            'removeFormat',
+                            'underline',
+                            '|',
+                            'horizontalLine',
+                            'blockQuote',
+                            'undo',
+                            'redo'
+                        ]
+                    },
+                    language: 'ru',
+                    licenseKey: '',
+                } )
+                .then( editor => {
+                    window.editor = editor
+                });
+        </script>
+    @endpush
+
 @endsection

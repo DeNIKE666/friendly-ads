@@ -30,7 +30,7 @@ class createTask extends FormRequest
             'type_task'     => ['required'],
             'type_position' => ['required'],
             'category_id'   => ['required'],
-            'site_count'    => ['required' , 'numeric'],
+            'site_count'    => ['required' , 'numeric', 'between:1,10'],
             'period'        => ['required']
         ];
     }
@@ -55,6 +55,8 @@ class createTask extends FormRequest
 
             'site_count.required'    => 'Кол-во сайтов обязательно для заполнения',
             'site_count.numeric'     => 'Кол-во сайтов должно быть числом',
+            'site_count.between'     => 'Кол-во сайтов не должно привышать :max',
+
             'period.required'        => 'Необходимо выбрать переод продвижения',
             'period.numeric'         => 'Период продвижения должен быть числом',
         ];

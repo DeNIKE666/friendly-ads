@@ -38,7 +38,7 @@
 
                 @foreach($tasks as $task)
                     <tr>
-                        <td data-label="#">{{ $task->id }}</td>
+                        <td data-label="#"><a href="{{ route('frontend.task.detail', $task) }}">{{ $task->id }}</a></td>
                         <td data-label="Выделенный бюджет">{{ $task->amount }} руб. </td>
                         <td data-label="Требуется сайтов">{{ $task->site_count }}</td>
                         <td data-label="Категория">{{ $task->category->name }}</td>

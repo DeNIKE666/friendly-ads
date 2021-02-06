@@ -13,4 +13,9 @@ class CategoryRepository
     {
         return Category::withDepth()->defaultOrder()->get();
     }
+
+    public function getId($id)
+    {
+        return Category::find($id);
+    }
 }

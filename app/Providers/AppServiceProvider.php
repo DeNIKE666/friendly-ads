@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\CategoryRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('frontend.*', function ($view) {
+            $view->with('categories' , (new CategoryRepository())->getAll());
+        });
+
         Paginator::useBootstrap();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cookie;
 
 class TaskRepository
 {
@@ -18,7 +19,7 @@ class TaskRepository
 
         return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
             $query->doesntHave('YourSubscribe');
-        })->whereIn('category_id' , $isCategoriesSites)->paginate(50);
+        })->whereIn('category_id' , $isCategoriesSites)->orderByDesc('amount')->paginate(50);
     }
 
     /**
@@ -74,6 +75,28 @@ class TaskRepository
     {
         return Task::query()
             ->orderByDesc('amount')
-            ->limit(12)->get();
+            ->limit(10)
+            ->get();
+    }
+
+    /**
+     * @param null $category
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+
+    public function taskFrontendCategory()
+    {
+        $cookieCategoryId = Cookie::get('category_id');
+
+        if ($cookieCategoryId) :
+            return Task::query()
+           ->whereCategoryId($cookieCategoryId)
+           ->orderByDesc('amount')
+           ->paginate(10);
+        else :
+            return Task::query()
+                ->orderByDesc('amount')
+                ->paginate(150);
+        endif;
     }
 }

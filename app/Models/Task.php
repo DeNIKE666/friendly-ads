@@ -43,14 +43,6 @@ class Task extends Model
         return number_format($this->amount , 0 , ',' , ' ');
     }
 
-    /**
-     * @return \Illuminate\Support\Stringable
-     */
-
-    public function fullDescription()
-    {
-        return Str::of($this->description)->upper();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

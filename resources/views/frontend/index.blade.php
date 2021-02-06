@@ -3,7 +3,6 @@
 @section('title', 'Главная страница')
 
 @section('content')
-
     <section>
         <div class="container">
             <div class="row">
@@ -30,7 +29,7 @@
                             </div>
                             <div class="wrf-job-caption">
                                 <p class="content">{{ $task->description }}</p>
-                                <a href="/">Перейти к заданию</a>
+                                <a href="{{ route('frontend.task.detail', $task) }}">Перейти к заданию</a>
 
                                 <div class="d-flex justify-content-between mt-4">
                                     <span><i class="fal fa-eye"></i> {{ $task->views }}</span>
@@ -122,35 +121,35 @@
     <!-- ============================ Step How To Use End ================================== -->
 
     <!-- ============================ Counter Facts  Start================================== -->
-    <section class="image-bg text-center" style="background:#00a94f url(assets/img/bg2.png);" data-overlay="0">
+    <section class="image-bg text-center" style="background:#00a94f url({{ asset('images/frontend/bg2.png') }});" data-overlay="0">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>2120</h4>
-                        <span>Jobs Posted</span>
+                        <h4>0</h4>
+                        <span>Исполнителей</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>3117</h4>
-                        <span>Jobs Filled</span>
+                        <h4>0</h4>
+                        <span>Заказчиков</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>872</h4>
-                        <span>Companies</span>
+                        <h4>0</h4>
+                        <span>пока не придумал</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="count-facts">
-                        <h4>3740</h4>
-                        <span>Freelancer</span>
+                        <h4>0</h4>
+                        <span>пока не придумал</span>
                     </div>
                 </div>
 
@@ -166,6 +165,19 @@
                 charQty     : 50,
                 ellipseText :"..."
             });
+        </script>
+        <script>
+            $('.selection_of_tasks').on('click',function () {
+                let category = $('#category option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('frontend') }}",
+                    data: {category: category},
+                    success: function () {
+                        alert(1)
+                    }
+                })
+            })
         </script>
     @endpush
 @endsection

@@ -31,7 +31,7 @@
                         </div>
                         <div class="separator-solid"></div>
                         <p class="card-category text-info mb-1"><a href="#">{{ $task->category->name }}</a></p>
-                        <p class="card-text text-black-50">{{ $task->fullDescription() }}</p>
+                        <p class="card-text text-black-50">{{ $task->description}}</p>
                         <p class="card-text">Бюджет: <b>{{ $task->amount }}</b> руб. </p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>
 

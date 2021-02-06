@@ -14,9 +14,8 @@
             <div class="nav-menus-wrapper" style="transition-property: none;">
                 <ul class="nav-menu">
                     <li><a href="contact.html">ГЛАВНАЯ</a></li>
-                    <li><a href="contact.html">О СЕРВИСЕ</a></li>
+                    <li><a href="{{ route('frontend.projects') }}">ПРОЕКТЫ</a></li>
                     <li><a href="contact.html">БАЗА ЗНАНИЙ</a></li>
-                    <li><a href="contact.html">ЗАДАНИЯ</a></li>
                 </ul>
 
                 <ul class="nav-menu nav-menu-social align-to-right">

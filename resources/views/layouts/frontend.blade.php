@@ -5,12 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title', config('ads_friendly.meta.title'))</title>
 
     <meta name="description" content="@yield('description' , config('ads_friendly.meta.description'))">
 
     <!-- All Plugins Css -->
     <link href="{{ mix('/assets/frontend/css/main.css') }}" rel="stylesheet">
+
+    @stack('styles')
 </head>
 
 <body class="green-skin bg-light">
@@ -33,23 +37,23 @@
                 <div class="container">
                     <h2>FUC - сервис по продвижению контента и заработка на своих сайтах</h2>
                     <p class="lead">Продвигайте любой контент за счёт цепей исполнителей</p>
-                    <form class="search-big-form no-border search-shadow">
+                    <form action="{{ route('frontend.setFindCategory') }}" class="search-big-form no-border search-shadow" method="POST">
+                        @csrf
                         <div class="row m-0">
                             <div class="col-lg-10 col-md-10 col-sm-10 p-0">
                                 <div class="form-group">
-                                    <select id="category" class="js-states form-control">
-                                        <option value="">&nbsp;</option>
-                                        <option value="1">SEO & Web Design</option>
-                                        <option value="2">Wealth & Healthcare</option>
-                                        <option value="3">Account / Finance</option>
-                                        <option value="4">Education</option>
-                                        <option value="5">Banking Jobs</option>
+                                    <select id="category" class="js-states form-control" name="category">
+                                        <option value="" selected>&nbsp;</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="5">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                     <i class="ti-layers"></i>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                                <button type="button" class="btn btn-primary full-width">подобрать задания</button>
+                                <button type="submit" class="btn btn-primary full-width selection_of_tasks">подобрать задания</button>
                             </div>
                         </div>
                     </form>
@@ -321,7 +325,17 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
+
 <script src="{{ mix('/assets/frontend/js/vendor.js') }}"></script>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
 
 @stack('scripts')
 <!-- ============================================================== -->

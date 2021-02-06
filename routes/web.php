@@ -1,8 +1,20 @@
 <?php
 
 Route::prefix('/')->group(function () {
+
     Route::get('/' , [\App\Http\Controllers\Frontend\FrontendController::class , 'index'])->name('frontend');
+
+    Route::prefix('projects')->group(function () {
+        Route::get('/' , [\App\Http\Controllers\Frontend\ProjectController::class , 'projects'])->name('frontend.projects');
+        Route::post('/find-category' , [\App\Http\Controllers\Frontend\ProjectController::class , 'projectsSetCategory'])->name('frontend.setFindCategory');
+        Route::post('/reset' , [\App\Http\Controllers\Frontend\ProjectController::class , 'resetSetting'])->name('frontend.resetSetting');
+    });
+
     Route::get('/about' , [\App\Http\Controllers\Frontend\FrontendController::class , 'about'])->name('frontend.about');
+
+    Route::prefix('tasks')->group(function () {
+        Route::get('/{task}' , [\App\Http\Controllers\Frontend\TaskController::class , 'showTask'])->name('frontend.task.detail');
+    });
 });
 
 Route::prefix('cabinet')->middleware('auth')->group(function () {

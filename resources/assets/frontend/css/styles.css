@@ -381,20 +381,58 @@ ul.list-style.style-2 li:before {
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
 }
-blockquote {
-    font-size: 1.78571429em;
-    line-height: 1.5em;
-    padding: 0;
+blockquote{
+    display: block;
+    background: #fff;
+    padding: 15px 20px 15px 45px;
+    margin: 0 0 20px;
+    position: relative;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #666;
+    text-align: justify;
+    border-left: 4px solid #7b96f9;
+    /* border-right: 2px solid #c76c0c; */
+    -moz-box-shadow: 2px 2px 15px #ccc;
+    -webkit-box-shadow: 2px 2px 15px #ccc;
+    box-shadow: 2px 2px 15px #ccc;
+}
+
+blockquote::before{
+    content: "\201C"; /*Unicode for Left Double Quote*/
+
+    /*Font*/
+    font-family: Georgia, serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #999;
+
+    /*Positioning*/
+    position: absolute;
+    left: 10px;
+    top:5px;
+}
+
+blockquote::after{
+    content: "";
+}
+
+blockquote p{
     margin: 0;
-    border-left: 0;
+    padding-left: 10px;
+    font-family: sans-serif;
+    font-weight: 500;
+
 }
-blockquote {
-    font-family: 'Crimson Text', serif;
+
+blockquote em{
     font-style: italic;
-    font-weight: 300;
 }
+
 blockquote:not(:last-child) {
-    margin-bottom: 1.04em;
+    margin-bottom: 2em;
+    margin-top: 2rem;
 }
 /*------------ Global Settings: Common & List ----------------*/
 ul:last-child {
@@ -11501,4 +11539,10 @@ a.empblue-theme {
 .highlight {
     border-bottom: 1px solid;
     font-weight: bold;
+}
+
+.tr-single-box p {
+    color: #303d5080;
+    font-size: 16px;
+    word-break: break-word;
 }

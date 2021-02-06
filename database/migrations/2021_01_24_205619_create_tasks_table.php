@@ -38,7 +38,7 @@ class CreateTasksTable extends Migration
             $table->integer('site_count')->nullable();
             $table->integer('period')->nullable();
             $table->integer('views')->default(0);
-            $table->integer('status');
+            $table->integer('status')->default(1);
 
             $table->timestamps();
         });

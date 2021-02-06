@@ -19,6 +19,7 @@ class CreateSubscribeTasksTable extends Migration
             $table->integer('subscribe_user_id');
             $table->longText('sites')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('CASCADE');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
