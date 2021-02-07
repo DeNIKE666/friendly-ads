@@ -67,36 +67,39 @@ class TaskRepository
            ->paginate(100);
     }
 
+
     /**
-     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
 
     public function taskFrontend()
     {
-        return Task::query()
-            ->orderByDesc('amount')
-            ->limit(10)
-            ->get();
-    }
+        // Выбранная категория в фильтрах
+        $category_id      = request('category_id');
+        // Тип задачи из фильтра
+        $type_task        = request('type_task');
+        // Сортировка по цене из фильтра
+        $orderByAmount    = request('amount');
 
-    /**
-     * @param null $category
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
+        $tasks = Task::query();
 
-    public function taskFrontendCategory()
-    {
-        $cookieCategoryId = Cookie::get('category_id');
+        if ($category_id) {
+            $tasks->whereCategoryId($category_id);
+        }
 
-        if ($cookieCategoryId) :
-            return Task::query()
-           ->whereCategoryId($cookieCategoryId)
-           ->orderByDesc('amount')
-           ->paginate(10);
-        else :
-            return Task::query()
-                ->orderByDesc('amount')
-                ->paginate(150);
-        endif;
+        if ($type_task) {
+            $tasks->whereTypeTask($type_task);
+        }
+
+        switch ($orderByAmount) {
+            case 1:
+                $tasks->orderBy('amount' , 'desc');
+                break;
+            case 2:
+                $tasks->orderBy('amount' , 'asc');
+                break;
+        }
+
+        return $tasks->orderBy('amount', 'desc')->paginate(10);
     }
 }

@@ -27,13 +27,9 @@ class ProjectController extends Controller
 
     public function projects()
     {
-        $selectedCategory = Cookie::get('category_id');
+        $tasks = (new TaskRepository())->taskFrontend();
 
-        $category = (new CategoryRepository())->getId($selectedCategory);
-
-        $tasks    = (new TaskRepository())->taskFrontendCategory();
-
-        return view('frontend.projects.index', compact('tasks' , 'category'));
+        return view('frontend.projects.index', compact('tasks'));
     }
 
     /**

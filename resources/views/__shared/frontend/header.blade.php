@@ -13,7 +13,7 @@
             </div>
             <div class="nav-menus-wrapper" style="transition-property: none;">
                 <ul class="nav-menu">
-                    <li><a href="contact.html">ГЛАВНАЯ</a></li>
+                    <li><a href="{{ route('frontend') }}">ГЛАВНАЯ</a></li>
                     <li><a href="{{ route('frontend.projects') }}">ПРОЕКТЫ</a></li>
                     <li><a href="contact.html">БАЗА ЗНАНИЙ</a></li>
                 </ul>
