@@ -7,11 +7,11 @@
         <div class="container">
             <div class="row">
                 @foreach($tasks as $task)
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="wrf-joblist">
                             <div class="wrf-job-title-wrap">
                                 <h4 class="wrf-job-title verified-job">
-                                    <a href="job-detail.html">
+                                    <a href="{{ route('frontend.task.detail', $task) }}">
                                         {{ $task->title }}
                                     </a>
                                 </h4>
@@ -28,17 +28,16 @@
 
                             </div>
                             <div class="wrf-job-caption">
-                                <p class="content">{{ $task->description }}</p>
                                 <a href="{{ route('frontend.task.detail', $task) }}">Перейти к заданию</a>
-
-                                <div class="d-flex justify-content-between mt-4">
-                                    <span><i class="fal fa-eye"></i> {{ $task->views }}</span>
-                                    <span><i class="fal fa-ruble-sign"></i> {{ $task->amount() }}</span>
-                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+                    <div class="col-lg-12 col-md-12">
+                        <div class="text-center">
+                            <a href="{{ route('frontend.projects') }}" class="btn btn-info">Подобрать задания <i class="ti-arrow-right ml-2"></i></a>
+                        </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -61,7 +60,7 @@
                     <div class="middle-icon-features">
                         <div class="middle-icon-features-item">
                             <div class="middle-icon-large-features-box m-b-30">
-                                <img src="{{ asset('images/frontend/steps/3.png') }}" alt="">
+                                <img src="{{ asset('images/frontend/steps/3.png') }}" alt="Регистрация на проекте, и создание первого задания для исполнителя">
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Регистрация</h4>
@@ -75,7 +74,7 @@
                     <div class="middle-icon-features">
                         <div class="middle-icon-features-item">
                             <div class="middle-icon-large-features-box m-b-30">
-                                <img src="{{ asset('images/frontend/steps/2.png') }}" alt="">
+                                <img src="{{ asset('images/frontend/steps/2.png') }}" alt="Создания задания для исполнителей">
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Задание</h4>
@@ -89,7 +88,7 @@
                     <div class="middle-icon-features">
                         <div class="middle-icon-features-item">
                             <div class="middle-icon-large-features-box m-b-30">
-                                <img src="{{ asset('images/frontend/steps/1.png') }}" alt="">
+                                <img src="{{ asset('images/frontend/steps/1.png') }}" alt="Получите отклики к своему заданию на площадке">
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Получите отклики</h4>
@@ -103,7 +102,7 @@
                     <div class="middle-icon-features">
                         <div class="middle-icon-features-item">
                             <div class="middle-icon-large-features-box m-b-30">
-                                <img src="{{ asset('images/frontend/steps/4.png') }}" alt="">
+                                <img src="{{ asset('images/frontend/steps/4.png') }}" alt="Оплата заказа">
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Исполнение</h4>

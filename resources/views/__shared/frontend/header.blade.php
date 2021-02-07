@@ -18,10 +18,10 @@
                     <li><a href="contact.html">БАЗА ЗНАНИЙ</a></li>
                 </ul>
 
-                <ul class="nav-menu nav-menu-social align-to-right">
+                <ul class="align-to-right">
                     <li class="d-flex justify-content-between">
-                        <a href="">1</a>
-                        <a href="">2</a>
+                        <a href="{{ route('login') }}" class="btn btn-info mt-3 mr-2"><i class="fal fa-sign-in"></i> Войти в аккаунт</a>
+                        <a href="{{ route('register') }}" class="btn btn-black black mt-3"><i class="fal fa-user-plus"></i> Регистрация</a>
                     </li>
                 </ul>
             </div>
