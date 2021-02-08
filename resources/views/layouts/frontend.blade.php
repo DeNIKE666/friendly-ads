@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('ads_friendly.meta.title'))</title>
+    <title>@yield('title')</title>
 
     <meta name="description" content="@yield('description' , config('ads_friendly.meta.description'))">
 

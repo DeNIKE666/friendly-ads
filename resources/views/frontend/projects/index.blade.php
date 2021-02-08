@@ -2,6 +2,8 @@
 
 @section('title', 'Все активные проекты пользователей')
 
+@section('description' , config('ads_friendly.seo_pages.projects.description') )
+
 @section('content')
     <section class="small-page-title-banner" style="background-image:url(assets/img/des-9.jpg);">
         <div class="container">

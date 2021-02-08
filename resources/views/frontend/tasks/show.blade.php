@@ -2,6 +2,8 @@
 
 @section('title', 'Просмотр задания - ' . $task->title)
 
+@section('description', 'Подробное описание задания')
+
 @section('content')
     <section class="small-page-title-banner" style="background: url(https://www.zastavki.com/pictures/originals/2014/Backgrounds_Wallpapers_with_gradient_background_082013_.jpg)">
         <div class="container">

@@ -2,6 +2,8 @@
 
 @section('title', 'Главная страница')
 
+@section('description' , config('ads_friendly.seo_pages.index.description'))
+
 @section('content')
     <section>
         <div class="container">
