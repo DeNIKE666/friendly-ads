@@ -11,7 +11,7 @@
 
     <meta name="description" content="@yield('description' , config('ads_friendly.meta.description'))">
 
-    <!-- All Plugins Css -->
+    <!-- All Css -->
     <link href="{{ mix('/assets/frontend/css/main.css') }}" rel="stylesheet">
 
     @stack('styles')

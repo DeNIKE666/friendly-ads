@@ -24,15 +24,18 @@ class FrontendController extends Controller
     }
 
     /**
+     * @param $page
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
-    public function about()
+    public function page($page)
     {
-        $page = Page::whereName('about')->first();
+        $page = Page::whereName($page)->first();
 
-        $page->increment('views',1);
+        if ($page) :
+            $page->increment('views',1);
+        endif;
 
-        return view('frontend.about', compact('page'));
+        return view('frontend.page', compact('page'));
     }
 }

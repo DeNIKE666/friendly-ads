@@ -51,8 +51,8 @@ class TaskFactory extends Factory
         $rand_keys_period   = array_rand($period, 1);
 
         return [
-            'title'           => $this->faker->title,
-            'description'     => $this->faker->text,
+            'title'           => $this->faker->title(30),
+            'description'     => $this->faker->text(300),
             'category_id'     => Category::all()->random()->id,
             'user_id'         => User::all()->random()->id,
             'amount'          => mt_rand(5500, 50000),

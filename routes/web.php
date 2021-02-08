@@ -11,7 +11,7 @@ Route::prefix('/')->group(function () {
         Route::get('/{task}' , [\App\Http\Controllers\Frontend\TaskController::class , 'showTask'])->name('frontend.task.detail');
     });
 
-    Route::get('/about' , [\App\Http\Controllers\Frontend\FrontendController::class , 'about'])->name('frontend.about');
+    Route::get('/pages/{page}' , [\App\Http\Controllers\Frontend\FrontendController::class , 'page'])->name('frontend.page');
 });
 
 Route::prefix('cabinet')->middleware('auth')->group(function () {

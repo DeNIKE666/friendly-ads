@@ -3444,7 +3444,7 @@ template {
 
 hr {
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, .1)
 }
@@ -44059,7 +44059,7 @@ blockquote em{
 
 blockquote:not(:last-child) {
     margin-bottom: 2em;
-    margin-top: 2rem;
+    margin-top: 0rem;
 }
 /*------------ Global Settings: Common & List ----------------*/
 ul:last-child {
@@ -49664,6 +49664,12 @@ ul.wrf-tp-skill li {
     font-size: 15px;
     color: #8d99b9;
     line-height: 1.8;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    margin: -20px 0px 20px 0px;
 }
 .wrf-job-caption a {
     color: #2861d8;
@@ -55172,6 +55178,8 @@ a.empblue-theme {
     color: #303d5080;
     font-size: 16px;
     word-break: break-word;
+    line-height: 42px;
+    text-align: justify;
 }
 /*-------------- Blue Skins -----------------*/
 .blue-skin .bg-theme,

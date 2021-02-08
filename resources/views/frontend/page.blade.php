@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'О сервисе')
+@section('title', $page->title)
 
 @section('description', $page->description)
 
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <!-- Candidate Overview -->
                     <div class="tr-single-box mb-5">
                         <div class="tr-single-header">
@@ -40,40 +40,6 @@
                         </div>
                         <div class="tr-single-body">
                             {!! $page->content !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="tr-single-box">
-                        <div class="tr-single-header">
-                            <h4><i class="ti-direction"></i> Candidate Detail</h4>
-                        </div>
-                        <div class="tr-single-body">
-                            <ul class="extra-service">
-                                <li>
-                                    <div class="icon-box-icon-block">
-                                        <div class="icon-box-round">
-                                            <i class="ti-money"></i>
-                                        </div>
-                                        <div class="icon-box-text">
-                                            <strong class="d-block">Expected Sallery</strong>
-                                            $80k - $270k
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon-box-icon-block">
-                                        <div class="icon-box-round">
-                                            <i class="ti-time"></i>
-                                        </div>
-                                        <div class="icon-box-text">
-                                            <strong class="d-block">Hourly Rate</strong>
-                                            $30 - $50
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
