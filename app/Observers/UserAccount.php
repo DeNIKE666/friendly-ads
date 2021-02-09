@@ -27,7 +27,9 @@ class UserAccount
      */
     public function updated(User $user)
     {
-        $user->notify(new userUpdateAccount());
+        if (! $user->wasChanged('remember_token')) :
+            $user->notify(new userUpdateAccount());
+        endif;
     }
 
     /**

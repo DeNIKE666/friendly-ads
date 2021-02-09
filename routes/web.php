@@ -29,6 +29,7 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
         Route::get('/profile' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'profile'])->name('profile');
         Route::put('/profile-update' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'profileUpdate'])->name('profile.update');
         Route::post('/change-account', [\App\Http\Controllers\Cabinet\ProfileController::class, 'switchAccount'])->name('cabinet.change');
+        Route::get('/logout', [\App\Http\Controllers\Cabinet\ProfileController::class, 'logout'])->name('cabinet.logout');
     });
 
     // Исполнитель

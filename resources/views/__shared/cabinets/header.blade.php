@@ -42,7 +42,7 @@
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('profile') }}">Мой профиль</a>
-                                <a class="dropdown-item" href="">Выйти</a>
+                                <a class="dropdown-item" href="{{ route('cabinet.logout') }}">Выйти</a>
                             </li>
                         </div>
                     </ul>

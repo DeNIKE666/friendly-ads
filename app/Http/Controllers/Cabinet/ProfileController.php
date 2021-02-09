@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinets\Account\updateAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -42,5 +43,16 @@ class ProfileController extends Controller
         auth()->user()->update($request->all());
 
         return redirect()->route('profile');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('login')->with('message' , 'Вы вышли из своего аккаунта');
     }
 }
