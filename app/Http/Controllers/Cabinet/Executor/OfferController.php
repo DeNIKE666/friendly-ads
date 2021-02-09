@@ -46,15 +46,15 @@ class OfferController extends Controller
         ]);
     }
 
-
     /**
-     * @param Task $task
-     * @return mixed
+     * @param SubscribeTask $subscribeTask
+     * @return bool|null
+     * @throws \Exception
      */
 
-    public function unSubscribe(Task $task)
+    public function unSubscribe(SubscribeTask $subscribe)
     {
-        return $task->subscribe()->YourSubscribeCurrent()->delete();
+       return $subscribe->delete();
     }
 
     /**

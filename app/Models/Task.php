@@ -82,9 +82,23 @@ class Task extends Model
         return $this->hasOne(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
     }
 
+    /**
+     * @param Builder $builder
+     * Только активные записи
+     */
+
     public function scopeStatusActive(Builder $builder)
     {
         $builder->where('status', 1);
     }
 
+    /**
+     * @param Builder $builder
+     * Скрывать мои задания
+     */
+
+    public function scopeHideMy(Builder $builder)
+    {
+        $builder->where('user_id', '<>', auth()->user()->id);
+    }
 }

@@ -16,7 +16,7 @@ class TaskRepository
     {
         $isCategoriesSites = auth()->user()->sites()->pluck('category_id');
 
-        return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
+        return Task::statusActive()->HideMy()->with(['user', 'category'])->where(function (Builder $query)  {
             $query->doesntHave('YourSubscribe');
         })->whereIn('category_id' , $isCategoriesSites)->orderByDesc('amount')->paginate(50);
     }
@@ -57,7 +57,7 @@ class TaskRepository
 
     public function subsOffers()
     {
-       return Task::with(['category' , 'user'])
+       return Task::with(['category' , 'user' , 'subscribe'])
            ->leftJoin('subscribe_tasks' , 'tasks.id' , '=', 'subscribe_tasks.task_id')
            ->where('subscribe_tasks.subscribe_user_id', '=', auth()->user()->id)
            ->orderBy('id' , 'desc')

@@ -18,7 +18,7 @@ class SubscribeTask extends Model
 
     public function task()
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Task::class, 'task_id');
     }
 
     public function user() {

@@ -60,6 +60,7 @@
                                     <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }}  </b>
                                 </p>
 
+
                                 <div class="d-flex justify-content-between">
 
                                     <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a >

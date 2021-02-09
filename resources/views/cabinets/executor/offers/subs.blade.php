@@ -25,7 +25,7 @@
                 </div>
             @else
             @foreach($offers as $offer)
-                <div id="subscribe-task-{{ $offer->id }}" class="col-md-3">
+                <div id="subscribe-task-{{ $offer->yourSubscribe->id }}" class="col-md-3">
                     <div class="card card-post card-round">
                         <div class="card-body">
                             <div class="d-flex">
@@ -69,12 +69,8 @@
                                         <i class="fal fa-eye"></i> Просмотр
                                     </a>
 
-                                    <button data-id="{{ $offer->id }}" class="btn btn-danger btn-rounded unsubscribe">
+                                    <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">
                                         Отозвать отклик
-                                    </button>
-                                @else
-                                    <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded subscribe">
-                                        Откликнутся
                                     </button>
                                 @endif
                             </div>
