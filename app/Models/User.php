@@ -57,7 +57,8 @@ class User extends Authenticatable
         'balance',
         'isBanned',
         'timeBlocked',
-        'type_account'
+        'type_account',
+        'about_me'
     ];
 
     /**

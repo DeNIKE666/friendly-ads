@@ -26,7 +26,10 @@
                            {!! $task->description !!}
                         </div>
                     </div>
-                    <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>
+
+                    @can('executor')
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>
+                    @endcan
                 </div>
 
                 <div class="col-lg-4 col-md-12 col-sm-12">

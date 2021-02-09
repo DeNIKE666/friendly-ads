@@ -65,6 +65,21 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="password-confirm" class="placeholder"><b>Повторите пароль</b></label>
+                    <div class="position-relative">
+                        <input id="confirm" name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror">
+                        @error('password_confirmation')
+                        <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                        <div class="show-password">
+                            <i class="icon-eye"></i>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group form-action-d-flex justify-content-center mb-3">
                     <button type="submit" class="btn btn-primary fw-bold">Зарегистрироваться</button>
                 </div>

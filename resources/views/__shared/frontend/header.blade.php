@@ -22,7 +22,7 @@
                     <li class="d-flex justify-content-between">
                         @auth
                             <a href="{{ route('cabinets') }}" class="btn btn-info mt-3 mr-2"><i class="fal fa-user-circle"></i> Мой аккаунт <b>{{ auth()->user()->username }}</b></a>
-                        @elseauth
+                        @elseguest
                             <a href="{{ route('login') }}" class="btn btn-info mt-3 mr-2"><i class="fal fa-sign-in"></i> Войти в аккаунт</a>
                             <a href="{{ route('register') }}" class="btn btn-black black mt-3"><i class="fal fa-user-plus"></i> Регистрация</a>
                         @endauth

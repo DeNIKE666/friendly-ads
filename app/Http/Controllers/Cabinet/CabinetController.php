@@ -32,16 +32,6 @@ class CabinetController extends Controller
 
     // поручник ржевский
 
-    public function changeAccount(Request $request)
-    {
-        auth()->user()->update($request->all());
-
-        return response()->json([
-            'success' => true,
-            'type'    => 'account_change'
-        ]);
-    }
-
     public function showProfile(User $user)
     {
         return view('cabinets.account.profile', compact('user'));

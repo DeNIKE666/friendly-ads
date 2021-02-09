@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('isBanned')->default(0);
             $table->time('timeBlocked')->nullable();
             $table->integer('type_account')->default(1);
+            $table->longText('about-me')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

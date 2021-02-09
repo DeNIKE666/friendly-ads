@@ -26,7 +26,9 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
     // Управление аккаунтом
 
     Route::prefix('account')->group(function () {
-        Route::post('/change-account', [\App\Http\Controllers\Cabinet\CabinetController::class, 'changeAccount'])->name('cabinet.change');
+        Route::get('/profile' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'profile'])->name('profile');
+        Route::post('/profile/change' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'changeAccount'])->name('profile.change');
+        Route::post('/change-account', [\App\Http\Controllers\Cabinet\ProfileController::class, 'switchAccount'])->name('cabinet.change');
     });
 
     // Исполнитель
