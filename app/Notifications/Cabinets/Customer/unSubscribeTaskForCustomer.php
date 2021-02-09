@@ -2,6 +2,8 @@
 
 namespace App\Notifications\Cabinets\Customer;
 
+use App\Service\Messenger\NotifyCustomFields;
+use App\Service\Messenger\NotifyMessenger;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -12,10 +14,10 @@ class unSubscribeTaskForCustomer extends Notification
     use Queueable;
 
     /**
-     * @var $taskTitle
+     * @var $task
      */
 
-    public $taskTitle;
+    public $task;
 
     /**
      * @var $executorSubscribe
@@ -24,10 +26,10 @@ class unSubscribeTaskForCustomer extends Notification
     public $executorSubscribe;
 
 
-    public function __construct($taskTitle, $executor)
+    public function __construct($task, $executor)
     {
         $this->executorSubscribe = $executor;
-        $this->taskTitle         = $taskTitle;
+        $this->task              = $task;
     }
 
     /**
@@ -38,7 +40,17 @@ class unSubscribeTaskForCustomer extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', NotifyMessenger::class];
+    }
+
+    public function toNotifyMessenger($notifiable) : NotifyCustomFields
+    {
+        $text = "Пользователь <b>{$this->executorSubscribe}</b> отозвал отклик с вашего задания <b>{$this->task->title}</b>";
+
+        return (new NotifyCustomFields())
+            ->user($notifiable->telegram_id)
+            ->content($text)
+            ->messenger('telegram');
     }
 
     /**
@@ -50,9 +62,9 @@ class unSubscribeTaskForCustomer extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Пользователь ' . $this->executorSubscribe . ' отозвал отклик на ваше задание ('.$this->taskTitle.')')
+                    ->line('Пользователь ' . $this->executorSubscribe . ' отозвал отклик с вашего задания ('.$this->task->title.')')
                     ->action('Перейдите в свой кабинет'  , route('cabinets'))
-                    ->subject('На вашем задании ('.$this->taskTitle.') был отозван отклик');
+                    ->subject('На вашем задании ('.$this->task->title.') был отозван отклик');
     }
 
     /**

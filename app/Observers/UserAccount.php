@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use App\Notifications\Cabinets\userCreateAccount;
+use App\Notifications\Cabinets\userUpdateAccount;
 
 class UserAccount
 {
@@ -26,7 +27,9 @@ class UserAccount
      */
     public function updated(User $user)
     {
-        //
+        $text = sprintf("Информация вашего аккаунта была обновлена. \n\nВаш E-mail: %s \nВаш логин: %s", $user->email, $user->username);
+
+        $user->notify(new userUpdateAccount($text));
     }
 
     /**

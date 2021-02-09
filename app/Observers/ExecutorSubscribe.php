@@ -17,10 +17,9 @@ class ExecutorSubscribe
      */
     public function created(SubscribeTask $subscribeTask)
     {
-        $taskTitle = $subscribeTask->task->title;
         $executor  = $subscribeTask->user->username;
 
-        Notification::send($subscribeTask->task->user, new subscribeTaskForCustomer($taskTitle, $executor));
+        Notification::send($subscribeTask->task->user, new subscribeTaskForCustomer($subscribeTask->task, $executor));
     }
 
     /**
@@ -42,10 +41,9 @@ class ExecutorSubscribe
      */
     public function deleted(SubscribeTask $subscribeTask)
     {
-        $taskTitle = $subscribeTask->task->title;
         $executor  = $subscribeTask->user->username;
 
-        Notification::send($subscribeTask->task->user, new unSubscribeTaskForCustomer($taskTitle, $executor));
+        Notification::send($subscribeTask->task->user, new unSubscribeTaskForCustomer($subscribeTask->task, $executor));
     }
 
     /**

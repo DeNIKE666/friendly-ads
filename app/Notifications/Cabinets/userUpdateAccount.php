@@ -9,18 +9,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class userCreateAccount extends Notification
+class userUpdateAccount extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $text;
+
+    public function __construct($text)
     {
-        //
+        $this->text = $text;
     }
 
     /**
@@ -31,7 +28,15 @@ class userCreateAccount extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', NotifyMessenger::class];
+    }
+
+    public function toNotifyMessenger($notifiable) : NotifyCustomFields
+    {
+        return (new NotifyCustomFields())
+            ->user($notifiable->telegram_id)
+            ->content($this->text)
+            ->messenger('telegram');
     }
 
     /**
@@ -43,10 +48,8 @@ class userCreateAccount extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Вы зарегистрировались на проекте ' .env('APP_NAME'))
-                    ->line('спасибо что проявили интерес к нашему проекту.')
-                    ->line('ваш логин в системе: ' . $notifiable->username)
-                    ->action('перейти в личный кабинет', route('cabinets'))->subject('Вы успешно зарегистрировались на площадке FUC');
+                    ->line($this->text)
+                    ->subject('Аккаунт был обновлён');
     }
 
     /**

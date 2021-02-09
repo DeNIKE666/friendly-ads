@@ -101,7 +101,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary-light">СОХРАНИТЬ</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fal fa-save"></i> СОХРАНИТЬ</button>
                                     </div>
                                 </div>
                             </div>
