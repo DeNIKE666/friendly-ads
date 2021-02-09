@@ -27,9 +27,7 @@ class UserAccount
      */
     public function updated(User $user)
     {
-        $text = sprintf("Информация вашего аккаунта была обновлена. \n\nВаш E-mail: %s \nВаш логин: %s", $user->email, $user->username);
-
-        $user->notify(new userUpdateAccount($text));
+        $user->notify(new userUpdateAccount());
     }
 
     /**

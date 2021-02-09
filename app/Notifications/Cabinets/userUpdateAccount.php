@@ -13,11 +13,9 @@ class userUpdateAccount extends Notification
 {
     use Queueable;
 
-    public $text;
-
-    public function __construct($text)
+    public function __construct()
     {
-        $this->text = $text;
+        //
     }
 
     /**
@@ -33,9 +31,11 @@ class userUpdateAccount extends Notification
 
     public function toNotifyMessenger($notifiable) : NotifyCustomFields
     {
+        $text = sprintf("Информация вашего аккаунта была обновлена. \n\nВаш E-mail: %s \nВаш логин: %s", $notifiable->email, $notifiable->username);
+
         return (new NotifyCustomFields())
             ->user($notifiable->telegram_id)
-            ->content($this->text)
+            ->content($text)
             ->messenger('telegram');
     }
 
@@ -48,7 +48,9 @@ class userUpdateAccount extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($this->text)
+                    ->line("Информация вашего аккаунта была обновлена")
+                    ->line("Ваш E-mail: {$notifiable->email}")
+                    ->line("Ваш логин: {$notifiable->username}")
                     ->subject('Аккаунт был обновлён');
     }
 
