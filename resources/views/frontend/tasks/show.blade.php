@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    @can('executor')
+                    @cannot('customer')
                         <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>
                     @endcan
                 </div>

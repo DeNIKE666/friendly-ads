@@ -8,6 +8,14 @@
     <section>
         <div class="container">
             <div class="row">
+                <div class="col text-center">
+                    <div class="sec-heading mx-auto">
+                        <p>Последние задания исполнителей</p>
+                        <h2>Заказы</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 @foreach($tasks as $task)
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="wrf-joblist">
@@ -66,7 +74,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Регистрация</h4>
-                                <p>Зарегистрируйтесь, <b><a href="{{ route('login') }}">войдите в кабинет</a></b></p>
+                                <p>Зарегистрируйтесь, <b><a href="{{ route('cabinets') }}">войдите в кабинет</a></b></p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +88,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Задание</h4>
-                                <p>Создайте  <b><a class="font-weight-bold" href="{{ route('login') }}">заказ</a></b> в личном кабинете под ваши нужны</p>
+                                <p>Создайте  <b><a class="font-weight-bold" href="{{ route('customer.tasks.create') }}">заказ</a></b> в личном кабинете под ваши нужны</p>
                             </div>
                         </div>
                     </div>

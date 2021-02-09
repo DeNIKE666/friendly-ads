@@ -27,7 +27,7 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
 
     Route::prefix('account')->group(function () {
         Route::get('/profile' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'profile'])->name('profile');
-        Route::post('/profile/change' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'changeAccount'])->name('profile.change');
+        Route::put('/profile-update' , [\App\Http\Controllers\Cabinet\ProfileController::class , 'profileUpdate'])->name('profile.update');
         Route::post('/change-account', [\App\Http\Controllers\Cabinet\ProfileController::class, 'switchAccount'])->name('cabinet.change');
     });
 

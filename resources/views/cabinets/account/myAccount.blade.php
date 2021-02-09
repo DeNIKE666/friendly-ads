@@ -20,7 +20,8 @@
                     <div class="card-header">
                         <div class="profile-picture">
                             <div class="avatar avatar-xl">
-                                <img src="{{ asset('images/noavatar.png') }}" alt="..." class="avatar-img rounded-circle">
+                                <img src="{{ asset('images/noavatar.png') }}" alt="..."
+                                     class="avatar-img rounded-circle">
                             </div>
                         </div>
                     </div>
@@ -40,43 +41,71 @@
                             </span>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="form-group form-group-default">
-                                    <label for="name">Имя</label>
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
+                        <form action="{{ route('profile.update') }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Имя</label>
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Заполните поле" value="{{ old('name', auth()->user()->name) }}">
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Заполните поле"  value="{{ old('email', auth()->user()->email) }}">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="telegram_id">Ваш телеграм</label>
+                                        <input id="telegram_id" type="text" class="form-control" name="telegram_id" placeholder="Введите ваш телеграм id узнать можно @my_id_bot" value="{{ old('telegram_id', auth()->user()->telegram_id) }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="username">Имя пользователя</label>
+                                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Заполните поле"  value="{{ old('username', auth()->user()->username) }}">
+                                        @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="about-me">Обо мне: </label>
+                                        <textarea id="about-me" class="form-control @error('about_me') is-invalid @enderror" name="about_me" placeholder="Расскажите о себе..." rows="3">{{ old('about_me', auth()->user()->about_me) }}</textarea>
+                                        @error('about_me')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary-light">СОХРАНИТЬ</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group form-group-default">
-                                    <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ auth()->user()->email }}">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group form-group-default">
-                                    <label for="telegram_id">Ваш телеграм</label>
-                                    <input id="telegram_id" type="text" class="form-control" name="telegram_id" placeholder="Введите ваш телеграм id узнать можно @my_id_bot" value="{{ auth()->user()->telegram_id }}">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group form-group-default">
-                                    <label for="username">Имя пользователя</label>
-                                    <input id="username" type="text" class="form-control" name="username" value="{{ auth()->user()->username }}">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group form-group-default">
-                                    <label for="about-me">Обо мне: </label>
-                                    <textarea id="about-me" class="form-control" name="about" placeholder="Расскажите о себе..." rows="3"></textarea>
-                                </div>
-                            </div>
-
-                        </div>
-
+                        </form>
                     </div>
                 </div>
             </div>
