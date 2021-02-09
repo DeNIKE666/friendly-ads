@@ -53,6 +53,7 @@ class ProfileController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('login')->with('message' , 'Вы вышли из своего аккаунта');
+        return redirect()->route('login')
+            ->with('message' , 'Вы вышли из своего аккаунта');
     }
 }

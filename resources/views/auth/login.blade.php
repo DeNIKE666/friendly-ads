@@ -10,7 +10,7 @@
 
                 @if(session()->has('message'))
                     <div class="form-group">
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-{{ session()->get('type') ?: 'success' }}" role="alert">
                             {{ session()->get('message') }}
                         </div>
                     </div>

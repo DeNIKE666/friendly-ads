@@ -50,7 +50,9 @@ class LoginController extends Controller
     {
         if ($user->isBanned):
             auth()->logout();
-            return redirect()->route('login')->with('message' , 'Аккаунт заблокирован');
+            return redirect()->route('login')
+                ->with('type' , 'danger')
+                ->with('message' , 'Аккаунт заблокирован');
         endif;
     }
 }
