@@ -301,6 +301,9 @@ $(document).ready(function () {
             type: 'POST',
             url: "/cabinet/offers/unsubscribe/" + id,
             data: {id: id},
+            beforeSend: function() {
+                $('.loader').show();
+            },
             success: function () {
                 $('#subscribe-task-' + id).fadeOut('slow')
 
@@ -349,6 +352,9 @@ $(document).ready(function () {
                 data: {
                     id: id,
                     sites: sites
+                },
+                beforeCreate() {
+                    $('.task').append("<div class=\"loader loader-sm\"></div>")
                 },
                 success: function (data) {
                     $(".close-modal").trigger("click");

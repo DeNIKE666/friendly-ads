@@ -46,7 +46,8 @@ class userCreateAccount extends Notification
                     ->line('Вы зарегистрировались на проекте ' .env('APP_NAME'))
                     ->line('спасибо что проявили интерес к нашему проекту.')
                     ->line('ваш логин в системе: ' . $notifiable->username)
-                    ->action('перейти в личный кабинет', route('cabinets'))->subject('Вы успешно зарегистрировались на площадке FUC');
+                    ->action('перейти в личный кабинет', route('cabinets'))
+                    ->subject('Вы успешно зарегистрировались на площадке FUC');
     }
 
     /**

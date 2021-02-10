@@ -1,7 +1,9 @@
 <?php
 
+use App\Jobs\sendSubscribeForCustomer;
+
 Route::get('/test', function () {
-   \App\Models\SubscribeTask::find(5)->delete();
+    sendSubscribeForCustomer::dispatch(1,2);
 });
 
 Route::prefix('/')->group(function () {

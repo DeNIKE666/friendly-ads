@@ -14,22 +14,22 @@ class unSubscribeTaskForCustomer extends Notification
     use Queueable;
 
     /**
-     * @var $task
+     * @var
      */
 
-    public $task;
+    public $taskTitle;
 
     /**
-     * @var $executorSubscribe
+     * @var $executorUsername
      */
 
-    public $executorSubscribe;
+    public $executorUsername;
 
 
-    public function __construct($task, $executor)
+    public function __construct($taskTitle, $executorUsername)
     {
-        $this->executorSubscribe = $executor;
-        $this->task              = $task;
+        $this->executorUsername  = $executorUsername;
+        $this->taskTitle         = $taskTitle;
     }
 
     /**
@@ -45,7 +45,7 @@ class unSubscribeTaskForCustomer extends Notification
 
     public function toNotifyMessenger($notifiable) : NotifyCustomFields
     {
-        $text = "Пользователь <b>{$this->executorSubscribe}</b> отозвал отклик с вашего задания <b>{$this->task->title}</b>";
+        $text = "Пользователь <b>{$this->executorUsername}</b> отозвал отклик с вашего задания <b>{$this->taskTitle}</b>";
 
         return (new NotifyCustomFields())
             ->user($notifiable->telegram_id)
@@ -62,9 +62,9 @@ class unSubscribeTaskForCustomer extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Пользователь ' . $this->executorSubscribe . ' отозвал отклик с вашего задания ('.$this->task->title.')')
+                    ->line('Пользователь ' . $this->executorUsername . ' отозвал отклик с вашего задания ('.$this->taskTitle.')')
                     ->action('Перейдите в свой кабинет'  , route('cabinets'))
-                    ->subject('На вашем задании ('.$this->task->title.') был отозван отклик');
+                    ->subject('На вашем задании ('.$this->taskTitle.') был отозван отклик');
     }
 
     /**

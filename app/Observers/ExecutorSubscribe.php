@@ -2,10 +2,9 @@
 
 namespace App\Observers;
 
+use App\Jobs\Cabinets\Customer\jobSubscribeTask;
+use App\Jobs\Cabinets\Customer\jobUnsubscribeTask;
 use App\Models\SubscribeTask;
-use App\Notifications\Cabinets\Customer\subscribeTaskForCustomer;
-use App\Notifications\Cabinets\Customer\unSubscribeTaskForCustomer;
-use Illuminate\Support\Facades\Notification;
 
 class ExecutorSubscribe
 {
@@ -17,9 +16,7 @@ class ExecutorSubscribe
      */
     public function created(SubscribeTask $subscribeTask)
     {
-        $executor  = $subscribeTask->user->username;
-
-        Notification::send($subscribeTask->task->user, new subscribeTaskForCustomer($subscribeTask->task, $executor));
+        dispatch(new jobSubscribeTask($subscribeTask))->onQueue('sending');
     }
 
     /**
@@ -41,9 +38,11 @@ class ExecutorSubscribe
      */
     public function deleted(SubscribeTask $subscribeTask)
     {
-        $executor  = $subscribeTask->user->username;
+        $taskTitle       = $subscribeTask->task->title;
+        $unsubscribeUser = $subscribeTask->user->username;
+        $customer        = $subscribeTask->task->user;
 
-        Notification::send($subscribeTask->task->user, new unSubscribeTaskForCustomer($subscribeTask->task, $executor));
+        dispatch(new jobUnsubscribeTask($customer, $taskTitle, $unsubscribeUser))->onQueue('sending');
     }
 
     /**

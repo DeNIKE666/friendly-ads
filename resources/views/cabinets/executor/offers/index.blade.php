@@ -3,7 +3,6 @@
 @section('title' , 'Предложения заказчиков')
 
 @section('content')
-
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -68,7 +67,7 @@
                                     @if($offer->yourSubscribe)
                                         <button data-id="{{ $offer->id }}" class="btn btn-danger btn-rounded unsubscribe"> Отозвать отклик</button>
                                     @else
-                                        <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded task"> Откликнутся</button>
+                                        <button data-id="{{ $offer->id }}" class="btn btn-success btn-rounded task">Откликнутся</button>
                                     @endif
                                 </div>
                             </div>
