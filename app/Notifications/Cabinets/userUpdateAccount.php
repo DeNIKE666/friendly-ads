@@ -52,7 +52,7 @@ class userUpdateAccount extends Notification
                     ->line("Имя: {$notifiable->name}")
                     ->line("Ваш E-mail: {$notifiable->email}")
                     ->line("Ваш логин: {$notifiable->username}")
-                   ->line("Ваш баланс: {$notifiable->balance} руб.")
+                    ->line("Ваш баланс: {$notifiable->balance} руб.")
                     ->subject('Аккаунт был обновлён');
     }
 
