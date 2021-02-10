@@ -45,12 +45,18 @@
                             <b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b>
                         </p>
 
-                        <p class="card-text text-secondary">
-                            Требуется сайтов:
-                            <b>{{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
-                        </p>
+                        @if($task->IsResponses())
+                            <p class="card-text text-success fw-bold">
+                                Максимальный набор: <i class="fal fa-box-check"></i>
+                            </p>
+                        @else
+                            <p class="card-text">
+                                Требуется сайтов:
+                                <b>{{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
+                            </p>
+                        @endif
 
-                        @if(!$isSubscribe)
+                        @if(! $isSubscribe)
                             <div class="alert alert-info" role="alert">
                                 У вас еще нет отклика на данное задание, но вы можете <b>оставить отклик</b>
                             </div>
@@ -65,8 +71,8 @@
                                     <span class="text-muted text-black-50">получит <b>550 руб</b></span>
                                 </li>
                             @endforeach
-                           @endif
                         </ol>
+                        @endif
                     </div>
                 </div>
             </div>

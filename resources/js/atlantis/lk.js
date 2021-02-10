@@ -139,9 +139,6 @@ $(document).ready(function () {
                     id: id,
                     sites: sites
                 },
-                beforeCreate() {
-                    $('.task').append("<div class=\"loader loader-sm\"></div>")
-                },
                 success: function (data) {
                     $(".close-modal").trigger("click");
                     task.remove();

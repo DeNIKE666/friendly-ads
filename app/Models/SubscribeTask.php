@@ -13,7 +13,8 @@ class SubscribeTask extends Model
     protected $fillable = [
         'task_id',
         'subscribe_user_id',
-        'sites'
+        'sites',
+        'status'
     ];
 
     public function task()
@@ -26,18 +27,8 @@ class SubscribeTask extends Model
     }
 
     /**
-     * @param Builder $builder
-     * @return Builder
-     */
-
-    public function scopeYourSubscribe(Builder $builder)
-    {
-        return $builder->where('subscribe_user_id', '=', auth()->user()->id);
-    }
-
-    /**
-     * @param Builder $builder
-     * @return Builder|Model|object|null
+     * @param $query
+     * @return mixed
      */
 
     public function scopeYourSubscribeCurrent(Builder $builder)

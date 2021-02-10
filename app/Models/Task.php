@@ -62,9 +62,9 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Подписки
      */
 
     public function subscribe()
@@ -72,14 +72,14 @@ class Task extends Model
         return $this->hasMany(SubscribeTask::class)->orderBy('created_at' , 'desc');
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * Текущий подписанный таск
      */
 
     public function yourSubscribe()
     {
-        return $this->hasOne(SubscribeTask::class)->where('subscribe_user_id', '=', auth()->user()->id);
+        return $this->hasOne(SubscribeTask::class)->YourSubscribeCurrent();
     }
 
     /**
@@ -93,12 +93,12 @@ class Task extends Model
     }
 
     /**
-     * @param Builder $builder
-     * Скрывать мои задания
+     * @return bool
+     * Если набрано нужно кол-во исполнитьелей
      */
 
-    public function scopeHideMy(Builder $builder)
+    public function scopeIsResponses()
     {
-        $builder->where('user_id', '<>', auth()->user()->id);
+        return $this->subscribe()->count() >= $this->site_count;
     }
 }

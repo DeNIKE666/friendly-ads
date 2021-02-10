@@ -47,6 +47,7 @@
                         <td data-label="Откликов">{{ $task->subscribe->count() }}</td>
                         <td data-label="">
                             <div class="d-flex justify-content-end">
+                                <a href="{{ route('customer.tasks.show', $task) }}" class="btn btn-primary btn-sm w-100  mr-1"><i class="fal fa-eye"></i></a>
                                 <a href="{{ route('customer.tasks.edit', $task) }}" class="btn btn-primary btn-sm w-100  mr-1"><i class="fal fa-edit"></i></a>
                                 <form action="{{ route('customer.tasks.destroy', $task) }}" method="POST">
                                     @method('DELETE')

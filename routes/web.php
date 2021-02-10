@@ -1,11 +1,5 @@
 <?php
 
-use App\Jobs\sendSubscribeForCustomer;
-
-Route::get('/test', function () {
-    sendSubscribeForCustomer::dispatch(1,2);
-});
-
 Route::prefix('/')->group(function () {
 
     Route::get('/' , [\App\Http\Controllers\Frontend\FrontendController::class , 'index'])->name('frontend');
@@ -52,7 +46,14 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
     // Клиент
 
     Route::middleware(['can:customer'])->group(function () {
+
         Route::resource('tasks' , \App\Http\Controllers\Cabinet\Customer\TaskController::class)->names('customer.tasks');
+
+        Route::prefix('manage-task')->as('tasks.')->group(function () {
+            Route::post('/reject/{subscribeTask}', [\App\Http\Controllers\Cabinet\Customer\TaskController::class , 'reject'])->name('reject');
+            Route::post('/accept/{subscribeTask}', [\App\Http\Controllers\Cabinet\Customer\TaskController::class , 'accept'])->name('accept');
+        });
+
         Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('customer.performers');
     });
 

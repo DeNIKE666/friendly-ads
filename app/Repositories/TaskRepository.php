@@ -16,8 +16,8 @@ class TaskRepository
     {
         $isCategoriesSites = auth()->user()->sites()->pluck('category_id');
 
-        return Task::statusActive()->HideMy()->with(['user', 'category'])->where(function (Builder $query)  {
-            $query->doesntHave('YourSubscribe');
+        return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
+           $query->doesntHave('yourSubscribe');
         })->whereIn('category_id' , $isCategoriesSites)->orderByDesc('amount')->paginate(50);
     }
 
@@ -36,7 +36,7 @@ class TaskRepository
 
     public function getCurrentUser()
     {
-        return Task::query()->where('user_id', auth()->user()->id)
+        return Task::with(['category' , 'user' , 'subscribe'])->where('user_id', auth()->user()->id)
             ->orderBy('created_at')
             ->paginate(10);
     }

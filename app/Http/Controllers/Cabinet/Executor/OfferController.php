@@ -31,7 +31,15 @@ class OfferController extends Controller
 
     public function subscribeTask(addSubscribe $request, Task $task)
     {
-        if ($task->subscribe()->YourSubscribe()->count() > 0):
+        if (auth()->user()->id == $task->user_id) :
+            return response()->json([
+                'message' => 'Нельзя оставить отклик на своё же задание.'
+            ], 422);
+        elseif ($task->IsResponses()):
+            return response()->json([
+                'message' => 'Предложение закрыто, так как уже набрано максимальное количество откликов'
+            ], 422);
+        elseif($task->YourSubscribe()->count() > 0):
             return response()->json([
                 'message' => 'Вы уже подписаны на это задание, подпишитесь на другое.'
             ], 422);

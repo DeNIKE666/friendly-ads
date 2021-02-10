@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinets\Customer\createTask;
+use App\Models\SubscribeTask;
 use App\Models\Task;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TaskRepository;
@@ -48,14 +49,13 @@ class TaskController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function show(Task $task)
     {
-        //
+        return view('cabinets.customer.task.show', compact('task'));
     }
 
     /**
@@ -94,5 +94,26 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->route('customer.tasks.index');
+    }
+
+    /**
+     * @param SubscribeTask $subscribeTask
+     * Принять отклик исполнителя
+     */
+
+    public function accept(SubscribeTask $subscribeTask)
+    {
+        return $subscribeTask->update(['status' => 1]);
+    }
+
+    /**
+     * @param SubscribeTask $subscribeTask
+     * @throws \Exception
+     * Отклонить отклик исполнителя
+     */
+
+    public function reject(SubscribeTask $subscribeTask)
+    {
+        return $subscribeTask->delete();
     }
 }

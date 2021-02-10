@@ -57,22 +57,23 @@
                                 <b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b>
                             </p>
 
-                            <p class="card-text text-secondary">
-                                Требуется сайтов:
-                                <b>{{ $offer->site_count }} / {{ $offer->subscribe()->count() }}  </b>
-                            </p>
+
+                            @if($offer->IsResponses())
+                                <p class="card-text text-success fw-bold">
+                                    Максимальный набор: <i class="fal fa-box-check"></i>
+                                </p>
+                            @else
+                                <p class="card-text">
+                                    Требуется сайтов:
+                                    <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }}  </b>
+                                </p>
+                            @endif
 
                             <div class="d-flex justify-content-between">
-                                @if($offer->yourSubscribe)
-
-                                    <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded">
-                                        <i class="fal fa-eye"></i> Просмотр
-                                    </a>
-
-                                    <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">
-                                        Отозвать отклик
-                                    </button>
-                                @endif
+                                <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded">
+                                    <i class="fal fa-eye"></i> Просмотр
+                                </a>
+                                <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">Отозвать отклик</button>
                             </div>
                         </div>
                     </div>
