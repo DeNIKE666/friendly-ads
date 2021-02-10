@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Cabinets;
 
+use App\Http\Requests\Cabinets\Account\updateAccount;
 use App\Models\User;
 use App\Notifications\Cabinets\userUpdateAccount;
 use Illuminate\Bus\Queueable;
@@ -30,6 +31,6 @@ class JobUpdateAccount implements ShouldQueue
      */
     public function handle()
     {
-      Notification::send($this->user, new userUpdateAccount());
+        $this->user->notify(new userUpdateAccount());
     }
 }

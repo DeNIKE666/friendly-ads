@@ -7,6 +7,7 @@ use App\Jobs\Cabinets\JobUpdateAccount;
 use App\Models\User;
 use App\Notifications\Cabinets\userCreateAccount;
 use App\Notifications\Cabinets\userUpdateAccount;
+use Illuminate\Support\Facades\Notification;
 
 class UserAccount
 {
@@ -21,16 +22,17 @@ class UserAccount
         dispatch(new JobCreateAccount($user))->onQueue('sending');
     }
 
+
     /**
-     * Handle the User "updated" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
+     * @param User $user
      */
+
     public function updated(User $user)
     {
-        if (! $user->wasChanged('remember_token')) :
-            dispatch(new JobUpdateAccount($user))->onQueue('sending');
+        if (! $user->wasChanged(['remember_token' , 'type_account'])) :
+            dispatch(new JobUpdateAccount($user))
+                ->onQueue('sending')
+                ->afterResponse();
         endif;
     }
 

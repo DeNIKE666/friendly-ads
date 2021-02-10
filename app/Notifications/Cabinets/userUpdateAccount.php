@@ -31,7 +31,7 @@ class userUpdateAccount extends Notification
 
     public function toNotifyMessenger($notifiable) : NotifyCustomFields
     {
-        $text = sprintf("Информация вашего аккаунта была обновлена. \n\nВаш E-mail: %s \nВаш логин: %s", $notifiable->email, $notifiable->username);
+        $text = sprintf("Информация вашего аккаунта была обновлена. \n\nИмя: %s \nВаш E-mail: %s \nВаш логин: %s \nБаланс: %s руб.", $notifiable->name, $notifiable->email, $notifiable->username, $notifiable->balance);
 
         return (new NotifyCustomFields())
             ->user($notifiable->telegram_id)
@@ -49,8 +49,10 @@ class userUpdateAccount extends Notification
     {
         return (new MailMessage)
                     ->line("Информация вашего аккаунта была обновлена")
+                    ->line("Имя: {$notifiable->name}")
                     ->line("Ваш E-mail: {$notifiable->email}")
                     ->line("Ваш логин: {$notifiable->username}")
+                   ->line("Ваш баланс: {$notifiable->balance} руб.")
                     ->subject('Аккаунт был обновлён');
     }
 
