@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Jobs\Cabinets\JobCreateAccount;
+use App\Jobs\Cabinets\JobUpdateAccount;
 use App\Models\User;
 use App\Notifications\Cabinets\userCreateAccount;
 use App\Notifications\Cabinets\userUpdateAccount;
@@ -16,7 +18,7 @@ class UserAccount
      */
     public function created(User $user)
     {
-        $user->notify(new userCreateAccount());
+        dispatch(new JobCreateAccount($user))->onQueue('sending');
     }
 
     /**
@@ -28,7 +30,7 @@ class UserAccount
     public function updated(User $user)
     {
         if (! $user->wasChanged('remember_token')) :
-            $user->notify(new userUpdateAccount());
+            dispatch(new JobUpdateAccount($user))->onQueue('sending');
         endif;
     }
 
