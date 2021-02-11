@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
-use App\Jobs\Cabinets\Customer\jobSubscribeTask;
-use App\Jobs\Cabinets\Customer\jobUnsubscribeTask;
+use App\Jobs\Cabinets\Customer\JobSubscribeTask;
+use App\Jobs\Cabinets\Customer\JobUnsubscribeTask;
+use App\Jobs\Cabinets\Executor\JobCustomerAcceptExecutor;
+use App\Jobs\Cabinets\Executor\JobCustomerRemoveExecutor;
 use App\Models\SubscribeTask;
 
 class ExecutorSubscribe
@@ -16,7 +18,8 @@ class ExecutorSubscribe
      */
     public function created(SubscribeTask $subscribeTask)
     {
-        dispatch(new jobSubscribeTask($subscribeTask))->onQueue('sending');
+        dispatch(new JobSubscribeTask($subscribeTask))->onQueue('sending')
+            ->afterResponse();
     }
 
     /**
@@ -27,7 +30,14 @@ class ExecutorSubscribe
      */
     public function updated(SubscribeTask $subscribeTask)
     {
-        //
+        $taskTitle       = $subscribeTask->task->title;
+        $customerUser    = $subscribeTask->task->user->username;
+        $userSend        = $subscribeTask->user;
+
+        if ($subscribeTask->wasChanged('status')) :
+            dispatch(new JobCustomerAcceptExecutor($userSend, $taskTitle, $customerUser))->onQueue('sending')
+                ->afterResponse();
+        endif;
     }
 
     /**
@@ -38,11 +48,25 @@ class ExecutorSubscribe
      */
     public function deleted(SubscribeTask $subscribeTask)
     {
-        $taskTitle       = $subscribeTask->task->title;
-        $unsubscribeUser = $subscribeTask->user->username;
-        $customer        = $subscribeTask->task->user;
+        if (auth()->user()->can('customer')) :
 
-        dispatch(new jobUnsubscribeTask($customer, $taskTitle, $unsubscribeUser))->onQueue('sending');
+            $taskTitle       = $subscribeTask->task->title;
+            $customerUser    = $subscribeTask->task->user->username;
+            $userSend        = $subscribeTask->user;
+
+            dispatch(new JobCustomerRemoveExecutor($userSend, $taskTitle, $customerUser))->onQueue('sending')
+                ->afterResponse();
+
+        else:
+
+            $taskTitle       = $subscribeTask->task->title;
+            $unsubscribeUser = $subscribeTask->user->username;
+            $customer        = $subscribeTask->task->user;
+
+            dispatch(new JobUnsubscribeTask($customer, $taskTitle, $unsubscribeUser))->onQueue('sending')
+                ->afterResponse();
+
+        endif;
     }
 
     /**
