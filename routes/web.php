@@ -54,6 +54,10 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
             Route::post('/accept/{subscribeTask}', [\App\Http\Controllers\Cabinet\Customer\TaskController::class , 'accept'])->name('accept');
         });
 
+        Route::prefix('/pay')->group(function () {
+            Route::post('/create-order-task/{task}', [\App\Http\Controllers\Cabinet\PaymentController::class , 'payBalanceFromCreateTask'])->name('pay.create.order.task');
+        });
+
         Route::get('/performers' , [\App\Http\Controllers\Cabinet\CabinetController::class , 'performers'])->name('customer.performers');
     });
 

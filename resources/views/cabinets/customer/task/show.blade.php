@@ -24,7 +24,7 @@
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{ $task->user->username }}</p>
-                                <div style="width: 285px">
+                                <div id="task-title" style="width: 285px">
                                     {{ $task->title }}
                                 </div>
                             </div>
@@ -46,14 +46,13 @@
                         </p>
 
                         <ol class="activity-feed" >
-                            @foreach($task->subscribe as $executor)
+                            @forelse($task->subscribe as $executor)
                                 <li id="executor-{{ $executor->id }}" class="feed-item feed-item-success">
                                 <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
                                     <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
                                 </span>
-                                    <span class="text-muted"><i class="fal fa-check"></i> сделал(а) отклик</span> <br>
-                                    <span class="text-muted"><i class="fal fa-chart-bar"></i> Общий рейтинг всех сайтов: {{ $executor->user->sites->sum('rating') }}</span> <br>
-                                    <hr>
+                                    <p class="text-muted pt-1"><i class="fal fa-check"></i> сделал(а) отклик</p>
+                                    <p class="text-muted pt-1"><i class="fal fa-chart-bar"></i> Общий рейтинг всех сайтов: {{ $executor->user->sites->sum('rating') }}</p>
                                     @if($executor->status == 0)
                                         <button data-id="{{ $executor->id }}" class="btn btn-danger reject-task"><i class="fal fa-user-times"></i> Отклонить</button>
                                         <button data-id="{{ $executor->id }}" class="btn btn-primary accept-task"><i class="fal fa-user-check"></i> Принять</button>
@@ -61,8 +60,23 @@
                                         <span class="badge badge-success">принят</span>
                                     @endif
                                 </li>
-                            @endforeach
+                            @empty
+                                <li>
+                                    <div class="alert alert-info mb-0" role="alert">
+                                        Нет откликов на ваше задание
+                                    </div>
+                                </li>
+                            @endforelse
                         </ol>
+
+                        <div class="border-top">
+                            @if($task->IsResponses())
+                                <div class="alert alert-info mb-3 mt-3" role="alert">
+                                    Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
+                                </div>
+                                <button data-id="{{ $task->id }}" class="btn btn-info-gradiant work-send"><i class="fal fa-user-check"></i> Пополнить и создать заказ</button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,9 +84,22 @@
     </div>
     @push('scripts')
         <script>
+            let taskId = $('#subscribe-task').data('id');
+
+            let workPay = $('.work-send');
+
+            workPay.click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/cabinet/pay/create-order-task/" + taskId,
+                    success: function (response) {
+                        console.log(response)
+                    }
+                })
+            })
+
             let reject = $('.reject-task');
             let accept = $('.accept-task');
-            let taskId = $('#subscribe-task').data('id');
 
             reject.click(function () {
                 let id = $(this).data('id');
