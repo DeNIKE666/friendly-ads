@@ -24,14 +24,15 @@ class createTask extends FormRequest
     public function rules()
     {
         return [
-            'title'         => ['required' , 'string'],
-            'amount'        => ['required' , 'numeric' , 'min:2500'],
-            'description'   => ['required' , 'min:100' , 'max:1000'],
-            'type_task'     => ['required'],
-            'type_position' => ['required'],
-            'category_id'   => ['required'],
-            'site_count'    => ['required' , 'numeric', 'between:1,10'],
-            'period'        => ['required']
+            'title'              => ['required' , 'string'],
+            'amount'             => ['required' , 'numeric' , 'min:100'],
+            'description'        => ['required' , 'min:100' , 'max:1000'],
+            'full_description'   => ['required' , 'min:100' , 'max:3000'],
+            'type_task'          => ['required'],
+            'type_position'      => ['required'],
+            'category_id'        => ['required'],
+            'site_count'         => ['required'],
+            'period'             => ['required']
         ];
     }
 
@@ -53,12 +54,9 @@ class createTask extends FormRequest
             'type_position.required' => 'Тип позиции размещения должен быть обязательно выбран',
             'category_id.required'   => 'Категория должна быть обязательно выбрана',
 
-            'site_count.required'    => 'Кол-во сайтов обязательно для заполнения',
-            'site_count.numeric'     => 'Кол-во сайтов должно быть числом',
-            'site_count.between'     => 'Кол-во сайтов не должно привышать :max',
+            'site_count.required'    => 'Кол-во сайтов обязательно нужно выбрать',
 
-            'period.required'        => 'Необходимо выбрать переод продвижения',
-            'period.numeric'         => 'Период продвижения должен быть числом',
+            'period.required'        => 'Необходимо выбрать период продвижения'
         ];
     }
 }

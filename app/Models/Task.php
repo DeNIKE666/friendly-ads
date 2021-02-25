@@ -14,10 +14,12 @@ class Task extends Model
     protected $fillable = [
         'title',
         'description',
+        'full_description',
         'category_id',
         'user_id',
         'parameters',
         'amount',
+        'sum_pay',
         'type_task',
         'type_position',
         'site_count',

@@ -73,6 +73,6 @@ mix.scripts([
     'resources/assets/frontend/js/custom.js',
 ], 'public/assets/frontend/js/vendor.js').version();
 
-mix.js('resources/js/app.js', 'public/assets/frontend/js')
+mix.js('resources/js/app.js', 'public/assets/cabinet/js')
     .version();
 

@@ -41,11 +41,43 @@ class TaskController extends Controller
 
     public function store(createTask $request)
     {
-        $request->merge(['user_id' => auth()->user()->id]);
+        $amount = $request->amount * $request->site_count['count'] + ($request->period['price'] + $request->type_task['price'] + $request->type_position['price']);
 
-        Task::create($request->all());
+        $parameters = [
+            'period' => [
+                'day' => $request->period['day'],
+                'price' => $request->period['price'],
+            ],
+            'type_task' => [
+                'type' => $request->type_task['type'],
+                'price' => $request->type_task['price'],
+            ],
+            'type_position' => [
+                'type' => $request->type_position['type'],
+                'price' => $request->type_position['price'],
+            ],
+        ];
 
-        return redirect()->route('customer.tasks.index');
+        return Task::create([
+            'title'            => $request->title,
+            'description'      => $request->description,
+            'full_description' => $request->full_description,
+            'category_id'      => $request->category_id,
+            'user_id'          => auth()->user()->id,
+            'amount'           => $request->amount,
+            'sum_pay'          => $amount,
+            'period'           => $request->period['day'],
+            'type_task'        => $request->type_task['type'],
+            'type_position'    => $request->type_position['type'],
+            'site_count'       => $request->site_count['count'],
+            'parameters'       => json_encode($parameters),
+        ]);
+
+     //   $request->merge(['user_id' => auth()->user()->id]);
+
+      //  Task::create($request->all());
+
+       // return redirect()->route('customer.tasks.index');
     }
 
     /**

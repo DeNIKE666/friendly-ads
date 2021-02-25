@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('full_description')->nullable();
             $table->unsignedInteger('category_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->jsonb('parameters')->nullable();
@@ -32,6 +33,7 @@ class CreateTasksTable extends Migration
                 ->onDelete('CASCADE');
 
             $table->decimal('amount', 9,1)->default(0);
+            $table->decimal('sum_pay', 9,1)->default(0);
 
             $table->string('type_task')->nullable();
             $table->string('type_position')->nullable();

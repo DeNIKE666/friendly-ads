@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/test', function () {
+    return route('customer.tasks.store');
+});
+
 Route::prefix('/')->group(function () {
 
     Route::get('/' , [\App\Http\Controllers\Frontend\FrontendController::class , 'index'])->name('frontend');

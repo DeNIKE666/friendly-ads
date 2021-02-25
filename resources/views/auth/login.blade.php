@@ -27,7 +27,6 @@
                 </div>
                 <div class="form-group">
                     <label for="password" class="placeholder"><b>Пароль</b></label>
-                    <a href="#" class="link float-right">Забали пароль ?</a>
                     <div class="position-relative">
                         <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror">
                         @error('password')

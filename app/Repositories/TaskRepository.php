@@ -18,7 +18,9 @@ class TaskRepository
 
         return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
            $query->doesntHave('yourSubscribe');
-        })->whereIn('category_id' , $isCategoriesSites)->orderByDesc('amount')->paginate(50);
+        })
+            ->whereIn('category_id' , $isCategoriesSites)
+            ->orderByDesc('amount')->paginate(50);
     }
 
     /**

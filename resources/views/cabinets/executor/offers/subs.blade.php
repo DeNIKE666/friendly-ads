@@ -40,12 +40,11 @@
                                 </div>
                             </div>
                             <div class="separator-solid"></div>
-                            <p class="card-category text-info mb-1"><a href="#">{{ $offer->category->name }}</a>
-                            </p>
                             <p class="card-text text-black-50">{{ $offer->limitDescription() }}</p>
                             <p class="card-text m-0">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
                             <p class="card-text m-0">Бюджет на сайт: <b>550</b> руб. </p>
                             <p class="card-text m-0">Срок: <b>{{ $offer->period }}</b> дней. </p>
+                            <p class="card-text m-0">Категория: <b>{{ $offer->category->name }}</b></p>
 
                             <p class="card-text m-0">
                                 Тип контента:

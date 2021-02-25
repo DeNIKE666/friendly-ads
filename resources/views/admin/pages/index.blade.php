@@ -34,7 +34,7 @@
                             <tbody>
                             @foreach($pages as $page)
                                 <tr>
-                                    <td data-label="#">{{ $page->id }}</td>
+                                    <td data-label="#"><a href="{{ route('frontend.page', $page->name) }}">просмотр</a></td>
                                     <td data-label="Ссылка">{{ $page->name }}</td>
                                     <td data-label="Просмотры">{{ $page->views }}</td>
                                     <td data-label="">
