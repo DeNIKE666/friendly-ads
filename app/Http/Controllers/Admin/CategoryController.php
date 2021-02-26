@@ -39,9 +39,7 @@ class CategoryController extends Controller
 
     public function store(categoryCreateAdmin $request)
     {
-        $request->validated();
-
-        app('rinvex.categories.category')->create($request->all());
+        app('rinvex.categories.category')->create($request->validated());
 
         return redirect()->route('categories.index');
     }

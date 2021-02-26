@@ -28,11 +28,9 @@ class createTask extends FormRequest
             'amount'             => ['required' , 'numeric' , 'min:100'],
             'description'        => ['required' , 'min:100' , 'max:1000'],
             'full_description'   => ['required' , 'min:100' , 'max:3000'],
-            'type_task'          => ['required'],
-            'type_position'      => ['required'],
             'category_id'        => ['required'],
             'site_count'         => ['required'],
-            'period'             => ['required']
+            'options_select'     => ['required']
         ];
     }
 
@@ -50,13 +48,11 @@ class createTask extends FormRequest
             'description.min'        => 'Описание задачи не должна быть менее :min символов',
             'description.max'        => 'Описание задачи не должно привышать :max символов',
 
-            'type_task.required'     => 'Тип задачи должен быть обязательно выбран',
-            'type_position.required' => 'Тип позиции размещения должен быть обязательно выбран',
             'category_id.required'   => 'Категория должна быть обязательно выбрана',
 
             'site_count.required'    => 'Кол-во сайтов обязательно нужно выбрать',
 
-            'period.required'        => 'Необходимо выбрать период продвижения'
+            'options_select.required'        => 'Необходимо выбрать опции заказа'
         ];
     }
 }

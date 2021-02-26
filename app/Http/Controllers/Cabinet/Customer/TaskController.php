@@ -41,43 +41,30 @@ class TaskController extends Controller
 
     public function store(createTask $request)
     {
-        $amount = $request->amount * $request->site_count['count'] + ($request->period['price'] + $request->type_task['price'] + $request->type_position['price']);
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description        = $request->input('description');
+        $task->full_description   = $request->input('category_id');
 
-        $parameters = [
-            'period' => [
-                'day' => $request->period['day'],
-                'price' => $request->period['price'],
-            ],
-            'type_task' => [
-                'type' => $request->type_task['type'],
-                'price' => $request->type_task['price'],
-            ],
-            'type_position' => [
-                'type' => $request->type_position['type'],
-                'price' => $request->type_position['price'],
-            ],
-        ];
+        foreach ($request->input('options_select') as $option)
+        {
+            if(!empty($option['day'])) :
+                $task->period      = $option['day'];
+            elseif (!empty($option['type_task'])) :
+                $task->type_task    = ($option['type_task']);
+            elseif (!empty($option['type_position'])):
+                $task->type_position = ($option['type_position']);
+            endif;
+        }
 
-        return Task::create([
-            'title'            => $request->title,
-            'description'      => $request->description,
-            'full_description' => $request->full_description,
-            'category_id'      => $request->category_id,
-            'user_id'          => auth()->user()->id,
-            'amount'           => $request->amount,
-            'sum_pay'          => $amount,
-            'period'           => $request->period['day'],
-            'type_task'        => $request->type_task['type'],
-            'type_position'    => $request->type_position['type'],
-            'site_count'       => $request->site_count['count'],
-            'parameters'       => json_encode($parameters),
-        ]);
+        $task->site_count         = $request->input('site_count.count');
+        $task->sum_pay            = $request->input('amount');
+        $task->amount             = $request->input('amount_executor');
+        $task->user_id            = auth()->user()->id;
+        $task->category_id        = $request->input('category_id');
+        $task->save();
 
-     //   $request->merge(['user_id' => auth()->user()->id]);
-
-      //  Task::create($request->all());
-
-       // return redirect()->route('customer.tasks.index');
+        return $task;
     }
 
     /**

@@ -33,6 +33,7 @@ class SiteController extends Controller
     {
         // Категории
         $categories = (new CategoryRepository())->getAll();
+
         // Пользователи
         $users      = (new UserRepository())->userAllOptions();
 
@@ -46,8 +47,6 @@ class SiteController extends Controller
 
     public function store(createSite $request)
     {
-       $request->validated();
-
        Site::create($request->all());
 
        return redirect()->route('admin.sites.index');
@@ -87,8 +86,6 @@ class SiteController extends Controller
 
     public function update(updateSite $request, Site $site)
     {
-        $request->validated();
-
         $site->update($request->all());
 
         return redirect()->route('admin.sites.index');

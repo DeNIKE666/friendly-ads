@@ -27,6 +27,7 @@
     "dependencies": {
         "sweetalert2": "^10.14.1",
         "vform": "^1.0.1",
-        "vue-laravel-validator": "^1.0.4"
+        "vue-laravel-validator": "^1.0.4",
+        "vue-multiselect": "^2.1.6"
     }
 }

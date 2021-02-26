@@ -12,74 +12,84 @@
     </div>
     <div class="page-inner mt--5">
       <div class="d-flex justify-content-center">
+
         <div class="col-md-8">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body" :class="{'is-loading loader-primary' : loading === true}">
               <div id="task-form">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
+                      <div>
+                        <label class="typo__label">Выбрать опции заказа</label>
+                        <multiselect
+                            :value="value"
+                            :options="options"
+                            :multiple="true"
+                            group-values="libs"
+                            group-label="type"
+                            placeholder="Нажмите для выбора"
+                            track-by="name"
+                            label="name"
+                            @input="selectUnique"
+                            @select="calcPlus"
+                            @remove="calcMinus"
+                            deselect-label="Удалить"
+                            selectLabel="Нажмите для выбора">
+                        </multiselect>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
                       <label>Название:</label>
                       <input type="text" class="form-control"
                              placeholder="название вашего проекта в общем списке заданий"
-                             @keyup.enter="form.title"
                              v-model.trim="form.title"
-                             :class="{ 'is-invalid': form.errors.has('title') }"
-                      >
+                             :class="{ 'is-invalid': form.errors.has('title') }">
                       <has-error :form="form" field="title"></has-error>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Период:</label>
-                      <select class="form-control"
-                              v-model="form.period"
-                              :class="{ 'is-invalid': form.errors.has('period') }">
-                        <option
-                            v-for="period in periods"
-                            :value="{price: period.price , day: period.day}">{{ period.text }} - {{ period.price }} руб.
-                        </option>
-                      </select>
-                      <has-error :form="form" field="period"></has-error>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Бюджет на исполнителя:</label>
                       <input type="text" class="form-control"
                              placeholder="150 руб"
-                             @keyup.enter="form.amount"
                              v-model.trim="form.amount"
-                             :class="{ 'is-invalid': form.errors.has('amount') }"
-                      >
+                             @keyup="calculateSite"
+                             :class="{ 'is-invalid': form.errors.has('amount') }">
                       <has-error :form="form" field="amount"></has-error>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group">
-                        <label>Необходимо сайтов</label>
-                        <select class="form-control"
-                                v-model.trim="form.site_count"
-                                :class="{ 'is-invalid': form.errors.has('site_count') }">
-                          <option
-                              v-for="site in sites"
-                              :value="{count: site.count}">{{ site.text }}</option>
-                        </select>
-                      <has-error :form="form" field="site_count"></has-error>
+                      <div :class="{ 'is-invalid': form.errors.has('site_count') }">
+                        <label class="typo__label">Кол-во сайтов</label>
+                        <multiselect @change="calculateSite"
+                                     v-model="form.site_count"
+                                     :options="sites"
+                                     track-by="text"
+                                     label="text"
+                                     :show-labels="false"
+                                     @input="calculateSite"
+                                     placeholder="Выбрать кол-во сайтов">
+                          <template slot="singleLabel" slot-scope="{ option }">
+                            <strong>{{ option.text }}</strong>
+                          </template>
+                        </multiselect>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Краткое описание:</label>
                       <textarea type="text" class="form-control"
+                                rows="5"
                                 placeholder="Опишите кратко ваше задание, что-бы с ним можно было ознакомиться"
-                                @keyup.enter="form.description"
-                                v-model.trim="form.description"
-                                :maxlength="maxText"
-                                :class="{ 'is-invalid': form.errors.has('description')}"
-                      >
+                                v-model="form.description"
+                                v-on:input="check"
+                                :class="{ 'is-invalid': form.errors.has('description')}">
                       </textarea>
-                      <div class="character" v-if="disabledShort === false">Осталось ввести: {{ maxText - form.description.replace(/[\s\/]/g, '').length}}</div>
+                      <p class="pt-3" :class="{help: true, 'text-danger': remainingShort === 0}">{{ instructionShort }}</p>
                       <has-error :form="form" field="description"></has-error>
                     </div>
                   </div>
@@ -88,43 +98,14 @@
                     <div class="form-group">
                       <label>Полное описание:</label>
                       <textarea type="text" class="form-control"
+                                rows="5"
                                 placeholder="Полное описание задания, это то где вы детельно описываете всю суть"
-                                @keyup.enter="form.full_description"
-                                v-model.trim="form.full_description"
-                                :maxlength="maxText"
-                                :class="{ 'is-invalid': form.errors.has('full_description')}"
-                      >
+                                v-model="form.full_description"
+                                v-on:input="check"
+                                :class="{ 'is-invalid': form.errors.has('full_description')}">
                       </textarea>
-                      <div class="character" v-if="disabledFull === false">Осталось ввести: {{ maxText - form.full_description.replace(/[\s\/]/g, '').length}}</div>
+                      <p class="pt-3" :class="{help: true , 'text-danger': remainingFull === 0}">{{ instructionFull }}</p>
                       <has-error :form="form" field="full_description"></has-error>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Тип задачи:</label>
-                      <select class="form-control"
-                              v-model.trim="form.type_task"
-                              :class="{ 'is-invalid': form.errors.has('type_task') }">
-                        <option
-                            v-for="task in type_tasks"
-                            :value="{type: task.type, price: task.price}">{{ task.text }} - {{ task.price }} руб. </option>
-                      </select>
-                      <has-error :form="form" field="type_task"></has-error>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Позиция:</label>
-                      <select class="form-control"
-                              v-model.trim="form.type_position"
-                              :class="{ 'is-invalid': form.errors.has('type_position') }">
-                        <option value="" selected>-- Выберите позицию размещения</option>
-                        <option
-                            v-for="position in type_positions"
-                            :value="{type: position.type , price: position.price}">{{ position.text }} - {{ position.price }} руб. </option>
-                      </select>
-                      <has-error :form="form" field="type_position"></has-error>
                     </div>
                   </div>
 
@@ -146,7 +127,7 @@
                       <div class="form-group">
                         <button type="submit" @click="checkForm" class="btn btn-primary">Добавить задание</button>
                       </div>
-                      <span class="float-right price">Общая сумма: <span class="amount">{{ totalSum }}</span> руб. </span>
+                      <span class="float-right price">Общая сумма: <span class="amount">{{ sumOption }}</span> руб. </span>
                     </div>
 
                 </div>
@@ -162,35 +143,70 @@
 
 <script>
 import {Form} from 'vform'
-
+import Multiselect from 'vue-multiselect'
 export default {
+  components: { Multiselect },
   props: ['categories'],
   data() {
     return {
+      loading: false,
+      value: [],
+      options: [{
+        type: 'Период',
+        libs: [{
+          day: 1,
+          name: '1 день',
+          price: 100
+        },
+          {
+            day: 2,
+            name: '2 дня',
+            price: 200
+          }
+        ]
+      },
+        {
+          type: 'Тип',
+          libs: [{
+            type_task: 'link',
+            name: 'Ссылка',
+            price: 50
+          },
+            {
+              type_task: 'video',
+              name: 'Видео',
+              price: 100
+            }
+          ]
+        },
+        {
+          type: 'Позиция',
+          libs: [{
+            type_position: 'header',
+            name: 'Хедер',
+            price: 100
+          },
+            {
+              type_position: 'footer',
+              name: 'Футер',
+              price: 50
+            }
+          ]
+        }
+      ],
       form: new Form({
         title: '',
-        amount: '',
-        period: '',
-        site_count: '',
+        amount: 100,
+        amount_price: 0,
+        options_select: '',
+        site_count: { count: 1, text: '1 сайт' },
         description: '',
         full_description: '',
-        type_task: '',
-        type_position: '',
         category_id: ''
       }),
-      maxText : 100,
-      disabledShort: false,
-      disabledFull: false,
-      sum: 100,
+      maxText : 300,
       totalSum: 0,
-      periods: [
-        {day: 1 ,  text: '1 день' , price: 0},
-        {day: 2 ,  text: '2 дня', price: 25},
-        {day: 3 ,  text: '3 дня', price: 35},
-        {day: 7 ,  text: 'Неделя', price: 55},
-        {day: 14 , text: 'Две недели', price: 70},
-        {day: 30 , text: 'Месяц', price: 100},
-      ],
+      sumOption: 0,
       sites: [
         {count: 1 ,  text: '1 сайт'},
         {count: 2 ,  text: '2 сайта'},
@@ -203,71 +219,92 @@ export default {
         {count: 9 ,  text: '9 сайтов'},
         {count: 10 ,  text: '10 сайтов'},
       ],
-      type_tasks: [
-        {type: "link_product" , text: 'Ссылка на продукт', price: 30},
-        {type: "link_video" ,   text: 'Ссылка на видео', price: 50},
-      ],
-      type_positions: [
-        {type: "header" , text: 'В хедере', price: 100},
-        {type: "sidebar" ,   text: 'В сайдбаре' , price: 80},
-        {type: "content" ,   text: 'В общем контенте', price: 50},
-        {type: "footer" ,   text: 'В футере', price: 30},
-      ]
     }
   },
   mounted() {
   },
-  watch: {
-    'form.description'(val) {
-      val.length === this.maxText ? this.disabledShort = true : this.disabledShort = false;
+  computed: {
+    // Введенные символы в краткое описание
+    instructionShort: function() {
+      return this.form.description === ''?
+          'Лимит: '+ this.maxText+' символов':
+          'Осталось '+this.remainingShort+' символов';
     },
-    'form.full_description'(val) {
-      val.length === this.maxText ? this.disabledFull = true : this.disabledFull = false;
+    instructionFull: function() {
+      return this.form.full_description === ''?
+          'Лимит: '+ this.maxText+' символов':
+          'Осталось '+this.remainingFull+' символов';
+    },
+    // Введенные символы в полное описание
+    remainingShort: function() {
+      return this.maxText - this.form.description.length;
+    },
+    remainingFull: function () {
+      return this.maxText - this.form.full_description.length;
     }
   },
   methods: {
+    // Проверка на введенные символы
+    check: function() {
+      this.form.description = this.form.description.substr(0, this.maxText)
+      this.form.full_description = this.form.full_description.substr(0, this.maxText)
+    },
+    // Считаем все опции
+    calcPlus (event) {
+      let sum = event.length > 0 ?
+            this.totalSum = event.reduce((acc, item) => this.totalSum + item.price, 0)
+          : this.totalSum += event.price;
+
+       this.sumOption = (this.form.amount * this.form.site_count.count) + sum;
+    },
+    // Минусуем опции которые были отключены
+    calcMinus(event) {
+        let total = this.totalSum - event.price;
+        console.log(total)
+       // this.sumOption -= (this.form.amount * this.form.site_count.count) - this.totalSum;
+    },
+    // Складываем сумму на пользователя + кол-во сайтов
+    calculateSite() {
+      this.sumOption   = (this.form.amount * this.form.site_count.count) + this.totalSum;
+    },
+    selectUnique(ev) {
+      if (!ev || ev.length < this.value.length) {
+        this.value = ev;
+        return;
+      }
+      let newValue = ev.filter(x => this.value.indexOf(x) === -1)[0];
+      let group = this.getGroupByLib(newValue);
+      if (this.value.some(x => this.getGroupByLib(x) === group)) {
+        this.value = this.value.filter(x => this.getGroupByLib(x) !== group);
+        this.value.push(newValue);
+      } else
+        this.value = ev;
+    },
+    getGroupByLib(lib) {
+      return this.options.filter(x => x.libs.some(y => y.name === lib.name))[0].type;
+    },
+    // Проверяем все данные
     checkForm: function () {
 
-      let period           = this.form.period.price ?? 0;
-      let amount           = this.form.amount;
-      let site_count       = this.form.site_count.count ?? 0;
+      // Выбранные опции
+      this.form.options_select = this.value
 
-      let type_task        = this.form.type_task.price ?? 0;
-      let type_position    = this.form.type_position.price ?? 0;
+      this.loading = true;
 
-      if (!amount && !site_count) {
-        this.form.errors.set('amount' , 'Введите минимальный бюджет');
-        this.form.errors.set('site_count' , 'Выберите кол-во сайтов для размещения');
-        return false;
-      }
-
-      this.totalSum =  amount * site_count + (period + type_task + type_position )
+      // Средний бюджет на исполнителя
+      this.form.amount_price = this.form.amount + this.sumOption;
 
       this.form.post('/cabinet/tasks').then(({ data }) => {
         window.location.href = '/cabinet/tasks'
-      })
+      });
+
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+
     },
-   /* calc: function (e) {
-
-      if (! this.form.amount) {
-        swal({
-          icon: 'error',
-          title: 'Ошибка',
-          text: 'Сумма не указана, введите сумму',
-        });
-        this.clear();
-        return false;
-      }
-
-      this.sum += parseInt(e.target.options[e.target.options.selectedIndex].getAttribute('data-price'));
-      this.totalSum = this.sum + parseInt(this.form.amount);
-
-    },*/
     clear: function () {
       this.form.amount = '';
-      this.form.period = '';
-      this.form.type_task = '';
-      this.form.type_position = '';
     }
   }
 }
@@ -293,4 +330,10 @@ export default {
       margin-top: 10px;
       font-weight: 500;
     }
+
+    .is-invalid {
+      border: 1px solid #dc3545;
+    }
 </style>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
