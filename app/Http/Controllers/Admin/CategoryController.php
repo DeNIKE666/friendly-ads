@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\categoryCreateAdmin;
+use App\Http\Requests\Admin\Categories\categoryCreateAdmin;
+use App\Http\Requests\Admin\Categories\categoryUpdateAdmin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class CategoryController extends Controller
 
     public function store(categoryCreateAdmin $request)
     {
-        app('rinvex.categories.category')->create($request->validated());
+        app('rinvex.categories.category')->create($request->all());
 
         return redirect()->route('categories.index');
     }
@@ -65,12 +66,12 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param categoryUpdateAdmin $request
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function update(Request $request, Category $category)
+    public function update(categoryUpdateAdmin $request, Category $category)
     {
         $category->getSlugOptions();
 

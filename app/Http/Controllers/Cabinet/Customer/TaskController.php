@@ -58,8 +58,8 @@ class TaskController extends Controller
         }
 
         $task->site_count         = $request->input('site_count.count');
-        $task->sum_pay            = $request->input('amount');
-        $task->amount             = $request->input('amount_executor');
+        $task->sum_pay            = $request->input('amount_price');
+        $task->amount             = $request->input('amount');
         $task->user_id            = auth()->user()->id;
         $task->category_id        = $request->input('category_id');
         $task->save();

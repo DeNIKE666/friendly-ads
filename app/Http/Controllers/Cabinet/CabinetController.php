@@ -30,7 +30,10 @@ class CabinetController extends Controller
         return view('cabinets.customer.performers', compact('users'));
     }
 
-    // поручник ржевский
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
 
     public function showProfile(User $user)
     {

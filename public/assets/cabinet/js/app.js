@@ -2111,6 +2111,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['categories'],
   data: function data() {
     return {
+      isInvalid: true,
       loading: false,
       value: [],
       options: [{
@@ -2230,8 +2231,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Минусуем опции которые были отключены
     calcMinus: function calcMinus(event) {
-      var total = this.totalSum - event.price;
-      console.log(total); // this.sumOption -= (this.form.amount * this.form.site_count.count) - this.totalSum;
+      this.sumOption = (this.totalSum -= event.price) + this.form.amount * this.form.site_count.count;
     },
     // Складываем сумму на пользователя + кол-во сайтов
     calculateSite: function calculateSite() {
@@ -2272,6 +2272,34 @@ __webpack_require__.r(__webpack_exports__);
 
       // Выбранные опции
       this.form.options_select = this.value;
+
+      if (this.form.options_select.length < 3) {
+        $.notify({
+          icon: 'fal fa-times',
+          title: 'Произошла ошибка',
+          message: 'Необходимо выбрать не мение 3 опций у вас выбрано ' + this.form.options_select.length
+        }, {
+          // settings
+          element: 'body',
+          position: null,
+          type: "danger",
+          showProgressbar: false,
+          placement: {
+            from: "top",
+            align: "right"
+          },
+          offset: 20,
+          z_index: 1031,
+          delay: 5000,
+          timer: 1000,
+          animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+          }
+        });
+        return;
+      }
+
       this.loading = true; // Средний бюджет на исполнителя
 
       this.form.amount_price = this.form.amount + this.sumOption;

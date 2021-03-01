@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class categoryCreateAdmin extends FormRequest
+class categoryUpdateAdmin extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,10 @@ class categoryCreateAdmin extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => ['required' , 'min:1'],
+            'name'      => ['required' , 'min:1'],
+            'parent_id' => ['exists:categories,id' , 'nullable']
         ];
     }
 
@@ -32,7 +34,9 @@ class categoryCreateAdmin extends FormRequest
     {
         return [
             'name.required' => 'Имя категории обязательно к заполнению',
-            'name.min' => 'Имя категории должно содержать не мение :min символов'
+            'name.min'      => 'Имя категории должно содержать не мение :min символов',
+
+            'parent_id.required' => 'Родительская категория должна быть выбрана'
         ];
     }
 }
