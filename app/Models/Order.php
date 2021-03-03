@@ -18,4 +18,8 @@ class Order extends Model
         'status',
         'params'
     ];
+
+    public $casts = [
+        'amount' => 'decimal:0'
+    ];
 }

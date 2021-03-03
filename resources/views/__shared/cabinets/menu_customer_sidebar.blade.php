@@ -44,8 +44,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="">
+                    <a href="{{ route('balance') }}">
                         <i class="fal fa-wallet"></i>
+                        <p>Пополнить баланс</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('history') }}">
+                        <i class="fal fa-history"></i>
                         <p>История пополнений</p>
                     </a>
                 </li>

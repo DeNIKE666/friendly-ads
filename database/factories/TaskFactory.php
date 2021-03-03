@@ -35,7 +35,8 @@ class TaskFactory extends Factory
 
         $typePosition = array(
             'header',
-            'footer'
+            'footer',
+            'custom'
         );
 
         $rand_keys_task     = array_rand($typeTask, 1);

@@ -294,10 +294,6 @@ export default {
     },
     validateForm() {
 
-
-
-      console.log(this.options.prices)
-
       this.calc();
 
       this.$validator.validate().then((result) => {
@@ -305,6 +301,7 @@ export default {
         if (result) {
           this.loading = true;
           axios.post('/cabinet/tasks',this.options);
+          window.location.href = '/cabinet/tasks';
           setTimeout(() => {
             this.loading = false;
           }, 1000);

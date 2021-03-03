@@ -280,24 +280,29 @@ export default {
   mounted() {
     this.$validator.localize('ru', customMessage);
 
+    let currentPrices    = JSON.parse(this.current.parameters).prices;
+
     this.options.title = this.current.title;
 
-    this.options.amount              = this.current.amount;
-    this.options.site_count          = this.current.site_count;
-    this.options.type_task           = this.current.type_task;
-    this.options.type_position       = this.current.type_position;
-    this.options.period              = this.current.period;
-    this.options.description         = this.current.description;
-    this.options.full_description    = this.current.full_description;
-    this.options.category_id         = this.current.category_id;
+    this.options.amount                  = this.current.amount;
+    this.options.site_count              = this.current.site_count;
+    this.options.type_task               = this.current.type_task;
+    this.options.type_position           = this.current.type_position;
+    this.options.period                  = this.current.period;
+    this.options.description             = this.current.description;
+    this.options.full_description        = this.current.full_description;
+    this.options.category_id             = this.current.category_id;
+
+    this.options.prices.period           = currentPrices.period;
+    this.options.prices.type_task        = currentPrices.type_task;
+    this.options.prices.type_position    = currentPrices.type_position;
 
     this.totalCurrent();
   },
   methods: {
     totalCurrent: function () {
 
-      let currentPrices    = JSON.parse(this.current.parameters).prices;
-      let amountPrices     = currentPrices.period + currentPrices.type_position + currentPrices.type_task;
+      let amountPrices     = this.options.prices.period + this.options.prices.type_position + this.options.prices.type_task;
 
       let amount           = parseInt(this.current.amount);
       let siteCount        = parseInt(this.current.site_count);
@@ -319,10 +324,12 @@ export default {
       this.options.prices.type_position = price;
     },
     calc() {
-      let amount           = this.options.amount     = parseInt(this.options.amount);
-      let siteCount        = this.options.site_count = parseInt(this.options.site_count);
+
+      let amount           = parseInt(this.options.amount);
+      let siteCount        = parseInt(this.options.site_count);
 
       this.total           = (this.options.prices.period + this.options.prices.type_task + this.options.prices.type_position) + amount * siteCount;
+
       this.options.sum_pay = this.total;
     },
     validateForm() {
@@ -335,6 +342,7 @@ export default {
           axios.put('/cabinet/tasks/' + this.current.id, this.options);
           setTimeout(() => {
             this.loading = false;
+            window.location.href = '/cabinet/tasks';
           }, 1000);
         }
       });

@@ -23,6 +23,7 @@ return [
     'type_position' => [
         'header'  => 'в хедере',
         'footer'  => 'в футере',
+        'custom'  => 'в другом месте',
     ],
 
 ];

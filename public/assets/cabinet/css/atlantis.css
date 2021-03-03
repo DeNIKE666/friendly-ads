@@ -26506,6 +26506,11 @@ table th {
   width: 100% !important;
 }
 
+.type_account_active {
+  background: #7c868e;
+  color: white;
+}
+
 /*      jQuery Ui     */
 .ui-draggable-handle {
   touch-action: none;

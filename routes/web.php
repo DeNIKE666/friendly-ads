@@ -58,7 +58,15 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
             Route::post('/accept/{subscribeTask}', [\App\Http\Controllers\Cabinet\Customer\TaskController::class , 'accept'])->name('accept');
         });
 
-        Route::prefix('/pay')->group(function () {
+        Route::prefix('/finance')->group(function () {
+
+            Route::prefix('balance')->group(function () {
+                Route::get('/', [\App\Http\Controllers\Cabinet\PaymentController::class , 'formAddBalance'])->name('balance');
+                Route::post('/add', [\App\Http\Controllers\Cabinet\PaymentController::class , 'addBalance'])->name('add-balance');
+            });
+
+            Route::get('/history' , [\App\Http\Controllers\Cabinet\PaymentController::class , 'history'])->name('history');
+
             Route::post('/create-order-task/{task}', [\App\Http\Controllers\Cabinet\PaymentController::class , 'payBalanceFromCreateTask'])->name('pay.create.order.task');
         });
 

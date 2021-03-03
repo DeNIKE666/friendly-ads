@@ -2351,12 +2351,12 @@ __webpack_require__.r(__webpack_exports__);
     validateForm: function validateForm() {
       var _this = this;
 
-      console.log(this.options.prices);
       this.calc();
       this.$validator.validate().then(function (result) {
         if (result) {
           _this.loading = true;
           axios.post('/cabinet/tasks', _this.options);
+          window.location.href = '/cabinet/tasks';
           setTimeout(function () {
             _this.loading = false;
           }, 1000);
@@ -2680,6 +2680,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$validator.localize('ru', _validate__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    var currentPrices = JSON.parse(this.current.parameters).prices;
     this.options.title = this.current.title;
     this.options.amount = this.current.amount;
     this.options.site_count = this.current.site_count;
@@ -2689,12 +2690,14 @@ __webpack_require__.r(__webpack_exports__);
     this.options.description = this.current.description;
     this.options.full_description = this.current.full_description;
     this.options.category_id = this.current.category_id;
+    this.options.prices.period = currentPrices.period;
+    this.options.prices.type_task = currentPrices.type_task;
+    this.options.prices.type_position = currentPrices.type_position;
     this.totalCurrent();
   },
   methods: {
     totalCurrent: function totalCurrent() {
-      var currentPrices = JSON.parse(this.current.parameters).prices;
-      var amountPrices = currentPrices.period + currentPrices.type_position + currentPrices.type_task;
+      var amountPrices = this.options.prices.period + this.options.prices.type_position + this.options.prices.type_task;
       var amount = parseInt(this.current.amount);
       var siteCount = parseInt(this.current.site_count);
       this.total = amountPrices + amount * siteCount;
@@ -2714,8 +2717,8 @@ __webpack_require__.r(__webpack_exports__);
       this.options.prices.type_position = price;
     },
     calc: function calc() {
-      var amount = this.options.amount = parseInt(this.options.amount);
-      var siteCount = this.options.site_count = parseInt(this.options.site_count);
+      var amount = parseInt(this.options.amount);
+      var siteCount = parseInt(this.options.site_count);
       this.total = this.options.prices.period + this.options.prices.type_task + this.options.prices.type_position + amount * siteCount;
       this.options.sum_pay = this.total;
     },
@@ -2729,6 +2732,7 @@ __webpack_require__.r(__webpack_exports__);
           axios.put('/cabinet/tasks/' + _this.current.id, _this.options);
           setTimeout(function () {
             _this.loading = false;
+            window.location.href = '/cabinet/tasks';
           }, 1000);
         }
       });
