@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
 
-                @foreach($histories as $history)
+                @forelse($histories as $history)
                     <tr>
                         <td data-label="Наименование">{{ $history->title }}</td>
                         <td data-label="Сумма">{{ $history->amount }} руб.</td>
@@ -39,7 +39,13 @@
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center p-10">
+                            На данный момент история пуста
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
