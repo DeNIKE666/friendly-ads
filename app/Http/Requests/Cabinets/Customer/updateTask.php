@@ -4,7 +4,7 @@ namespace App\Http\Requests\Cabinets\Customer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createTask extends FormRequest
+class updateTask extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +32,8 @@ class createTask extends FormRequest
             'description'        => ['required' , 'min:100' , 'max:1000'],
             'full_description'   => ['required' , 'min:100' , 'max:3000'],
             'category_id'        => ['required'],
-            'site_count'         => ['required']
+            'site_count'         => ['required'],
+            'parameters'         => ['required' , 'json']
         ];
     }
 
@@ -62,6 +63,9 @@ class createTask extends FormRequest
             'category_id.required'        => 'Категория должна быть обязательно выбрана',
 
             'site_count.required'         => 'Кол-во сайтов обязательно нужно выбрать',
+
+            'parameters.json'             => 'Неверный формат данных',
+
         ];
     }
 }

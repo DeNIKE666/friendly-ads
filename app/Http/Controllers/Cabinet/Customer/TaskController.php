@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cabinet\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Tasks\updateTask;
 use App\Http\Requests\Cabinets\Customer\createTask;
 use App\Models\SubscribeTask;
 use App\Models\Task;
@@ -10,6 +11,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 
 class TaskController extends Controller
 {
@@ -41,30 +43,13 @@ class TaskController extends Controller
 
     public function store(createTask $request)
     {
-        $task = new Task();
-        $task->title = $request->input('title');
-        $task->description        = $request->input('description');
-        $task->full_description   = $request->input('category_id');
+        $request->merge([
+            'user_id'    => auth()->user()->id,
+            'sum_pay'    => $request->input('sum_pay'),
+            'parameters' => json_encode(['prices' => $request->input('prices')])
+        ]);
 
-        foreach ($request->input('options_select') as $option)
-        {
-            if(!empty($option['day'])) :
-                $task->period      = $option['day'];
-            elseif (!empty($option['type_task'])) :
-                $task->type_task    = ($option['type_task']);
-            elseif (!empty($option['type_position'])):
-                $task->type_position = ($option['type_position']);
-            endif;
-        }
-
-        $task->site_count         = $request->input('site_count.count');
-        $task->sum_pay            = $request->input('amount_price');
-        $task->amount             = $request->input('amount');
-        $task->user_id            = auth()->user()->id;
-        $task->category_id        = $request->input('category_id');
-        $task->save();
-
-        return $task;
+        return Task::create($request->all());
     }
 
     /**
@@ -84,6 +69,8 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
+        $task = Task::with(['category' , 'user'])->find($task->id);
+
         $categories = (new CategoryRepository())->getAll();
 
         return view('cabinets.customer.task.edit', compact('categories','task'));
@@ -95,11 +82,17 @@ class TaskController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function update(createTask $request, Task $task)
+    public function update(updateTask $request, Task $task)
     {
+
+        $request->merge([
+            'sum_pay'    => $request->input('sum_pay'),
+            'parameters' => json_encode(['prices' => $request->input('prices')])
+        ]);
+
         $task->update($request->all());
 
-        return redirect()->route('customer.tasks.index');
+        return $task;
     }
 
     /**

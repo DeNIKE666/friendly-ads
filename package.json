@@ -25,7 +25,9 @@
         "vuejs-form": "^1.2.9"
     },
     "dependencies": {
+        "@pmochine/vee-validate-laravel": "^1.0.6",
         "sweetalert2": "^10.14.1",
+        "vee-validate": "^2.2.15",
         "vform": "^1.0.1",
         "vue-laravel-validator": "^1.0.4",
         "vue-multiselect": "^2.1.6"

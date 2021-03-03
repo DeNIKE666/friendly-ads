@@ -1,13 +1,14 @@
 import Vue from 'vue'
-
-import {HasError, AlertError } from 'vform'
+import VeeValidate from 'vee-validate';
+import VeeValidateLaravel from '@pmochine/vee-validate-laravel';
 
 require('./bootstrap')
 
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
+Vue.use(VeeValidate)
+Vue.use(VeeValidateLaravel);
 
 Vue.component('create-task', require('./components/Customer/createTask.vue').default);
+Vue.component('update-task', require('./components/Customer/updateTask.vue').default);
 
 const app = new Vue({
     el: '#app',

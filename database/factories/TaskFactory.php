@@ -23,26 +23,18 @@ class TaskFactory extends Factory
      */
     public function definition()
     {
-
         $period = array(
             1,
-            3,
-            7,
-            14,
-            30
+            2
         );
 
         $typeTask = array(
-            'link_product',
-            'link_video',
-            'page',
-            'app'
+            'link',
+            'video'
         );
 
         $typePosition = array(
             'header',
-            'sidebar',
-            'content',
             'footer'
         );
 

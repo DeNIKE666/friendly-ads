@@ -4,8 +4,8 @@
       <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
           <div>
-            <h2 class="text-white pb-2 fw-bold">Добавление задачи</h2>
-            <h5 class="text-white op-7 mb-2">Создайте новую задачу в общий список</h5>
+            <h2 class="text-white pb-2 fw-bold">Обновление задачи</h2>
+            <h5 class="text-white op-7 mb-2">При необходимости отредактируйте данные</h5>
           </div>
         </div>
       </div>
@@ -66,9 +66,10 @@
                                  v-model="options.period"
                                  v-validate="'required'"
                                  :value="period.day"
+                                 :checked="period.day === current.period"
                                  name="period"
                                  class="selectgroup-input">
-                          <span class="selectgroup-button">{{ period.name }} - {{ period.price }} руб.</span>
+                          <span class="selectgroup-button">{{ period.name }} - {{ period.price }} руб. </span>
                         </label>
                       </div>
                       <div class="w-100">
@@ -86,9 +87,10 @@
                                  v-model="options.type_position"
                                  v-validate="'required'"
                                  :value="position.type"
+                                 :checked="position.type === current.type_position"
                                  name="position"
                                  class="selectgroup-input">
-                          <span class="selectgroup-button"><i v-show="position.icon" :class="position.icon"></i> {{ position.name }} - {{ position.price }} руб.</span>
+                          <span class="selectgroup-button"><i v-show="position.icon" :class="position.icon"></i> {{ position.name }}  - {{ position.price }} руб. </span>
                         </label>
                       </div>
                       <div class="w-100">
@@ -196,7 +198,7 @@
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <button class="btn btn-outline-dark" @click="validateForm">Создать задание</button>
+                      <button class="btn btn-outline-dark" @click="validateForm">Обновить</button>
                     </div>
                   </div>
 
@@ -215,7 +217,7 @@
 import customMessage from './../../validate'
 
 export default {
-  props: ['categories'],
+  props: ['current', 'categories'],
   data: () => ({
     options: {
       title: '',
@@ -228,8 +230,15 @@ export default {
       full_description: '',
       category_id: '',
       sum_pay: 0,
-      prices: {}
+      prices: {
+        period: 0,
+        type_task: 0,
+        type_position: 0,
+      }
     },
+    periodChecked: false,
+    taskChecked: false,
+    positionChecked: false,
     loading: false,
     total: 0,
     maxText : 300,
@@ -243,9 +252,9 @@ export default {
       {name: 'Видео' , type: 'video' , icon: 'fal fa-camera-movie', price: 80}
     ],
     positions: [
-      {name: 'В шапке' , type: 'header', icon: 'fal fa-chevron-up', price: 30},
-      {name: 'В футере' ,  type: 'footer', icon: 'fal fa-chevron-down', price: 25 },
-      {name: 'В дугом месте' ,  type: 'custom' , icon: 'fal fa-question-square', price: 10}
+      {name: 'В шапке' , type: 'header', price: 30, icon: 'fal fa-chevron-up'},
+      {name: 'В футере' ,  type: 'footer', price: 25, icon: 'fal fa-chevron-down' },
+      {name: 'В дугом месте' ,  type: 'custom' , price: 10, icon: 'fal fa-question-square'}
     ],
   }),
   computed: {
@@ -270,8 +279,31 @@ export default {
   },
   mounted() {
     this.$validator.localize('ru', customMessage);
+
+    this.options.title = this.current.title;
+
+    this.options.amount              = this.current.amount;
+    this.options.site_count          = this.current.site_count;
+    this.options.type_task           = this.current.type_task;
+    this.options.type_position       = this.current.type_position;
+    this.options.period              = this.current.period;
+    this.options.description         = this.current.description;
+    this.options.full_description    = this.current.full_description;
+    this.options.category_id         = this.current.category_id;
+
+    this.totalCurrent();
   },
   methods: {
+    totalCurrent: function () {
+
+      let currentPrices    = JSON.parse(this.current.parameters).prices;
+      let amountPrices     = currentPrices.period + currentPrices.type_position + currentPrices.type_task;
+
+      let amount           = parseInt(this.current.amount);
+      let siteCount        = parseInt(this.current.site_count);
+
+      this.total           = (amountPrices) + amount * siteCount;
+    },
     // Проверка на введенные символы
     check: function() {
       this.options.description = this.options.description.substr(0, this.maxText)
@@ -289,22 +321,18 @@ export default {
     calc() {
       let amount           = this.options.amount     = parseInt(this.options.amount);
       let siteCount        = this.options.site_count = parseInt(this.options.site_count);
+
       this.total           = (this.options.prices.period + this.options.prices.type_task + this.options.prices.type_position) + amount * siteCount;
       this.options.sum_pay = this.total;
     },
     validateForm() {
 
-
-
-      console.log(this.options.prices)
-
       this.calc();
 
       this.$validator.validate().then((result) => {
-
         if (result) {
           this.loading = true;
-          axios.post('/cabinet/tasks',this.options);
+          axios.put('/cabinet/tasks/' + this.current.id, this.options);
           setTimeout(() => {
             this.loading = false;
           }, 1000);
@@ -316,13 +344,13 @@ export default {
 </script>
 
 <style scoped>
-     .check {
-       border: 1px solid #8e8e8e7d;
-       background: #dfe4e1;
-     }
-     .calc-btn {
-       margin-top: 26px;
-     }
+.check {
+  border: 1px solid #8e8e8e7d;
+  background: #dfe4e1;
+}
+.calc-btn {
+  margin-top: 26px;
+}
 </style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

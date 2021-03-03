@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->longText('full_description')->nullable();
             $table->unsignedInteger('category_id')->index();
             $table->unsignedBigInteger('user_id')->index();
-            $table->jsonb('parameters')->nullable();
+            $table->json('parameters')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')
