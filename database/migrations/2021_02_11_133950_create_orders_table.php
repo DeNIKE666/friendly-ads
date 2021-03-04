@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('amount', 9,1)->default(0);
             $table->integer('status')->default(0);
             $table->string('action_pay')->nullable();
-            $table->unsignedBigInteger('task_id')->index();
+            $table->unsignedBigInteger('task_id')->index()->nullable();
             $table->jsonb('params')->nullable();
 
             $table->foreign('user_id')
