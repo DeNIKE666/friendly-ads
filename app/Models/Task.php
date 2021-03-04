@@ -30,7 +30,7 @@ class Task extends Model
 
     protected $casts = [
         'status' => 'boolean',
-        'amount' => 'float'
+        'amount' => 'decimal:0'
     ];
 
     /**
@@ -102,6 +102,6 @@ class Task extends Model
 
     public function scopeIsResponses()
     {
-        return $this->subscribe()->whereStatus(1)->count() >= $this->site_count;
+        return $this->subscribe()->count() >= $this->site_count;
     }
 }

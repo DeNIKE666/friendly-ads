@@ -22,8 +22,9 @@ class SubscribeTask extends Model
         return $this->belongsTo(Task::class, 'task_id');
     }
 
-    public function user() {
-        return  $this->belongsTo(User::class , 'subscribe_user_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'subscribe_user_id');
     }
 
     /**
@@ -35,4 +36,5 @@ class SubscribeTask extends Model
     {
         return $builder->where('subscribe_user_id', '=', auth()->user()->id);
     }
+
 }

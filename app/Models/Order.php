@@ -16,10 +16,12 @@ class Order extends Model
         'user_id',
         'amount',
         'status',
-        'params'
+        'params',
+        'action_pay'
     ];
 
     public $casts = [
         'amount' => 'decimal:0'
     ];
+
 }

@@ -72,22 +72,12 @@ class OfferController extends Controller
 
     public function showTask(Task $task)
     {
-        // Проверка подписки
-
-        $isSubscribe = (new TaskRepository())->isSubscribeTask($task);
-
-        // Сайты которые предоставил пользователь
-
-        $myOfferSites =  $isSubscribe ? Str::of($isSubscribe->sites)->explode(',') : '';
-
         // Увелечение просмотров
 
         $task->increment('views', 1);
 
         return view('cabinets.executor.offers.show', [
-            'task'         => $task,
-            'isSubscribe'  => $isSubscribe,
-            'myOfferSites' => $myOfferSites
+            'task'         => $task
         ]);
     }
 

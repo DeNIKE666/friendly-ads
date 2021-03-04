@@ -22,11 +22,11 @@ class PaymentController extends Controller
             'title'      => 'Пополнение баланса для заказа - ' . $task->title,
             'order'      => Str::uuid()->toString(),
             'pay_system' => 'FreeKassa',
-            'amount'     => $task->amount,
-            'params'     => json_encode([
-                'type' => 'pay_order',
-                'id'   => $task->id,
-            ]),
+            'amount'     => $task->sum_pay,
+            'action_pay' => 'pay-order',
+            'params'     => [
+              'task_id'  => $task->id
+            ],
             'status' => 1
         ]);
 
@@ -56,10 +56,7 @@ class PaymentController extends Controller
             'order'      => Str::uuid()->toString(),
             'pay_system' => 'FreeKassa',
             'amount'     => $request->input('amount'),
-            'params'     => json_encode([
-                'type'      => 'add-balance',
-                'user_id'   => auth()->user()->id
-            ]),
+            'action_pay' => 'add-balance',
             'status' => 1
         ]);
 

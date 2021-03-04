@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->decimal('amount', 9,1)->default(0);
             $table->integer('status')->default(0);
+            $table->string('action_pay')->nullable();
             $table->jsonb('params')->nullable();
 
             $table->foreign('user_id')

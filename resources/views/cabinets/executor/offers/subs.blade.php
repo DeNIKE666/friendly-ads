@@ -67,10 +67,19 @@
                                 </p>
                             @endif
 
+                            @if($offer->yourSubscribe->status == 1)
+                                <p class="text-dark">ваш отклик был одобрен заказчиком</p>
+                            @endif
+
+                            @if($offer->IsResponses())
+                                <div class="border-top">
+                                    <div class="alert alert-info mb-3 mt-3" role="alert">
+                                        Данный заказ набрал максимальное число откликов, ждите дальнейшии инструкции <b> от покупателя</b>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded">
-                                    <i class="fal fa-eye"></i> Просмотр
-                                </a>
+                                <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a>
                                 <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">Отозвать отклик</button>
                             </div>
                         </div>

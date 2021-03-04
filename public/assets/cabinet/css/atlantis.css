@@ -26511,6 +26511,10 @@ table th {
   color: white;
 }
 
+.hidden-site {
+  color: #bfc1c5;
+}
+
 /*      jQuery Ui     */
 .ui-draggable-handle {
   touch-action: none;

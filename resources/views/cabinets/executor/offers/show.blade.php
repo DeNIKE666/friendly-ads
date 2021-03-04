@@ -16,11 +16,12 @@
     <div class="page-inner mt--5">
         <div class="d-flex justify-content-center">
             <div id="subscribe-task" data-id="{{ $task->id }}" class="col-md-6">
-                <div class="card card-post card-round">
+                <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="avatar">
-                                <img src="{{ asset('images/noavatar.png') }}" alt="..." class="avatar-img rounded-circle">
+                                <img src="{{ asset('images/noavatar.png') }}" alt="..."
+                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{ $task->user->username }}</p>
@@ -47,37 +48,68 @@
                         </p>
 
                         @if($task->IsResponses())
-                            <p class="card-text text-success fw-bold">
-                                Максимальный набор: <i class="fal fa-box-check"></i>
-                            </p>
+                            <div class="border-top pt-3"></div>
+                            <div class="alert alert-info" role="alert">
+                                Приём ставок завершен, данный заказ набрал необходимое число откликов
+                            </div>
                         @else
+                            <div class="border-top pt-3"></div>
                             <p class="card-text">
-                                Требуется сайтов:
-                                <b>{{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
+                                Требуется сайтов: <b> {{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
                             </p>
                         @endif
 
-                        @if(! $isSubscribe)
+
+                        @if(! $task->yourSubscribe)
+                            <div class="border-top pt-3"></div>
                             <div class="alert alert-info" role="alert">
                                 У вас еще нет отклика на данное задание, но вы можете <b>оставить отклик</b>
                             </div>
                         @else
-                        <ol class="activity-feed" >
-                            @foreach($task->subscribe as $executor)
-                                <li class="feed-item feed-item-success">
-                                    <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
-                                        <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
-                                    </span>
-                                    <span class="text-muted text-black-50">сделал отклик</span> <br>
-                                    <span class="text-muted text-black-50">получит <b>550 руб</b></span>
-                                </li>
-                            @endforeach
-                        </ol>
+                            <div class="border-top pt-3"></div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Пользователь</th>
+                                    <th scope="col">Рейтинг</th>
+                                    <th scope="col">Сайт</th>
+                                    <th scope="col">Статус</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($task->subscribe as $executor)
+                                    <tr>
+                                        <td data-label="Пользователь">
+                                            <a href="{{ route('cabinet.show.profile', $executor->user) }}">
+                                                {{ $executor->user->username }}
+                                            </a>
+                                        </td>
+                                        <td data-label="Рейтинг">{{ $executor->user->sites->sum('rating') }}</td>
+                                        <td data-label="Сайт">
+                                            @can('customer')
+                                                {{ $executor->sites }}
+                                            @elsecan('executor')
+                                                <i class="fal fa-eye-slash" data-toggle="tooltip" data-placement="top"
+                                                   title="Просмотр сайта доступен только заказчику"></i>
+                                            @endcan
+                                        </td>
+                                        <td data-label="Статус">
+                                            @if($executor->status == 1)
+                                                <i class="text-success fal fa-check" data-toggle="tooltip"
+                                                   data-placement="top" title="Принят в проект"></i>
+                                            @else
+                                                <i class="text-warning fal fa-user-clock" data-toggle="tooltip"
+                                                   data-placement="top" title="Ожидает решения"></i>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
