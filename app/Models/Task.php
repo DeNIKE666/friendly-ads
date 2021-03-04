@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 class Task extends Model
 {
@@ -37,7 +41,7 @@ class Task extends Model
     ];
 
     /**
-     * @return \Illuminate\Support\Stringable
+     * @return Stringable
      */
 
     public function limitDescription()
@@ -49,9 +53,17 @@ class Task extends Model
         return number_format($this->amount , 0 , ',' , ' ');
     }
 
+    /**
+     * @return HasOne
+     */
+
+    public function work()
+    {
+        return $this->hasOne(TaskWork::class);
+    }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
 
     public function category()
@@ -60,7 +72,7 @@ class Task extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
 
     public function user()
@@ -69,7 +81,7 @@ class Task extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      * Подписки
      */
 
@@ -79,7 +91,7 @@ class Task extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      * Текущий подписанный таск
      */
 
@@ -114,6 +126,6 @@ class Task extends Model
 
     public function scopeSubscribeAccepted()
     {
-        return $this->subscribe()->whereStatus(1);
+        return $this->subscribe()->whereStatus(1)->get();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -17,14 +18,16 @@ class Order extends Model
         'amount',
         'status',
         'task_id',
+        'params',
         'action_pay'
     ];
 
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return HasOne
      */
 
-    public function tasks()
+    public function task()
     {
         return $this->belongsTo(Task::class);
     }

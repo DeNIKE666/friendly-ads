@@ -14,4 +14,8 @@ class TaskWork extends Model
         'status',
         'options',
     ];
+
+    public $casts = [
+        'options' => 'object'
+    ];
 }

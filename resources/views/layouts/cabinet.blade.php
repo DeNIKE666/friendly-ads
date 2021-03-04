@@ -46,5 +46,15 @@
         }
     });
 </script>
+
+<script>
+    @if(session()->has('error'))
+        swal({
+            icon: 'error',
+            text: '{{ session()->get('error') }}'
+        })
+    @endif
+
+</script>
 </body>
 </html>

@@ -37,7 +37,6 @@
                         <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }} / {{ $task->subscribeAccepted()->count() }} </b></p>
                         <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b></p>
                         <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b></p>
-
                         <table>
                             <thead>
                             <tr>
@@ -79,38 +78,34 @@
                             @endforeach
                             </tbody>
                         </table>
-
                         @if($task->subscribeAccepted()->count() >= $task->site_count)
                             <div class="alert alert-info mb-3 mt-3" role="alert">
                                 Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
                             </div>
 
-                            <form action="{{ route('pay.create.order.task', $task) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-info-gradiant work-send"><i class="fal fa-user-check"></i> Оплатить заказ </button>
-                            </form>
+                           <div id="work">
+                               @if(! $task->work)
+                                   <form action="{{ route('work', $task) }}" method="POST">
+                                       @csrf
+                                       <button class="btn btn-info-gradiant create-order-pay"><i class="fal fa-user-check"></i> <span id="text-pay-btn">Создать и оплатить заказ </span></button>
+                                   </form>
+                               @else
+                                   <form action="{{ route('pay-order', $task) }}" method="POST">
+                                       @csrf
+                                       <button class="btn btn-success create-order-pay"><i class="fal fa-wallet"></i> <span id="text-pay-btn">Оплатить </span></button>
+                                   </form>
+                               @endif
+                           </div>
                         @endif
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     @push('scripts')
         <script>
             let taskId = $('#subscribe-task').data('id');
-
-            let workPay = $('.work-send');
-
-            workPay.click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: "/cabinet/pay/create-order-task/" + taskId,
-                    success: function (response) {
-                        console.log(response)
-                    }
-                })
-            })
 
             let reject = $('.reject-task');
             let accept = $('.accept-task');
@@ -136,7 +131,6 @@
                     }
                 })
             })
-
         </script>
     @endpush
 @endsection

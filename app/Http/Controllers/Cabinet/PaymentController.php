@@ -5,31 +5,17 @@ namespace App\Http\Controllers\Cabinet;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinets\Customer\addBalance;
 use App\Models\Task;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
     /**
-     * @param Task $task
-     * @param Request $request
-     */
-
-    public function payBalanceFromCreateTask(Task $task)
-    {
-        $order = auth()->user()->orders()->create([
-            'title'      => 'Пополнение баланса для заказа - ' . $task->title,
-            'order'      => Str::uuid()->toString(),
-            'pay_system' => 'FreeKassa',
-            'amount'     => $task->sum_pay,
-            'action_pay' => 'pay-order',
-            'task_id'    => $task->id,
-            'status'     => 0
-        ]);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
 
     public function formAddBalance()
@@ -39,7 +25,7 @@ class PaymentController extends Controller
 
     /**
      * @param addBalance $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
 
     public function addBalance(addBalance $request)
@@ -52,6 +38,7 @@ class PaymentController extends Controller
             'pay_system' => 'FreeKassa',
             'amount'     => $request->input('amount'),
             'action_pay' => 'add-balance',
+            'task_id'    => 1,
             'status' => 1
         ]);
 
@@ -59,8 +46,21 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Task $task
      */
+
+    public function payOrder(Task $task)
+    {
+        $order = auth()->user()->orders()->create([
+            'title'      => 'Пополнение баланса для заказа - ' . $task->title,
+            'order'      => $task->work->options->order,
+            'pay_system' => 'FreeKassa',
+            'amount'     => $task->sum_pay,
+            'action_pay' => 'pay-order',
+            'task_id'    => $task->id,
+            'status'     => 0
+        ]);
+    }
 
     public function history()
     {

@@ -12,6 +12,7 @@ use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -127,5 +128,26 @@ class TaskController extends Controller
     public function reject(SubscribeTask $subscribeTask)
     {
         return $subscribeTask->update(['status' => 2]);
+    }
+
+    /**
+     * @param Task $task
+     * Добаляем задание в работу
+     */
+
+    public function sendWorkTask(Task $task)
+    {
+        if ($task->work) :
+            return redirect()->back()->with('error' , 'Данное задание уже создано');
+        endif;
+
+        $task->work()->create([
+            'status' => 0,
+            'options' => [
+                'order' => Str::uuid()->toString()
+            ],
+        ]);
+
+        return redirect()->back();
     }
 }

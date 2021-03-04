@@ -10,25 +10,22 @@ class OrderCustomer
     /**
      * Handle the Order "created" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return void
      */
     public function created(Order $order)
     {
-
-        switch ($order->action_pay) {
-            case 'pay-order':
-               // Task::find($order->params->task_id)->subscribeAccepted()->each(function ($item) {
-              //      info($item);
-           //     });
-                break;
-        }
+        if ($order->action_pay == 'pay-order') :
+            $order->task->subscribe->where('status', 1)->each(function () {
+                info('тут рассылаем все подписанным с активированным статусом');
+            });
+        endif;
     }
 
     /**
      * Handle the Order "updated" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return void
      */
     public function updated(Order $order)
@@ -39,7 +36,7 @@ class OrderCustomer
     /**
      * Handle the Order "deleted" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return void
      */
     public function deleted(Order $order)
@@ -50,7 +47,7 @@ class OrderCustomer
     /**
      * Handle the Order "restored" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return void
      */
     public function restored(Order $order)
@@ -61,7 +58,7 @@ class OrderCustomer
     /**
      * Handle the Order "force deleted" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return void
      */
     public function forceDeleted(Order $order)
