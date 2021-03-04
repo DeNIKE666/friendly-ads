@@ -70,7 +70,6 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
         Route::prefix('manage-task')->group(function () {
             Route::post('/reject/{subscribeTask}', [TaskController::class , 'reject'])->name('reject');
             Route::post('/accept/{subscribeTask}', [TaskController::class , 'accept'])->name('accept');
-            Route::post('/work/{task}', [TaskController::class , 'sendWorkTask'])->name('work');
         });
 
         Route::prefix('/finance')->group(function () {
@@ -78,16 +77,12 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
             Route::prefix('balance')->group(function () {
                 Route::get('/', [PaymentController::class , 'formAddBalance'])->name('balance');
                 Route::post('/add', [PaymentController::class , 'addBalance'])->name('add-balance');
-                Route::post('/pay/{task}', [PaymentController::class , 'payOrder'])->name('pay-order');
+                Route::post('/pay/{task}', [PaymentController::class , 'orderTaskWork'])->name('order.pay.task');
             });
 
             // История пополнений
 
             Route::get('/history' , [PaymentController::class , 'history'])->name('history');
-
-            // Оплата заказа
-
-            Route::post('/create-order-task/{task}', [PaymentController::class , 'payBalanceFromCreateTask'])->name('pay.create.order.task');
         });
 
         Route::get('/performers' , [CabinetController::class , 'performers'])->name('customer.performers');

@@ -45,8 +45,8 @@ class TaskController extends Controller
     public function store(createTask $request)
     {
         $request->merge([
-            'user_id'    => auth()->user()->id,
-            'sum_pay'    => $request->input('sum_pay'),
+            'user_id' => auth()->user()->id,
+            'sum_pay' => $request->input('sum_pay'),
             'parameters' => json_encode(['prices' => $request->input('prices')])
         ]);
 
@@ -70,11 +70,11 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $task = Task::with(['category' , 'user'])->find($task->id);
+        $task = Task::with(['category', 'user'])->find($task->id);
 
         $categories = (new CategoryRepository())->getAll();
 
-        return view('cabinets.customer.task.edit', compact('categories','task'));
+        return view('cabinets.customer.task.edit', compact('categories', 'task'));
     }
 
     /**
@@ -87,7 +87,7 @@ class TaskController extends Controller
     {
 
         $request->merge([
-            'sum_pay'    => $request->input('sum_pay'),
+            'sum_pay' => $request->input('sum_pay'),
             'parameters' => json_encode(['prices' => $request->input('prices')])
         ]);
 
@@ -128,26 +128,5 @@ class TaskController extends Controller
     public function reject(SubscribeTask $subscribeTask)
     {
         return $subscribeTask->update(['status' => 2]);
-    }
-
-    /**
-     * @param Task $task
-     * Добаляем задание в работу
-     */
-
-    public function sendWorkTask(Task $task)
-    {
-        if ($task->work) :
-            return redirect()->back()->with('error' , 'Данное задание уже создано');
-        endif;
-
-        $task->work()->create([
-            'status' => 0,
-            'options' => [
-                'orderUnique' => Str::uuid()->toString()
-            ]
-        ]);
-
-        return redirect()->back();
     }
 }

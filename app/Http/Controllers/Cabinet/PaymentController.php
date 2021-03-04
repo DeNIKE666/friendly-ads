@@ -43,15 +43,16 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
+
     /**
      * @param Task $task
      */
 
-    public function payOrder(Task $task)
+    public function orderTaskWork(Task $task)
     {
         $order = auth()->user()->orders()->create([
             'title'      => 'Пополнение баланса для заказа - ' . $task->title,
-            'order'      => $task->work->options->orderUnique,
+            'order'      => Str::uuid()->toString(),
             'pay_system' => 'FreeKassa',
             'amount'     => $task->sum_pay,
             'action_pay' => 'pay-order',
@@ -59,9 +60,18 @@ class PaymentController extends Controller
             'status'     => 0
         ]);
 
-        $task->work()->update([
-            'order_id' => $order->id
+        if ($task->work) :
+            return redirect()->back()->with('error' , 'Данное задание уже создано оплатите его');
+        endif;
+
+        $task->work()->create([
+            'order_id' => $order->id,
+            'options' => [
+                'link' => 'https://'
+            ],
         ]);
+
+        return $order;
     }
 
     public function history()

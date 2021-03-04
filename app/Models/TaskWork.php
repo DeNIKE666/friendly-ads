@@ -13,7 +13,8 @@ class TaskWork extends Model
     protected $fillable = [
         'task_id',
         'status',
-        'options'
+        'options',
+        'order_id'
     ];
 
     public $casts = [
