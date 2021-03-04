@@ -56,7 +56,8 @@ class TaskFactory extends Factory
             'site_count'        => mt_rand(1,10),
             'period'            => $period[$rand_keys_period],
             'views'             => mt_rand(1000, 9999),
-            'status'            => mt_rand(0,1)
+            'isActive'          => mt_rand(0,1),
+            'isPay'             => mt_rand(0,1)
         ];
     }
 }

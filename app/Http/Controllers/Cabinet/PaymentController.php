@@ -60,18 +60,9 @@ class PaymentController extends Controller
             'status'     => 0
         ]);
 
-        if ($task->work) :
-            return redirect()->back()->with('error' , 'Данное задание уже создано оплатите его');
-        endif;
+        $task->update(['isPay' => 1]);
 
-        $task->work()->create([
-            'order_id' => $order->id,
-            'options' => [
-                'link' => 'https://'
-            ],
-        ]);
-
-        return $order;
+        return redirect()->back();
     }
 
     public function history()

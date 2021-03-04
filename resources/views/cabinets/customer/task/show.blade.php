@@ -83,21 +83,20 @@
                                 Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
                             </div>
                            <div id="work">
-                               @if(! $task->work)
+                               @switch($task->isPay)
+                                   @case(0)
                                    <form action="{{ route('order.pay.task', $task) }}" method="POST">
                                        @csrf
                                        <button class="btn btn-info-gradiant create-order-pay"><i class="fal fa-user-check"></i> <span id="text-pay-btn">Создать и оплатить заказ </span></button>
                                    </form>
-                               @else
-                                   @if($task->work->order->status)
-                                       <p class="pt-2">Ваш заказ на сумму <b>{{ number_format($task->sum_pay  , 0 , ', ' , ' ') }}</b> руб. оплачен.</p>
-                                   @else
-                                       <form action="{{ route('order.pay.task', $task) }}" method="POST">
-                                           @csrf
-                                           <button class="btn btn-success create-order-pay"><i class="fal fa-wallet"></i> <span id="text-pay-btn">Оплатить </span></button>
-                                       </form>
-                                   @endif
-                               @endif
+                                   @break
+                                   @case(1)
+                                      Заказ создан но не оплачен
+                                   @break
+                                   @case(2)
+                                      Заказ оплачен
+                                   @break
+                               @endswitch
                            </div>
                         @endif
                     </div>

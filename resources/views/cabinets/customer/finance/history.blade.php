@@ -43,10 +43,12 @@
                             @endswitch
                         </td>
                         <td data-label="Статус">
-                            @if($history->status)
-                                <span class="badge badge-success">Оплачен</span>
-                            @else
-                                <span class="badge badge-warning">Не оплачен</span>
+                            @if($history->status == 0)
+                                <a href="">перейти к оплате</a>
+                            @elseif($history->status == 1)
+                                <span class="badge badge-success">оплачен</span>
+                            @elseif($history->status == 2)
+                                <span class="badge badge-danger">не оплачен</span>
                             @endif
                         </td>
                     </tr>

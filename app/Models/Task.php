@@ -29,15 +29,16 @@ class Task extends Model
         'site_count',
         'period',
         'views',
-        'status'
+        'isActive',
+        'isPay'
     ];
 
     public $with = ['category' , 'user' , 'subscribe'];
 
     protected $casts = [
-        'status'  => 'boolean',
-        'amount'  => 'decimal:0',
-        'sum_pay' => 'decimal:0'
+        'isActive' => 'boolean',
+        'amount'   => 'decimal:0',
+        'sum_pay'  => 'decimal:0'
     ];
 
     /**
@@ -56,15 +57,6 @@ class Task extends Model
     public function amount()
     {
         return number_format($this->amount , 0 , ',' , ' ');
-    }
-
-    /**
-     * @return HasOne
-     */
-
-    public function work()
-    {
-        return $this->hasOne(TaskWork::class);
     }
 
     /**
@@ -112,7 +104,7 @@ class Task extends Model
 
     public function scopeStatusActive(Builder $builder)
     {
-        $builder->where('status', 1);
+        $builder->where('isActive', 1);
     }
 
     /**
