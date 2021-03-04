@@ -29,7 +29,7 @@
                                     {{ $task->title }}
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="separator-solid"></div>
                         <p class="card-category text-info mb-1"><a href="#">{{ $task->category->name }}</a></p>
                         <p class="card-text text-black-50">{{ $task->description}}</p>
