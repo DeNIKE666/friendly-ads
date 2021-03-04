@@ -41,42 +41,40 @@
                             </div>
                             <div class="separator-solid"></div>
                             <p class="card-text text-black-50">{{ $offer->limitDescription() }}</p>
-                            <p class="card-text m-0">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
-                            <p class="card-text m-0">Срок: <b>{{ $offer->period }}</b> дней. </p>
-                            <p class="card-text m-0">Категория: <b>{{ $offer->category->name }}</b></p>
+                            <p class="card-text">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
+                            <p class="card-text">Срок: <b>{{ $offer->period }}</b> дней. </p>
+                            <p class="card-text">Категория: <b>{{ $offer->category->name }}</b></p>
+                            <p class="card-text">Требуется сайтов: <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }} </b></p>
+                            <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b></p>
+                            <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b></p>
 
-                            <p class="card-text m-0">
-                                Тип контента:
-                                <b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b>
-                            </p>
-
-                            <p class="card-text">
-                                Позиция размещения:
-                                <b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b>
-                            </p>
-
-
-                            @if($offer->IsResponses())
-                                <p class="card-text text-success fw-bold">
-                                    Максимальный набор: <i class="fal fa-box-check"></i>
+                            @switch($offer->yourSubscribe->status)
+                                @case(1)
+                                 <p class="text-dark text-success">
+                                     <i class="fal fa-check"></i>
+                                     ваш отклик был одобрен заказчиком
+                                 </p>
+                                @break
+                                @case(2)
+                                 <p class="text-dark text-danger">
+                                     <i class="fal fa-times"></i>
+                                     ваш отклик был отклонён
+                                 </p>
+                                @break
+                                @case(0)
+                                <p class="text-dark text-warning">
+                                    <i class="fal fa-clock"></i>
+                                    На рассмотрении...
                                 </p>
-                            @else
-                                <p class="card-text">
-                                    Требуется сайтов:
-                                    <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }}  </b>
-                                </p>
-                            @endif
+                                @break
+                            @endswitch
 
-                            @if($offer->yourSubscribe->status == 1)
-                                <p class="text-dark">ваш отклик был одобрен заказчиком</p>
-                            @endif
-
-                            @if($offer->IsResponses())
-                                <div class="border-top">
+                            @if($offer->site_count == $offer->subscribe->count())
+                                <div class="border-top">   </div>
                                     <div class="alert alert-info mb-3 mt-3" role="alert">
                                         Данный заказ набрал максимальное число откликов, ждите дальнейшии инструкции <b> от покупателя</b>
                                     </div>
-                                </div>
+                                <div class="border-bottom mb-4">   </div>
                             @endif
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a>

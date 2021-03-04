@@ -59,7 +59,6 @@
                             </p>
                         @endif
 
-
                         @if(! $task->yourSubscribe)
                             <div class="border-top pt-3"></div>
                             <div class="alert alert-info" role="alert">
@@ -94,13 +93,18 @@
                                             @endcan
                                         </td>
                                         <td data-label="Статус">
-                                            @if($executor->status == 1)
-                                                <i class="text-success fal fa-check" data-toggle="tooltip"
-                                                   data-placement="top" title="Принят в проект"></i>
-                                            @else
-                                                <i class="text-warning fal fa-user-clock" data-toggle="tooltip"
-                                                   data-placement="top" title="Ожидает решения"></i>
-                                            @endif
+
+                                            @switch($executor->status)
+                                                @case(1)
+                                                <i class="text-success fal fa-check" data-toggle="tooltip" data-placement="top" title="Принят в проект"></i>
+                                                @break
+                                                @case(2)
+                                                <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
+                                                @break
+                                                @case(0)
+                                                <i class="text-warning fal fa-clock" data-toggle="tooltip" data-placement="top" title="Ожидает решения"></i>
+                                                @break
+                                            @endswitch
                                         </td>
                                     </tr>
                                 @endforeach
