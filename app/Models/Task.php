@@ -35,9 +35,9 @@ class Task extends Model
     public $with = ['category' , 'user' , 'subscribe'];
 
     protected $casts = [
-        'status' => 'boolean',
-        'amount' => 'decimal:0',
-        ''
+        'status'  => 'boolean',
+        'amount'  => 'decimal:0',
+        'sum_pay' => 'decimal:0'
     ];
 
     /**
@@ -49,7 +49,12 @@ class Task extends Model
         return Str::of($this->description)->lower()->words(10 , '...');
     }
 
-    public function amount() {
+    /**
+     * @return string
+     */
+
+    public function amount()
+    {
         return number_format($this->amount , 0 , ',' , ' ');
     }
 

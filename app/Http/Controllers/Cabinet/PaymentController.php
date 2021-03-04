@@ -51,12 +51,16 @@ class PaymentController extends Controller
     {
         $order = auth()->user()->orders()->create([
             'title'      => 'Пополнение баланса для заказа - ' . $task->title,
-            'order'      => $task->work->options->order,
+            'order'      => $task->work->options->orderUnique,
             'pay_system' => 'FreeKassa',
             'amount'     => $task->sum_pay,
             'action_pay' => 'pay-order',
             'task_id'    => $task->id,
             'status'     => 0
+        ]);
+
+        $task->work()->update([
+            'order_id' => $order->id
         ]);
     }
 

@@ -17,7 +17,13 @@ class CreateTaskWorksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('task_id')->index();
             $table->integer('status')->default(0);
-            $table->jsonb('options')->nullable();
+            $table->unsignedBigInteger('order_id')->index()->nullable();
+            $table->json('options');
+
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('cascade');
 
             $table->foreign('task_id')
                 ->references('id')

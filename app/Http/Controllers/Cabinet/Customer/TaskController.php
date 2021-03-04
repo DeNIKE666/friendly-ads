@@ -144,8 +144,8 @@ class TaskController extends Controller
         $task->work()->create([
             'status' => 0,
             'options' => [
-                'order' => Str::uuid()->toString()
-            ],
+                'orderUnique' => Str::uuid()->toString()
+            ]
         ]);
 
         return redirect()->back();

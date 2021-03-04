@@ -31,7 +31,7 @@
                         </div>
                         <div class="separator-solid"></div>
                         <p class="card-text text-black-50">{{ $task->description }}</p>
-                        <p class="card-text">Бюджет: <b>{{ $task->amount }}</b> руб. </p>
+                        <p class="card-text">Бюджет: <b>{{ number_format($task->amount , 0 , ', ' , ' ') }}</b> руб. </p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>
                         <p class="card-text">Категория: <b>{{ $task->category->name }}</b></p>
                         <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }} / {{ $task->subscribeAccepted()->count() }} </b></p>
@@ -83,6 +83,7 @@
                                 Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
                             </div>
 
+
                            <div id="work">
                                @if(! $task->work)
                                    <form action="{{ route('work', $task) }}" method="POST">
@@ -90,10 +91,14 @@
                                        <button class="btn btn-info-gradiant create-order-pay"><i class="fal fa-user-check"></i> <span id="text-pay-btn">Создать и оплатить заказ </span></button>
                                    </form>
                                @else
-                                   <form action="{{ route('pay-order', $task) }}" method="POST">
-                                       @csrf
-                                       <button class="btn btn-success create-order-pay"><i class="fal fa-wallet"></i> <span id="text-pay-btn">Оплатить </span></button>
-                                   </form>
+                                   @if($task->work->order->status)
+                                       <p class="pt-2">Ваш заказ на сумму <b>{{ number_format($task->sum_pay  , 0 , ', ' , ' ') }}</b> руб. оплачен.</p>
+                                   @else
+                                       <form action="{{ route('pay-order', $task) }}" method="POST">
+                                           @csrf
+                                           <button class="btn btn-success create-order-pay"><i class="fal fa-wallet"></i> <span id="text-pay-btn">Оплатить </span></button>
+                                       </form>
+                                   @endif
                                @endif
                            </div>
                         @endif
