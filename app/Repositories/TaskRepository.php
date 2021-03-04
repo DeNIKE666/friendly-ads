@@ -14,9 +14,10 @@ class TaskRepository
 
     public function getAll()
     {
+
         $isCategoriesSites = auth()->user()->sites()->pluck('category_id');
 
-        return Task::statusActive()->with(['user', 'category'])->where(function (Builder $query)  {
+        return Task::statusActive()->where(function (Builder $query)  {
            $query->doesntHave('yourSubscribe');
         })
             ->whereIn('category_id' , $isCategoriesSites)
@@ -29,7 +30,7 @@ class TaskRepository
 
     public function getAllForAdmin()
     {
-        return Task::with(['user', 'category'])->paginate(50);
+        return Task::paginate(50);
     }
 
     /**
@@ -38,7 +39,7 @@ class TaskRepository
 
     public function getCurrentUser()
     {
-        return Task::with(['category' , 'user' , 'subscribe'])->where('user_id', auth()->user()->id)
+        return Task::where('user_id', auth()->user()->id)
             ->orderBy('created_at')
             ->paginate(10);
     }
@@ -59,13 +60,12 @@ class TaskRepository
 
     public function subsOffers()
     {
-       return Task::with(['category' , 'user' , 'subscribe'])
-           ->leftJoin('subscribe_tasks' , 'tasks.id' , '=', 'subscribe_tasks.task_id')
+       return Task::leftJoin('subscribe_tasks' , 'tasks.id' , '=', 'subscribe_tasks.task_id')
            ->where('subscribe_tasks.subscribe_user_id', '=', auth()->user()->id)
            ->orderBy('id' , 'desc')
            ->select('tasks.*')
-           ->groupBy('tasks.id')
-           ->paginate(100);
+           ->groupBy('subscribe_tasks.id')
+           ->paginate(10);
     }
 
 
@@ -87,7 +87,7 @@ class TaskRepository
 
         $orderByAmount    = request('amount');
 
-        $tasks = Task::statusActive()->with(['category' , 'user' , 'subscribe']);
+        $tasks = Task::statusActive();
 
         if ($category_id) {
             $tasks->whereCategoryId($category_id);

@@ -16,12 +16,27 @@ class Order extends Model
         'user_id',
         'amount',
         'status',
-        'params',
+        'task_id',
         'action_pay'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+    public function tasks()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    /**
+     * @var string[]
+     */
+
     public $casts = [
-        'amount' => 'decimal:0'
+        'amount' => 'decimal:0',
+        'params' => 'object'
     ];
+
 
 }

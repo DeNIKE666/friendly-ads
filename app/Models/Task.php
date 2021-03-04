@@ -28,9 +28,12 @@ class Task extends Model
         'status'
     ];
 
+    public $with = ['category' , 'user' , 'subscribe'];
+
     protected $casts = [
         'status' => 'boolean',
-        'amount' => 'decimal:0'
+        'amount' => 'decimal:0',
+        ''
     ];
 
     /**
@@ -39,7 +42,7 @@ class Task extends Model
 
     public function limitDescription()
     {
-        return Str::of(strip_tags($this->description))->lower()->limit(85 , '...');
+        return Str::of($this->description)->lower()->words(10 , '...');
     }
 
     public function amount() {
@@ -103,5 +106,14 @@ class Task extends Model
     public function scopeIsResponses()
     {
         return $this->subscribe()->count() >= $this->site_count;
+    }
+
+    /**
+     * @return mixed
+     */
+
+    public function scopeSubscribeAccepted()
+    {
+        return $this->subscribe()->whereStatus(1);
     }
 }

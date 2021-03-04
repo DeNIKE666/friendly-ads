@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinets\Customer\addBalance;
-use App\Models\Order;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,7 +15,7 @@ class PaymentController extends Controller
      * @param Request $request
      */
 
-    public function payBalanceFromCreateTask(Task $task, Request $request)
+    public function payBalanceFromCreateTask(Task $task)
     {
         $order = auth()->user()->orders()->create([
             'title'      => 'Пополнение баланса для заказа - ' . $task->title,
@@ -24,13 +23,9 @@ class PaymentController extends Controller
             'pay_system' => 'FreeKassa',
             'amount'     => $task->sum_pay,
             'action_pay' => 'pay-order',
-            'params'     => [
-              'task_id'  => $task->id
-            ],
-            'status' => 1
+            'task_id'    => $task->id,
+            'status'     => 0
         ]);
-
-        return $order;
     }
 
     /**

@@ -30,53 +30,67 @@
                             </div>
                         </div>
                         <div class="separator-solid"></div>
-                        <p class="card-text text-black-50">{!! $task->description !!}</p>
+                        <p class="card-text text-black-50">{{ $task->description }}</p>
                         <p class="card-text">Бюджет: <b>{{ $task->amount }}</b> руб. </p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>
                         <p class="card-text">Категория: <b>{{ $task->category->name }}</b></p>
+                        <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }} / {{ $task->subscribeAccepted()->count() }} </b></p>
+                        <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b></p>
+                        <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b></p>
 
-                        <p class="card-text">
-                            Тип контента:
-                            <b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b>
-                        </p>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col">Пользователь</th>
+                                <th scope="col">Рейтинг</th>
+                                <th scope="col">Сайт</th>
+                                <th scope="col">Статус</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($task->subscribe as $executor)
+                                <tr>
+                                    <td data-label="Пользователь">
+                                        <a href="{{ route('cabinet.show.profile', $executor->user) }}">
+                                            {{ $executor->user->username }}
+                                        </a>
+                                    </td>
+                                    <td data-label="Рейтинг">{{ $executor->user->sites->sum('rating') }}</td>
+                                    <td data-label="Сайт">
+                                        <a href="{{ $executor->sites }}">перейти</a>
+                                    </td>
+                                    <td data-label="Статус">
+                                        @switch($executor->status)
+                                            @case(1)
+                                            <i class="text-success fal fa-check" data-toggle="tooltip" data-placement="top" title="Принят в проект"></i>
+                                            @break
+                                            @case(2)
+                                            <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
+                                            @break
+                                            @case(0)
+                                                @if($executor->status == 0)
+                                                    <button data-id="{{ $executor->id }}" class="btn btn-primary accept-task btn-sm"><i class="fal fa-check"></i></button>
+                                                    <button data-id="{{ $executor->id }}" class="btn btn-danger reject-task btn-sm"><i class="fal fa-times"></i></button>
+                                                @endif
+                                            @break
+                                        @endswitch
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
-                        <p class="card-text">
-                            Позиция размещения:
-                            <b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b>
-                        </p>
+                        @if($task->subscribeAccepted()->count() >= $task->site_count)
+                            <div class="alert alert-info mb-3 mt-3" role="alert">
+                                Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
+                            </div>
 
-                        <ol class="activity-feed" >
-                            @forelse($task->subscribe as $executor)
-                                <li id="executor-{{ $executor->id }}" class="feed-item feed-item-success">
-                                <span class="d-block text-muted text-uppercase font-weight-bold mb-2">
-                                    <a href="{{ route('cabinet.show.profile', $executor->user) }}">{{ $executor->user->username }}</a>
-                                </span>
-                                    <p class="text-muted pt-1"><i class="fal fa-check"></i> сделал(а) отклик</p>
-                                    <p class="text-muted pt-1"><i class="fal fa-chart-bar"></i> Общий рейтинг всех сайтов: {{ $executor->user->sites->sum('rating') }}</p>
-                                    @if($executor->status == 0)
-                                        <button data-id="{{ $executor->id }}" class="btn btn-danger reject-task"><i class="fal fa-user-times"></i> Отклонить</button>
-                                        <button data-id="{{ $executor->id }}" class="btn btn-primary accept-task"><i class="fal fa-user-check"></i> Принять</button>
-                                    @elseif($executor->status == 1)
-                                        <span class="badge badge-success">принят</span>
-                                    @endif
-                                </li>
-                            @empty
-                                <li>
-                                    <div class="alert alert-info mb-0" role="alert">
-                                        Нет откликов на ваше задание
-                                    </div>
-                                </li>
-                            @endforelse
-                        </ol>
+                            <form action="{{ route('pay.create.order.task', $task) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-info-gradiant work-send"><i class="fal fa-user-check"></i> Оплатить заказ </button>
+                            </form>
+                        @endif
 
-                        <div class="border-top">
-                            @if($task->IsResponses())
-                                <div class="alert alert-info mb-3 mt-3" role="alert">
-                                    Ваш заказ набрал максимальное число откликов, теперь вы можете <b>зарезервировать средства в системе</b>, и создать персональный код размешения на сайтах, для каждого исполнителя.
-                                </div>
-                                <button data-id="{{ $task->id }}" class="btn btn-info-gradiant work-send"><i class="fal fa-user-check"></i> Пополнить и создать заказ</button>
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>

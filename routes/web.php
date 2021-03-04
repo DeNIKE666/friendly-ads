@@ -61,11 +61,21 @@ Route::prefix('cabinet')->middleware('auth')->group(function () {
         Route::prefix('/finance')->group(function () {
 
             Route::prefix('balance')->group(function () {
+
+                // Страница пополнения баланса
+
                 Route::get('/', [\App\Http\Controllers\Cabinet\PaymentController::class , 'formAddBalance'])->name('balance');
+
+                // Пополнение баланса
+
                 Route::post('/add', [\App\Http\Controllers\Cabinet\PaymentController::class , 'addBalance'])->name('add-balance');
             });
 
+            // История пополнений
+
             Route::get('/history' , [\App\Http\Controllers\Cabinet\PaymentController::class , 'history'])->name('history');
+
+            // Оплата заказа
 
             Route::post('/create-order-task/{task}', [\App\Http\Controllers\Cabinet\PaymentController::class , 'payBalanceFromCreateTask'])->name('pay.create.order.task');
         });

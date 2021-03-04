@@ -22,11 +22,16 @@ class CreateOrdersTable extends Migration
             $table->decimal('amount', 9,1)->default(0);
             $table->integer('status')->default(0);
             $table->string('action_pay')->nullable();
-            $table->jsonb('params')->nullable();
-
+            $table->unsignedBigInteger('task_id')->index();
+            
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('task_id')
+                ->references('id')
+                ->on('tasks')
                 ->onDelete('cascade');
 
             $table->timestamps();

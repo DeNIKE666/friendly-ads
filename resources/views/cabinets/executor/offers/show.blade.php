@@ -20,8 +20,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="avatar">
-                                <img src="{{ asset('images/noavatar.png') }}" alt="..."
-                                     class="avatar-img rounded-circle">
+                                <img src="{{ asset('images/noavatar.png') }}" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{ $task->user->username }}</p>
@@ -31,7 +30,6 @@
                             </div>
                         </div> 
                         <div class="separator-solid"></div>
-                        <p class="card-category text-info mb-1"><a href="#">{{ $task->category->name }}</a></p>
                         <p class="card-text text-black-50">{{ $task->description}}</p>
                         <p class="card-text">Бюджет: <b>{{ $task->amount }}</b> руб. </p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>

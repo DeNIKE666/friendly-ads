@@ -44,7 +44,8 @@ mix.scripts([
     'resources/js/atlantis/plugin/sweetalert/sweetalert.min.js',
     'resources/js/atlantis/plugin/owl-carousel/owl.carousel.min.js',
     'resources/js/atlantis/plugin/jquery.magnific-popup/jquery.magnific-popup.min.js',
-    'resources/js/atlantis/plugin/chart-js/chart.min.js'
+    'resources/js/atlantis/plugin/chart-js/chart.min.js',
+    'resources/js/atlantis/lk.js'
 ], 'public/assets/cabinet/js/vendor_atlantis.js').version();
 
 

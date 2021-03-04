@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\SubscribeTask;
 use App\Models\User;
 use App\Observers\ExecutorSubscribe;
+use App\Observers\Ordercustomer;
 use App\Observers\UserAccount;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         SubscribeTask::observe(ExecutorSubscribe::class);
         User::observe(UserAccount::class);
+        Order::observe(OrderCustomer::class);
     }
 }

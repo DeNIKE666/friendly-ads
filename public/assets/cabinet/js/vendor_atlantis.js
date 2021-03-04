@@ -209,3 +209,182 @@ animateIn:!1},e.prototype.swap=function(){if(1===this.core.settings.items&&a.sup
  * @license MIT
  */
 !function(){function t(){this.drawDataset=this.drawDataset.bind(this)}"undefined"==typeof Chart?console.warn("Can not find Chart object."):(t.prototype.beforeDatasetsUpdate=function(t){if(this.parseOptions(t)&&"outside"===this.position){var e=1.5*this.fontSize+2;t.chartArea.top+=e,t.chartArea.bottom-=e}},t.prototype.afterDatasetsDraw=function(t){this.parseOptions(t)&&(this.labelBounds=[],t.config.data.datasets.forEach(this.drawDataset))},t.prototype.drawDataset=function(t){for(var e=this.ctx,i=this.chartInstance,o=t._meta[Object.keys(t._meta)[0]],a=0,s=0;s<o.data.length;s++){var r=o.data[s],n=r._view;if(0!==n.circumference||this.showZero){switch(this.render){case"value":var h=t.data[s];this.format&&(h=this.format(h)),h=h.toString();break;case"label":h=i.config.data.labels[s];break;case"image":h=this.images[s]?this.loadImage(this.images[s]):"";break;default:var l=n.circumference/this.options.circumference*100;l=parseFloat(l.toFixed(this.precision)),this.showActualPercentages||100<(a+=l)&&(l-=a-100,l=parseFloat(l.toFixed(this.precision))),h=l+"%"}if("function"==typeof this.render&&("object"==typeof(h=this.render({label:i.config.data.labels[s],value:t.data[s],percentage:l,dataset:t,index:s}))&&(h=this.loadImage(h))),!h)break;if(e.save(),e.beginPath(),e.font=Chart.helpers.fontString(this.fontSize,this.fontStyle,this.fontFamily),"outside"===this.position||"border"===this.position&&"pie"===i.config.type){var f,c=n.outerRadius/2,p=this.fontSize+2,d=n.startAngle+(n.endAngle-n.startAngle)/2;if("border"===this.position?f=(n.outerRadius-c)/2+c:"outside"===this.position&&(f=n.outerRadius-c+c+p),d={x:n.x+Math.cos(d)*f,y:n.y+Math.sin(d)*f},"outside"===this.position){d.x=d.x<n.x?d.x-p:d.x+p;var u=n.outerRadius+p}}else c=n.innerRadius,d=r.tooltipPosition();if("function"==typeof(p=this.fontColor)?p=p({label:i.config.data.labels[s],value:t.data[s],percentage:l,text:h,backgroundColor:t.backgroundColor[s],dataset:t,index:s}):"string"!=typeof p&&(p=p[s]||this.options.defaultFontColor),this.arc)u||(u=(c+n.outerRadius)/2),e.fillStyle=p,e.textBaseline="middle",this.drawArcText(h,u,n,this.overlap);else{c=this.measureText(h),n=d.x-c.width/2,c=d.x+c.width/2;var g=d.y-this.fontSize/2,x=d.y+this.fontSize/2;(this.overlap||("outside"===this.position?this.checkTextBound(n,c,g,x):r.inRange(n,g)&&r.inRange(n,x)&&r.inRange(c,g)&&r.inRange(c,x)))&&this.fillText(h,d,p)}e.restore()}}},t.prototype.parseOptions=function(t){var e=t.options.pieceLabel;return!!e&&(this.chartInstance=t,this.ctx=t.chart.ctx,this.options=t.config.options,this.render=e.render||e.mode,this.position=e.position||"default",this.arc=e.arc,this.format=e.format,this.precision=e.precision||0,this.fontSize=e.fontSize||this.options.defaultFontSize,this.fontColor=e.fontColor||this.options.defaultFontColor,this.fontStyle=e.fontStyle||this.options.defaultFontStyle,this.fontFamily=e.fontFamily||this.options.defaultFontFamily,this.hasTooltip=t.tooltip._active&&t.tooltip._active.length,this.showZero=e.showZero,this.overlap=e.overlap,this.images=e.images||[],this.showActualPercentages=e.showActualPercentages||!1,!0)},t.prototype.checkTextBound=function(t,e,i,o){for(var a=this.labelBounds,s=0;s<a.length;++s){for(var r=a[s],n=[[t,i],[t,o],[e,i],[e,o]],h=0;h<n.length;++h){var l=n[h][0],f=n[h][1];if(l>=r.left&&l<=r.right&&f>=r.top&&f<=r.bottom)return!1}for(n=[[r.left,r.top],[r.left,r.bottom],[r.right,r.top],[r.right,r.bottom]],h=0;h<n.length;++h)if(l=n[h][0],f=n[h][1],l>=t&&l<=e&&f>=i&&f<=o)return!1}return a.push({left:t,right:e,top:i,bottom:o}),!0},t.prototype.measureText=function(t){return"object"==typeof t?{width:t.width,height:t.height}:this.ctx.measureText(t)},t.prototype.fillText=function(t,e,i){var o=this.ctx;"object"==typeof t?o.drawImage(t,e.x-t.width/2,e.y-t.height/2,t.width,t.height):(o.fillStyle=i,o.textBaseline="top",o.textAlign="center",o.fillText(t,e.x,e.y-this.fontSize/2))},t.prototype.loadImage=function(t){var e=new Image;return e.src=t.src,e.width=t.width,e.height=t.height,e},t.prototype.drawArcText=function(t,e,i,o){var a=this.ctx,s=i.x,r=i.y,n=i.startAngle;i=i.endAngle,a.save(),a.translate(s,r),r=i-n;var h=n+=Math.PI/2;if(n+=((i+=Math.PI/2)-((s=this.measureText(t)).width/e+n))/2,o||!(i-n>r))if("string"==typeof t)for(a.rotate(n),o=0;o<t.length;o++)n=t.charAt(o),s=a.measureText(n),a.save(),a.translate(0,-1*e),a.fillText(n,0,0),a.restore(),a.rotate(s.width/e);else a.rotate((h+i)/2),a.translate(0,-1*e),this.fillText(t,{x:0,y:0});a.restore()},Chart.pluginService.register({beforeInit:function(e){e.pieceLabel=new t},beforeDatasetsUpdate:function(t){t.pieceLabel.beforeDatasetsUpdate(t)},afterDatasetsDraw:function(t){t.pieceLabel.afterDatasetsDraw(t)}}))}();
+$(document).ready(function () {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('.change').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: "/cabinet/account/change-account",
+            data: {type_account: $(this).data('account')},
+            success: function (data) {
+                if (data.success)
+                    window.location.href = "/cabinet"
+            }
+        })
+    })
+
+    let data = {
+        price: 0,
+        period: 0
+    }
+
+    let amount    = $('#amount');
+    let period    = $('#period');
+    let siteCount = $('#site_count');
+
+    amount.change(function () {
+        data.price = $(this).val();
+    })
+
+    amount.keyup(function () {
+        data.price  = parseInt($(this).val());
+        data.period = parseInt(period.val());
+        setCalc();
+    })
+
+    period.change(function () {
+        data.price  = parseInt(amount.val());
+        data.period = parseInt($(this).val());
+        setCalc();
+    })
+
+    function setCalc() {
+
+        let days = 0;
+
+        if (data.period < 3)
+            days = 0;
+        else if (data.period === 3)
+            days = 250;
+        else if (data.period === 7)
+            days = 400
+        else if (data.period === 14)
+            days = 750
+        else if (data.period === 30)
+            days = 1250
+
+        if (data.period > data.price) return;
+
+        let siteSum = 0;
+
+        if(days > 3) {
+            if (siteCount.val() > 5)
+                siteSum = 350;
+            else if (data.period > 10)
+                siteSum = 900
+        }
+
+        let dopOptions = days + siteSum;
+
+        let final = (data.price - dopOptions) / 10;
+
+        let siteCount_int = parseFloat(final).toFixed(0)
+
+        if (siteCount_int > 0)
+            siteCount.val(parseFloat(siteCount_int).toFixed(0))
+        else
+            siteCount.val(0)
+    }
+
+    $('.unsubscribe').on('click', function () {
+
+        let          id = $(this).data('id')
+        let subsCount =  parseInt($('#subsCount').text());
+
+        $.ajax({
+            type: 'POST',
+            url: "/cabinet/offers/unsubscribe/" + id,
+            data: {id: id},
+            success: function () {
+                $('#subscribe-task-' + id).fadeOut('slow')
+
+                subsCount--
+
+                $('#subsCount').text(subsCount)
+
+                if (subsCount === 0)
+                    window.location.reload();
+            },
+            error: function (data) {
+                $.notify({
+                    icon: 'flaticon-alarm-1',
+                    title: 'Ошибка',
+                    message: data.responseJSON.message,
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                    time: 1000,
+                });
+            }
+        })
+    })
+
+    $('.task').on('click', function () {
+
+        let task = $('#subscribe-task')
+
+        let id =  $(this).data('id')
+
+        $('#modal').modal({
+            keyboard: true,
+            show: true,
+        });
+
+        $('.subscribe').off('click').on('click', function () {
+
+            let sites = $('#multiple').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/cabinet/offers/subscribe/" + id,
+                data: {
+                    id: id,
+                    sites: sites
+                },
+                success: function (data) {
+                    $(".close-modal").trigger("click");
+                    task.remove();
+                    swal("Успешно", "Вы подписались на это задание, все ваши подписки находятся в разделе мои отклики", {
+                        icon : "success",
+                        buttons: {
+                            confirm: {
+                                className : 'btn btn-success'
+                            }
+                        },
+                    });
+                },
+                error: function (data) {
+
+                    let errors = $('#errors');
+
+                    errors.find('span').remove();
+
+                    if (data.status === 422) {
+                        if (data.responseJSON.errors) {
+                            $.each(data.responseJSON.errors, function (field_name, error) {
+                                $('#errors').append('<span class="text-danger text-muted">' + error + '</span>');
+                            });
+                        } else {
+                            $('#errors').append('<span class="text-danger text-muted">' + data.responseJSON.message + '</span>');
+                        }
+                    }
+
+                    setTimeout(function () {
+                        errors.find('span').fadeOut('slow')
+                    }, 10000);
+
+                }
+            })
+        });
+
+    })
+})

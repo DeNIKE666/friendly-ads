@@ -79,7 +79,7 @@ class OfferController extends Controller
         return view('cabinets.executor.offers.show', [
             'task'         => $task
         ]);
-    }
+    } 
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View

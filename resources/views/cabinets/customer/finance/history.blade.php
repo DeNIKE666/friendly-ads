@@ -52,7 +52,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center p-10">
+                        <td colspan="5" class="text-center p-5">
                             На данный момент история пуста
                         </td>
                     </tr>

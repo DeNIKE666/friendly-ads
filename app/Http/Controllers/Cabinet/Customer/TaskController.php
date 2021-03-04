@@ -126,6 +126,6 @@ class TaskController extends Controller
 
     public function reject(SubscribeTask $subscribeTask)
     {
-        return $subscribeTask->delete();
+        return $subscribeTask->update(['status' => 2]);
     }
 }
