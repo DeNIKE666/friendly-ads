@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
@@ -38,7 +37,6 @@ class PaymentController extends Controller
             'pay_system' => 'FreeKassa',
             'amount'     => $request->input('amount'),
             'action_pay' => 'add-balance',
-            'task_id'    => 1,
             'status' => 1
         ]);
 
