@@ -19,7 +19,7 @@
                 </ul>
 
                 <ul class="align-to-right">
-                    <li class="d-flex justify-content-between">
+                    <li class="">
                         @auth
                             <a href="{{ route('cabinets') }}" class="btn btn-info mt-3 mr-2"><i class="fal fa-user-circle"></i> Мой аккаунт <b>{{ auth()->user()->username }}</b></a>
                         @elseguest

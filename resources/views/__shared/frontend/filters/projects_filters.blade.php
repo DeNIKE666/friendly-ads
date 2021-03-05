@@ -19,12 +19,12 @@
         $('#category_id-' + filters.category_id).prop('checked', true);
         @endif
 
-                @if(request('type_task'))
+        @if(request('type_task'))
             filters.type_task = "{{ request('type_task') }}"
-        $('#type_task_' + filters.type_task).prop('checked', true);
+           $('#type_task_' + filters.type_task).prop('checked', true);
         @endif
 
-                @if(request('amount'))
+        @if(request('amount'))
             filters.amount = "{{ request('amount') }}"
         $('#prices-filters-' + filters.amount).prop('checked', true);
         @endif

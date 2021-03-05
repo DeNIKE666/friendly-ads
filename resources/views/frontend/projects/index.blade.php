@@ -8,7 +8,7 @@
     <section class="section-white box-shadow">
         <div class="container">
             <div class="row">
-                <div class="tr-list-center">
+                <div class="tr-list-center p-3">
                     <h2>Проекты пользователей</h2>
                     <p>все активные задания пользователей на площадке, вы можете с лёгкостью отфильровать нужные категории, и приступить к заказу в
                         <b><a href="{{ route('executor.offers') }}">личном кабинете</a></b></p>
@@ -48,20 +48,12 @@
                                 <div class="side-imbo">
                                     <ul class="no-ul-list">
                                         <li>
-                                            <input id="type_task_link_product" data-id="link_product" class="radio-custom type_task" name="type_task" type="radio" value="link_product">
-                                            <label for="type_task_link_product" class="radio-custom-label">Cсылка на продукт</label>
+                                            <input id="type_task_link" data-id="link" class="radio-custom type_task" name="type_task" type="radio" value="link">
+                                            <label for="type_task_link" class="radio-custom-label">Cсылка на продукт</label>
                                         </li>
                                         <li>
-                                            <input id="type_task_link_video" data-id="link_video" class="radio-custom type_task" name="type_task" type="radio" value="link_video">
-                                            <label for="type_task_link_video" class="radio-custom-label">Cсылка на видео</label>
-                                        </li>
-                                        <li>
-                                            <input id="type_task_page" data-id="page" class="radio-custom type_task" name="type_task" type="radio" value="page">
-                                            <label for="type_task_page" class="radio-custom-label">Cтраница сайта</label>
-                                        </li>
-                                        <li>
-                                            <input id="type_task_app" data-id="app" class="radio-custom type_task" name="type_task" type="radio" value="app">
-                                            <label for="type_task_app" class="radio-custom-label">Приложение</label>
+                                            <input id="type_task_video" data-id="video" class="radio-custom type_task" name="type_task" type="radio" value="video">
+                                            <label for="type_task_video" class="radio-custom-label">Cсылка на видео</label>
                                         </li>
                                     </ul>
                                 </div>

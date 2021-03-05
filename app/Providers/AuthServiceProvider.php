@@ -37,6 +37,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->type_account == 2;
         });
 
+        Gate::define('customerIsTask', function ($user, $task) {
+            return $user->id == $task->user_id;
+        });
+
         Gate::define('admin', function ($user) {
             return $user->type_account == 1;
         });

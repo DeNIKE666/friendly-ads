@@ -74,7 +74,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Регистрация</h4>
-                                <p>Зарегистрируйтесь, <b><a href="{{ route('cabinets') }}">войдите в кабинет</a></b></p>
+                                <p>Зарегистрируйтесь на проекте и <b><a href="{{ route('cabinets') }}">войдите в личный кабинет</a></b></p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Задание</h4>
-                                <p>Создайте  <b><a class="font-weight-bold" href="{{ route('customer.tasks.create') }}">заказ</a></b> в личном кабинете под ваши нужны</p>
+                                <p>Создайте  <b><a class="font-weight-bold" href="{{ route('customer.tasks.create') }}">задание</a></b> в личном кабинете и опишите что нужно сделать</p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Получите отклики</h4>
-                                <p>Получите отклики исполнителей на ваш заказ</p>
+                                <p>Получите отклики исполнителей на ваш заказ и выберите нужных</p>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="middle-icon-features-content">
                                 <h4>Исполнение</h4>
-                                <p>Как соберете нужные отклики, оплатите заказ</p>
+                                <p>Дайте задание исполнителям, и наблюдайте за процессом</p>
                             </div>
                         </div>
                     </div>
@@ -136,29 +136,29 @@
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>0</h4>
+                        <h4>{{ $executors }}</h4>
                         <span>Исполнителей</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>0</h4>
+                        <h4>{{ $customers }}</h4>
                         <span>Заказчиков</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 b-r">
                     <div class="count-facts">
-                        <h4>0</h4>
-                        <span>пока не придумал</span>
+                        <h4>{{ $activeTasks }}</h4>
+                        <span>Активных заданий</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="count-facts">
-                        <h4>0</h4>
-                        <span>пока не придумал</span>
+                        <h4>{{ number_format($sumTasks , 0 , ', ' , '') }}</h4>
+                        <span>Заданий на сумму</span>
                     </div>
                 </div>
 

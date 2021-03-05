@@ -8,7 +8,7 @@
     <section class="section-white box-shadow">
         <div class="container">
             <div class="row">
-                <div class="tr-list-center">
+                <div class="tr-list-center p-3">
                     <h2>{{ $task->title }}</h2>
                     <p>размещённый проект на площадке от пользователя <span class="badge badge-secondary">{{ $task->user->username }}</span> , старайтесь как можно быстрее оставить свой отклик. </p>
                 </div>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    @can('customer')
+                    @can('customerIsTask', $task)
                         <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ПЕРЕЙТИ К СВОЕМУ ЗАДАНИЮ</a>
                     @elsecan('executor')
                         <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>

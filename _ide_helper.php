@@ -15592,6 +15592,196 @@
      
 }
 
+    namespace Maksa988\FreeKassa\Facades {
+
+        use Illuminate\Http\RedirectResponse;
+        use Request;
+
+        /**
+     * 
+     *
+     * @see \Maksa988\FreeKassa\FreeKassa
+     */ 
+        class FreeKassa {
+                    /**
+         * 
+         *
+         * @param $amount
+         * @param $order_id
+         * @param null $phone
+         * @param null $email
+         * @param array $user_parameters
+         * @return string 
+         * @static 
+         */ 
+        public static function getPayUrl($amount, $order_id, $phone = null, $email = null, $user_parameters = [])
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->getPayUrl($amount, $order_id, $phone, $email, $user_parameters);
+        }
+                    /**
+         * 
+         *
+         * @param $amount
+         * @param $order_id
+         * @param null $phone
+         * @param null $email
+         * @param array $user_parameters
+         * @return RedirectResponse
+         * @static 
+         */ 
+        public static function redirectToPayUrl($amount, $order_id, $phone = null, $email = null, $user_parameters = [])
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->redirectToPayUrl($amount, $order_id, $phone, $email, $user_parameters);
+        }
+                    /**
+         * 
+         *
+         * @param string $ip
+         * @return bool 
+         * @static 
+         */ 
+        public static function allowIP($ip)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->allowIP($ip);
+        }
+                    /**
+         * 
+         *
+         * @param $project_id
+         * @param $amount
+         * @param $secret
+         * @param $order_id
+         * @return string 
+         * @static 
+         */ 
+        public static function getFormSignature($project_id, $amount, $secret, $order_id)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->getFormSignature($project_id, $amount, $secret, $order_id);
+        }
+                    /**
+         * 
+         *
+         * @param $project_id
+         * @param $amount
+         * @param $secret
+         * @param $order_id
+         * @return string 
+         * @static 
+         */ 
+        public static function getSignature($project_id, $amount, $secret, $order_id)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->getSignature($project_id, $amount, $secret, $order_id);
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @return string 
+         * @throws Exceptions\InvalidPaidOrder
+         * @throws Exceptions\InvalidSearchOrder
+         * @static 
+         */ 
+        public static function handle($request)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->handle($request);
+        }
+                    /**
+         * 
+         *
+         * @param $error
+         * @return string 
+         * @static 
+         */ 
+        public static function responseError($error)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->responseError($error);
+        }
+                    /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function responseYES()
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->responseYES();
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @return bool 
+         * @static 
+         */ 
+        public static function validate($request)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->validate($request);
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @return bool 
+         * @static 
+         */ 
+        public static function validateSignature($request)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->validateSignature($request);
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @return bool 
+         * @static 
+         */ 
+        public static function validateOrderFromHandle($request)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->validateOrderFromHandle($request);
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @return mixed 
+         * @throws InvalidSearchOrder
+         * @static 
+         */ 
+        public static function callSearchOrder($request)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->callSearchOrder($request);
+        }
+                    /**
+         * 
+         *
+         * @param Request $request
+         * @param $order
+         * @return mixed 
+         * @throws InvalidPaidOrder
+         * @static 
+         */ 
+        public static function callPaidOrder($request, $order)
+        {
+                        /** @var \Maksa988\FreeKassa\FreeKassa $instance */
+                        return $instance->callPaidOrder($request, $order);
+        }
+         
+    }
+     
+}
+
     namespace Illuminate\Http { 
             /**
      * 
@@ -18873,6 +19063,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class BotMan extends \BotMan\BotMan\Facades\BotMan {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class FreeKassa extends \Maksa988\FreeKassa\Facades\FreeKassa {}
      
 }
 
