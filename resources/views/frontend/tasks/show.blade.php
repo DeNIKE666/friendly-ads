@@ -10,8 +10,7 @@
             <div class="row">
                 <div class="tr-list-center">
                     <h2>{{ $task->title }}</h2>
-                    <p>размещённый проект на площадке от пользователя <span class="badge badge-secondary">{{ $task->user->username }}</span> c ценой {{ $task->amount }} руб. </p>
-                    <span>истекает: {{ $task->timeDiff()  }}</span>
+                    <p>размещённый проект на площадке от пользователя <span class="badge badge-secondary">{{ $task->user->username }}</span> , старайтесь как можно быстрее оставить свой отклик. </p>
                 </div>
             </div>
         </div>
@@ -32,9 +31,9 @@
                     @can('customer')
                         <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ПЕРЕЙТИ К СВОЕМУ ЗАДАНИЮ</a>
                     @elsecan('executor')
-                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2 {{ !$task->periodExpired() ? 'disabled' : '' }}"> ОСТАВИТЬ ОТКЛИК</a>
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>
                     @else
-                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2 {{ !$task->periodExpired() ? 'disabled' : '' }}"> ПЕРЕЙТИ К ЗАДАНИЮ</a>
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ПЕРЕЙТИ К ЗАДАНИЮ</a>
                     @endif
                 </div>
 

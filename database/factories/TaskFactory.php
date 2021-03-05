@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaskFactory extends Factory
@@ -57,7 +58,8 @@ class TaskFactory extends Factory
             'period'            => $period[$rand_keys_period],
             'views'             => mt_rand(1000, 9999),
             'isActive'          => mt_rand(0,1),
-            'isPay'             => mt_rand(0,1)
+            'isPay'             => mt_rand(0,1),
+            'created_at'        => now()->subDays(mt_rand(1,4))
         ];
     }
 }

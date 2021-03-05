@@ -47489,7 +47489,7 @@ nav a {
     color:#333333 !important;
 }
 .nav-brand img {
-    max-width:180px;
+    max-width:260px;
 	position: relative;
     top: 2px;
 }
@@ -54005,7 +54005,6 @@ footer.footer-small {
     padding: 50px 0 0 0;
 }
 img.img-footer {
-    max-width: 180px;
     margin-bottom:1rem;
 }
 .ft-itext {
@@ -55186,6 +55185,10 @@ a.empblue-theme {
     border-top: 6px solid #1b213214;
     background: white;
     padding: 24px 0 24px;
+}
+
+.contacts-line {
+    font-size: 20px;
 }
 /*-------------- Blue Skins -----------------*/
 .blue-skin .bg-theme,

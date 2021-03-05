@@ -58,16 +58,7 @@ class Task extends Model
 
     public function periodExpired()
     {
-        return $this->created_at < Carbon::tomorrow();
-    }
-
-    public function timeDiff()
-    {
-        if($this->periodExpired()):
-            return CarbonImmutable::parse($this->created_at)->add(1, 'day')->isoFormat('D MMMM в HH:mm');
-        else :
-            return 'время размещения истекло';
-        endif;
+        return $this->created_at < Carbon::today();
     }
 
     /**

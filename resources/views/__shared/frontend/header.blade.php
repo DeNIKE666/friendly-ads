@@ -6,8 +6,8 @@
     <div class="container-fluid">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
-                <a class="nav-brand" href="#">
-                    <img src="assets/img/logo.png" class="logo" alt="" />
+                <a class="nav-brand" href="/">
+                    <img src="{{ asset('images/frontend/logo.png') }}" class="logo" alt="Размещение ссылки на трастовых сайтах" />
                 </a>
                 <div class="nav-toggle"></div>
             </div>
