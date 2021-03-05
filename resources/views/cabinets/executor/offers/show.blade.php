@@ -20,7 +20,8 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="avatar">
-                                <img src="{{ asset('images/noavatar.png') }}" alt="..." class="avatar-img rounded-circle">
+                                <img src="{{ asset('images/noavatar.png') }}" alt="..."
+                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="info-post ml-2">
                                 <p class="username">{{ $task->user->username }}</p>
@@ -28,28 +29,47 @@
                                     {{ $task->title }}
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="separator-solid"></div>
-                        <p class="card-text text-black-50">{{ $task->description}}</p>
-                        <p class="card-text">Бюджет:<b>{{ $task->amount }}</b> руб.</p>
+                        <p class="card-text text-black-50">{{ $task->full_description }}</p>
+                        <p class="card-text">Бюджет: <b> {{ $task->amount }}</b> руб.</p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>
                         <p class="card-text">Категория: <b>{{ $task->category->name }}</b></p>
-                        <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b></p>
-                        <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b></p>
-                        <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }} / {{ $task->subscribeAccepted()->count() }} </b></p>
+                        <p class="card-text">Тип
+                            контента:<b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b></p>
+                        <p class="card-text">Позиция
+                            размещения:<b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b></p>
+                        <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }}
+                                / {{ $task->subscribeAccepted()->count() }} </b></p>
+                        <div>
+                            <span>Статус задания:</span>
+                            <span>
+                                @if($task->subscribeAccepted()->count() >= $task->site_count )
+                                    <i class="text-danger fw-bold fal fa-lock" data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Задание недоступно для откликов"></i>
+                                @else
+                                    <i class="text-success fw-bold fal fa-lock-open" data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Задание доступно для откликов"></i>
+                                @endif
+                           </span>
+                        </div>
 
-                        @if($task->IsFull())
-                            <div class="border-top pt-3"></div>
-                            <div class="alert alert-info" role="alert">
-                                Приём ставок завершен, данный заказ набрал необходимое число откликов
-                            </div>
-                        @endif
+                        <div>
+                            @if($task->IsFull())
+                                <hr>
+                                <div class="alert alert-info" role="alert">
+                                    Приём ставок завершен, данный заказ набрал необходимое число откликов
+                                </div>
+                            @endif
+                        </div>
 
-                        <div class="border-top pt-3"></div>
+                        <hr>
 
                         <p class="card-text">Откликнулись: <b>{{ $task->subscribe->count() }}</b></p>
 
-                        <div class="border-bottom mb-3"></div>
+                        <hr>
 
                         <table>
                             <thead>
@@ -80,13 +100,16 @@
                                     <td data-label="Статус">
                                         @switch($executor->status)
                                             @case(1)
-                                            <i class="text-success fal fa-check" data-toggle="tooltip" data-placement="top" title="Принят в проект"></i>
+                                            <i class="text-success fal fa-check" data-toggle="tooltip"
+                                               data-placement="top" title="Принят в проект"></i>
                                             @break
                                             @case(2)
-                                            <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
+                                            <i class="text-danger fal fa-times" data-toggle="tooltip"
+                                               data-placement="top" title="Отклонён"></i>
                                             @break
                                             @case(0)
-                                            <i class="text-warning fal fa-clock" data-toggle="tooltip" data-placement="top" title="Ожидает решения"></i>
+                                            <i class="text-warning fal fa-clock" data-toggle="tooltip"
+                                               data-placement="top" title="Ожидает решения"></i>
                                             @break
                                         @endswitch
                                     </td>

@@ -42,33 +42,32 @@
                                 <p class="card-text">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
                                 <p class="card-text">Категория: <b>{{ $offer->category->name }}</b></p>
                                 <p class="card-text">Срок: <b>{{ $offer->period }}</b> дней. </p>
+                                <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b></p>
+                                <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b></p>
 
                                 <p class="card-text">
-                                    Тип контента:
-                                    <b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b>
+                                    Требуется сайтов:
+                                    <b>{{ $offer->site_count }} / {{ $offer->subscribeAccepted()->count() }}  </b>
                                 </p>
 
-                                <p class="card-text">
-                                    Позиция размещения:
-                                    <b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b>
-                                </p>
+                                <hr>
 
+                                <div class="mb-3">
+                                    <span>Статус задания:</span>
+                                    <span>
+                                    @if($offer->isFull() )
+                                            <i class="text-danger fw-bold fal fa-lock" data-toggle="tooltip"
+                                               data-placement="top"
+                                               title="Задание недоступно для откликов"></i>
+                                        @else
+                                            <i class="text-success fw-bold fal fa-lock-open" data-toggle="tooltip"
+                                               data-placement="top"
+                                               title="Задание доступно для откликов"></i>
+                                        @endif
+                                    </span>
+                                </div>
 
-                                @if($offer->isFull())
-                                    <p class="card-text text-success fw-bold">
-                                        Максимальный набор: <i class="fal fa-box-check"></i>
-                                    </p>
-                                @else
-                                    <p class="card-text">
-                                        Требуется сайтов:
-                                        <b>{{ $offer->site_count }} / {{ $offer->subscribeAccepted()->count() }}  </b>
-                                    </p>
-                                    <p class="card-text">
-                                        Откликнулись:
-                                        <b>{{ $offer->subscribe()->count() }} </b>
-                                    </p>
-                                @endif
-
+                                <hr>
 
                                 <div class="d-flex justify-content-between">
 

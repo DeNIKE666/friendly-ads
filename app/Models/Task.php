@@ -124,14 +124,15 @@ class Task extends Model
 
     public function IsFull()
     {
-        return $this->subscribe()->whereStatus(1)->count() >= $this->site_count;
+        return $this->subscribeAccepted()->count() >= $this->site_count;
     }
 
     /**
      * @return mixed
+     * Только выбратнные отклики
      */
 
-    public function scopeSubscribeAccepted()
+    public function subscribeAccepted()
     {
         return $this->subscribe()->whereStatus(1)->get();
     }
