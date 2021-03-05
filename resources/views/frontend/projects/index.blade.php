@@ -98,7 +98,7 @@
                                 <div class="wrf-joblist">
                                     <div class="wrf-job-title-wrap">
                                         <h4 class="wrf-job-title verified-job">
-                                            <a href="job-detail.html">
+                                            <a href="{{ route('frontend.task.detail', $task) }}">
                                                 {{ $task->title }}
                                             </a>
                                         </h4>

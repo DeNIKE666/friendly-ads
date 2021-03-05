@@ -26,7 +26,7 @@ class updateSite extends FormRequest
         return [
             'title'         => ['required' , 'string'],
             'url'           => ['required' , 'string'],
-            'short'         => ['required' , 'string', 'min:100' , 'max:300'],
+            'short'         => ['required' , 'string', 'min:100' , 'max:1000'],
             'category_id'   => ['required'],
             'user_id'       => ['required'],
             'activated'     => ['required']
