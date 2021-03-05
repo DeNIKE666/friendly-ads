@@ -7,13 +7,19 @@ use App\Http\Requests\Cabinets\Executor\addSubscribe;
 use App\Models\SubscribeTask;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
 
     public function index()
@@ -26,7 +32,7 @@ class OfferController extends Controller
     /**
      * @param addSubscribe $request
      * @param Task $task
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\JsonResponse
+     * @return Model|JsonResponse
      */
 
     public function subscribeTask(addSubscribe $request, Task $task)
@@ -35,11 +41,11 @@ class OfferController extends Controller
             return response()->json([
                 'message' => 'Нельзя оставить отклик на своё же задание.'
             ], 422);
-        elseif ($task->IsResponses()):
+        elseif ($task->IsFull()):
             return response()->json([
                 'message' => 'Предложение закрыто, так как уже набрано максимальное количество откликов'
             ], 422);
-        elseif($task->YourSubscribe()->count() > 0):
+        elseif($task->yourSubscribe()->count() > 0):
             return response()->json([
                 'message' => 'Вы уже подписаны на это задание, подпишитесь на другое.'
             ], 422);
@@ -57,7 +63,7 @@ class OfferController extends Controller
     /**
      * @param SubscribeTask $subscribeTask
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
 
     public function unSubscribe(SubscribeTask $subscribe)
@@ -67,7 +73,7 @@ class OfferController extends Controller
 
     /**
      * @param Task $task
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
 
     public function showTask(Task $task)
@@ -82,7 +88,7 @@ class OfferController extends Controller
     } 
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
 
     public function subsTasks()

@@ -39,7 +39,7 @@ class Order extends Model
 
     public $casts = [
         'amount' => 'decimal:0',
-        'params' => 'object'
+        'params' => 'json'
     ];
 
 

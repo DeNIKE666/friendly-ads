@@ -57,7 +57,10 @@ class PaymentController extends Controller
             'amount'     => $task->sum_pay,
             'action_pay' => 'pay-order',
             'task_id'    => $task->id,
-            'status'     => 0
+            'status'     => 0,
+            'params'  => [
+                'task' => $task->id
+            ]
         ]);
 
         $task->update(['isPay' => 1]);

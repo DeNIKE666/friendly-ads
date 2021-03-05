@@ -44,13 +44,13 @@
                             <p class="card-text">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
                             <p class="card-text">Срок: <b>{{ $offer->period }}</b> дней. </p>
                             <p class="card-text">Категория: <b>{{ $offer->category->name }}</b></p>
-                            <p class="card-text">Требуется сайтов: <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }} </b></p>
+                            <p class="card-text">Требуется сайтов: <b>{{ $offer->site_count }} / {{ $offer->subscribeAccepted()->count() }} </b></p>
                             <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b></p>
                             <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $offer->type_position ) }} </b></p>
                             <div>
                                 <span>Статус задания:</span>
                                 <span>
-                                    @if($offer->site_count == $offer->subscribe->count())
+                                    @if($offer->subscribeAccepted()->count() >= $offer->site_count )
                                         <i class="text-danger fw-bold fal fa-lock" data-toggle="tooltip" data-placement="top"
                                         title="Задание недоступно для откликов"></i>
                                     @else
@@ -61,31 +61,43 @@
                             </div>
                             <div>
                                 <hr>
-                                @switch($offer->yourSubscribe->status)
-                                    @case(1)
-                                    <p class="text-dark text-success">
+                                @if($offer->isFull())
+                                    <p class="text-dark {{ $offer->yourSubscribe->status ? 'text-success' : '' }}">
                                         <i class="fal fa-check"></i>
-                                        ваш отклик был одобрен заказчиком
+                                        {{ $offer->yourSubscribe->status ? 'вас выбрали в данном заказе' : 'исполнитель найден' }}
                                     </p>
-                                    @break
-                                    @case(2)
-                                    <p class="text-dark text-danger">
-                                        <i class="fal fa-times"></i>
-                                        ваш отклик был отклонён
-                                    </p>
-                                    @break
-                                    @case(0)
-                                    <p class="text-dark text-warning">
-                                        <i class="fal fa-clock"></i>
-                                        На рассмотрении...
-                                    </p>
-                                    @break
-                                @endswitch
+                                @else
+                                    @switch($offer->yourSubscribe->status)
+                                        @case(1)
+                                        <p class="text-dark text-success">
+                                            <i class="fal fa-check"></i>
+                                            ваш отклик был одобрен заказчиком
+                                        </p>
+                                        @break
+                                        @case(2)
+                                        <p class="text-dark text-danger">
+                                            <i class="fal fa-times"></i>
+                                            ваш отклик был отклонён
+                                        </p>
+                                        @break
+                                        @case(0)
+                                        <p class="text-dark text-warning">
+                                            <i class="fal fa-clock"></i>
+                                            На рассмотрении...
+                                        </p>
+                                        @break
+                                    @endswitch
+                                @endif
                                 <hr>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a>
-                                <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">Отозвать отклик</button>
+                                @if($offer->isFull())
+                                    <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded w-100"><i class="fal fa-eye"></i> Просмотр</a>
+                                @else
+                                    <a href="{{ route('executor.show.task', $offer) }}" class="btn btn-primary btn-rounded"><i class="fal fa-eye"></i> Просмотр</a>
+                                    <button data-id="{{ $offer->yourSubscribe->id }}" class="btn btn-danger btn-rounded unsubscribe">Отозвать отклик</button>
+                                @endif
+
                             </div>
                         </div>
                     </div>

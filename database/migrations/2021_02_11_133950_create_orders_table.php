@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer('status')->default(0);
             $table->string('action_pay')->nullable();
             $table->unsignedBigInteger('task_id')->index()->nullable();
-            $table->jsonb('params')->nullable();
+            $table->json('params')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')

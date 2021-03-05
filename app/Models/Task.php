@@ -94,7 +94,7 @@ class Task extends Model
 
     public function yourSubscribe()
     {
-        return $this->hasOne(SubscribeTask::class)->YourSubscribeCurrent();
+        return $this->hasOne(SubscribeTask::class)->yourSubscribeCurrent();
     }
 
     /**
@@ -115,6 +115,16 @@ class Task extends Model
     public function scopeIsResponses()
     {
         return $this->subscribe()->count() >= $this->site_count;
+    }
+
+    /**
+     * @return bool
+     * Проверяем набран ли такс исполнителей
+     */
+
+    public function IsFull()
+    {
+        return $this->subscribe()->whereStatus(1)->count() >= $this->site_count;
     }
 
     /**

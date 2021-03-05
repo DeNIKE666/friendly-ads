@@ -67,8 +67,10 @@
                                             <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
                                             @break
                                             @case(0)
+                                                @if(! $executor->task->isFull())
+                                                   <button data-id="{{ $executor->id }}" class="btn btn-primary accept-task btn-sm"><i class="fal fa-check"></i></button>
+                                                @endif
                                                 @if($executor->status == 0)
-                                                    <button data-id="{{ $executor->id }}" class="btn btn-primary accept-task btn-sm"><i class="fal fa-check"></i></button>
                                                     <button data-id="{{ $executor->id }}" class="btn btn-danger reject-task btn-sm"><i class="fal fa-times"></i></button>
                                                 @endif
                                             @break

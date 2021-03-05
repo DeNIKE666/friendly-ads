@@ -31,87 +31,69 @@
                         </div> 
                         <div class="separator-solid"></div>
                         <p class="card-text text-black-50">{{ $task->description}}</p>
-                        <p class="card-text">Бюджет:
-                                <b>{{ $task->amount }}</b> руб.
-
-                        </p>
+                        <p class="card-text">Бюджет:<b>{{ $task->amount }}</b> руб.</p>
                         <p class="card-text">Срок: <b>{{ $task->period }}</b> дней. </p>
                         <p class="card-text">Категория: <b>{{ $task->category->name }}</b></p>
+                        <p class="card-text">Тип контента:<b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b></p>
+                        <p class="card-text">Позиция размещения:<b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b></p>
+                        <p class="card-text">Требуется сайтов: <b>{{ $task->site_count }} / {{ $task->subscribeAccepted()->count() }} </b></p>
 
-                        <p class="card-text">
-                            Тип контента:
-                            <b>{{ config('ads_friendly.type_task.' . $task->type_task ) }} </b>
-                        </p>
-
-                        <p class="card-text">
-                            Позиция размещения:
-                            <b>{{ config('ads_friendly.type_position.' . $task->type_position ) }} </b>
-                        </p>
-
-                        @if($task->IsResponses())
+                        @if($task->IsFull())
                             <div class="border-top pt-3"></div>
                             <div class="alert alert-info" role="alert">
                                 Приём ставок завершен, данный заказ набрал необходимое число откликов
                             </div>
-                        @else
-                            <div class="border-top pt-3"></div>
-                            <p class="card-text">
-                                Требуется сайтов: <b> {{ $task->site_count }} / {{ $task->subscribe->count() }}  </b>
-                            </p>
                         @endif
 
-                        @if(! $task->yourSubscribe)
-                            <div class="border-top pt-3"></div>
-                            <div class="alert alert-info" role="alert">
-                                У вас еще нет отклика на данное задание, но вы можете <b>оставить отклик</b>
-                            </div>
-                        @else
-                            <div class="border-top pt-3"></div>
-                            <table>
-                                <thead>
+                        <div class="border-top pt-3"></div>
+
+                        <p class="card-text">Откликнулись: <b>{{ $task->subscribe->count() }}</b></p>
+
+                        <div class="border-bottom mb-3"></div>
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col">Пользователь</th>
+                                <th scope="col">Рейтинг</th>
+                                <th scope="col">Сайт</th>
+                                <th scope="col">Статус</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($task->subscribe as $executor)
                                 <tr>
-                                    <th scope="col">Пользователь</th>
-                                    <th scope="col">Рейтинг</th>
-                                    <th scope="col">Сайт</th>
-                                    <th scope="col">Статус</th>
+                                    <td data-label="Пользователь">
+                                        <a href="{{ route('cabinet.show.profile', $executor->user) }}">
+                                            {{ $executor->user->username }}
+                                        </a>
+                                    </td>
+                                    <td data-label="Рейтинг">{{ $executor->user->sites->sum('rating') }}</td>
+                                    <td data-label="Сайт">
+                                        @can('customer')
+                                            {{ $executor->sites }}
+                                        @elsecan('executor')
+                                            <i class="fal fa-eye-slash" data-toggle="tooltip" data-placement="top"
+                                               title="Просмотр сайта доступен только заказчику"></i>
+                                        @endcan
+                                    </td>
+                                    <td data-label="Статус">
+                                        @switch($executor->status)
+                                            @case(1)
+                                            <i class="text-success fal fa-check" data-toggle="tooltip" data-placement="top" title="Принят в проект"></i>
+                                            @break
+                                            @case(2)
+                                            <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
+                                            @break
+                                            @case(0)
+                                            <i class="text-warning fal fa-clock" data-toggle="tooltip" data-placement="top" title="Ожидает решения"></i>
+                                            @break
+                                        @endswitch
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($task->subscribe as $executor)
-                                    <tr>
-                                        <td data-label="Пользователь">
-                                            <a href="{{ route('cabinet.show.profile', $executor->user) }}">
-                                                {{ $executor->user->username }}
-                                            </a>
-                                        </td>
-                                        <td data-label="Рейтинг">{{ $executor->user->sites->sum('rating') }}</td>
-                                        <td data-label="Сайт">
-                                            @can('customer')
-                                                {{ $executor->sites }}
-                                            @elsecan('executor')
-                                                <i class="fal fa-eye-slash" data-toggle="tooltip" data-placement="top"
-                                                   title="Просмотр сайта доступен только заказчику"></i>
-                                            @endcan
-                                        </td>
-                                        <td data-label="Статус">
-
-                                            @switch($executor->status)
-                                                @case(1)
-                                                <i class="text-success fal fa-check" data-toggle="tooltip" data-placement="top" title="Принят в проект"></i>
-                                                @break
-                                                @case(2)
-                                                <i class="text-danger fal fa-times" data-toggle="tooltip" data-placement="top" title="Отклонён"></i>
-                                                @break
-                                                @case(0)
-                                                <i class="text-warning fal fa-clock" data-toggle="tooltip" data-placement="top" title="Ожидает решения"></i>
-                                                @break
-                                            @endswitch
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @endif
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

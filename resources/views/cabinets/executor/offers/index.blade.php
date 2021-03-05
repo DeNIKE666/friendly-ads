@@ -39,11 +39,11 @@
                                 </div>
                                 <div class="separator-solid"></div>
                                 <p class="card-text text-black-50">{{ $offer->limitDescription() }}</p>
-                                <p class="card-text m-0">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
-                                <p class="card-text m-0">Категория: <b>{{ $offer->category->name }}</b></p>
-                                <p class="card-text m-0">Срок: <b>{{ $offer->period }}</b> дней. </p>
+                                <p class="card-text">Бюджет: <b>{{ $offer->amount }}</b> руб. </p>
+                                <p class="card-text">Категория: <b>{{ $offer->category->name }}</b></p>
+                                <p class="card-text">Срок: <b>{{ $offer->period }}</b> дней. </p>
 
-                                <p class="card-text m-0">
+                                <p class="card-text">
                                     Тип контента:
                                     <b>{{ config('ads_friendly.type_task.' . $offer->type_task ) }} </b>
                                 </p>
@@ -54,14 +54,18 @@
                                 </p>
 
 
-                                @if($offer->IsResponses())
+                                @if($offer->isFull())
                                     <p class="card-text text-success fw-bold">
                                         Максимальный набор: <i class="fal fa-box-check"></i>
                                     </p>
                                 @else
                                     <p class="card-text">
                                         Требуется сайтов:
-                                        <b>{{ $offer->site_count }} / {{ $offer->subscribe->count() }}  </b>
+                                        <b>{{ $offer->site_count }} / {{ $offer->subscribeAccepted()->count() }}  </b>
+                                    </p>
+                                    <p class="card-text">
+                                        Откликнулись:
+                                        <b>{{ $offer->subscribe()->count() }} </b>
                                     </p>
                                 @endif
 
