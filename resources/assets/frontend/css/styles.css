@@ -9790,6 +9790,7 @@ span.current-page:before {
 .tr-single-body {
     width: 100%;
     padding: 25px 25px 25px;
+    word-break: break-word;
 }
 .rating-average .overall-rating {
     font-size: 19px;
