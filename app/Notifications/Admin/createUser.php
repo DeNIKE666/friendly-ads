@@ -57,7 +57,7 @@ class createUser extends Notification
     /**
      * Get the mail representation of the notification.
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
 
     public function toMail($notifiable)
@@ -65,7 +65,7 @@ class createUser extends Notification
         return (new MailMessage)->view('email.admin.userCreateNotify', [
             'email'    => $this->user->email,
             'password' => $this->password
-        ])->subject('Данные для входа в ваш аккаунт');
+        ])->subject('Данные для входа в ваш аккаунт ' . env('APP_NAME'));
     }
 
     /**

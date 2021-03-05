@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'Главная страница')
+@section('title', config('ads_friendly.meta.title'))
 
 @section('description' , config('ads_friendly.seo_pages.index.description'))
 

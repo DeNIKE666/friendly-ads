@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
@@ -48,6 +50,24 @@ class Task extends Model
     public function limitDescription()
     {
         return Str::of($this->description)->lower()->words(10 , '...');
+    }
+
+    /**
+     * @return bool
+     */
+
+    public function periodExpired()
+    {
+        return $this->created_at < Carbon::tomorrow();
+    }
+
+    public function timeDiff()
+    {
+        if($this->periodExpired()):
+            return CarbonImmutable::parse($this->created_at)->add(1, 'day')->isoFormat('D MMMM в HH:mm');
+        else :
+            return 'время размещения истекло';
+        endif;
     }
 
     /**

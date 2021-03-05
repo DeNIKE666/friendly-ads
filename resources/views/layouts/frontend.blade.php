@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>@yield('title') {{ '| ' . env('APP_NAME') }}</title>
 
     <meta name="description" content="@yield('description' , config('ads_friendly.meta.description'))">
 
@@ -35,8 +35,8 @@
             <div class="hero-header jumbo-banner text-center"
                  style="background: url({{ asset('images/frontend/bg_header.png') }});" data-overlay="6">
                 <div class="container">
-                    <h2>FUC - сервис по продвижению контента и заработка на своих сайтах</h2>
-                    <p class="lead">Продвигайте любой контент за счёт цепей исполнителей</p>
+                    <h2>{{ env('APP_NAME') }} - сервис по продвижению ссылок</h2>
+                    <p class="lead">продвигайте ваши ссылки на популярных интернет площадках или соц сетях, за счет исполнителей</p>
                     <div class="search-big-form no-border search-shadow">
                         <div class="row m-0">
                             <div class="col-lg-10 col-md-10 col-sm-10 p-0">

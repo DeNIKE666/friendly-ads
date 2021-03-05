@@ -5,11 +5,13 @@
 @section('description', 'Подробное описание задания')
 
 @section('content')
-    <section class="small-page-title-banner" style="background: url(https://www.zastavki.com/pictures/originals/2014/Backgrounds_Wallpapers_with_gradient_background_082013_.jpg)">
+    <section class="section-white box-shadow">
         <div class="container">
             <div class="row">
                 <div class="tr-list-center">
                     <h2>{{ $task->title }}</h2>
+                    <p>размещённый проект на площадке от пользователя <span class="badge badge-secondary">{{ $task->user->username }}</span> c ценой {{ $task->amount }} руб. </p>
+                    <span>истекает: {{ $task->timeDiff()  }}</span>
                 </div>
             </div>
         </div>
@@ -27,9 +29,13 @@
                         </div>
                     </div>
 
-                    @cannot('customer')
-                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ОСТАВИТЬ ОТКЛИК</a>
-                    @endcan
+                    @can('customer')
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2"> ПЕРЕЙТИ К СВОЕМУ ЗАДАНИЮ</a>
+                    @elsecan('executor')
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2 {{ !$task->periodExpired() ? 'disabled' : '' }}"> ОСТАВИТЬ ОТКЛИК</a>
+                    @else
+                        <a href="{{ route('executor.show.task', $task) }}" class="btn btn-outline-info full-width mb-2 {{ !$task->periodExpired() ? 'disabled' : '' }}"> ПЕРЕЙТИ К ЗАДАНИЮ</a>
+                    @endif
                 </div>
 
                 <div class="col-lg-4 col-md-12 col-sm-12">
@@ -80,17 +86,6 @@
                                         <div class="icon-box-text">
                                             <strong class="d-block">Период</strong>
                                             {{ $task->period }} дней
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon-box-icon-block">
-                                        <div class="icon-box-round">
-                                            <i class="fal fa-chalkboard-teacher"></i>
-                                        </div>
-                                        <div class="icon-box-text">
-                                            <strong class="d-block">Цена на исполнителя</strong>
-                                            <i class="fal fa-ruble-sign"></i> 550
                                         </div>
                                     </div>
                                 </li>

@@ -5,12 +5,13 @@
 @section('description' , config('ads_friendly.seo_pages.projects.description') )
 
 @section('content')
-    <section class="small-page-title-banner" style="background-image:url(assets/img/des-9.jpg);">
+    <section class="section-white box-shadow">
         <div class="container">
             <div class="row">
                 <div class="tr-list-center">
                     <h2>Проекты пользователей</h2>
-                    <p>Здесь отображаются все актуальные задания заказчиков, если вы являетесь исполнителем - то вы можете ознакомиться с любым заданием, сделать выбор и приступеить к выполнению</p>
+                    <p>все активные задания пользователей на площадке, вы можете с лёгкостью отфильровать нужные категории, и приступить к заказу в
+                        <b><a href="{{ route('executor.offers') }}">личном кабинете</a></b></p>
                 </div>
             </div>
         </div>

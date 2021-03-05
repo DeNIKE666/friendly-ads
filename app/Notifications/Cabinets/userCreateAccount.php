@@ -38,7 +38,7 @@ class userCreateAccount extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
@@ -47,7 +47,7 @@ class userCreateAccount extends Notification
                     ->line('спасибо что проявили интерес к нашему проекту.')
                     ->line('ваш логин в системе: ' . $notifiable->username)
                     ->action('перейти в личный кабинет', route('cabinets'))
-                    ->subject('Вы успешно зарегистрировались на площадке FUC');
+                    ->subject('Вы успешно зарегистрировались на площадке' . env('APP_NAME'));
     }
 
     /**
