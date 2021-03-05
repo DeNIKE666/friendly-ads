@@ -300,11 +300,16 @@ export default {
 
         if (result) {
           this.loading = true;
-          axios.post('/cabinet/tasks',this.options);
-          window.location.href = '/cabinet/tasks';
+          axios.post('/cabinet/tasks',this.options).then(res => {
+            window.location.href = '/cabinet/tasks';
+          }).catch(res => {
+            console.log(res)
+          });
+
           setTimeout(() => {
             this.loading = false;
           }, 1000);
+
         }
       });
     }

@@ -2355,8 +2355,11 @@ __webpack_require__.r(__webpack_exports__);
       this.$validator.validate().then(function (result) {
         if (result) {
           _this.loading = true;
-          axios.post('/cabinet/tasks', _this.options);
-          window.location.href = '/cabinet/tasks';
+          axios.post('/cabinet/tasks', _this.options).then(function (res) {
+            window.location.href = '/cabinet/tasks';
+          })["catch"](function (res) {
+            console.log(res);
+          });
           setTimeout(function () {
             _this.loading = false;
           }, 1000);
