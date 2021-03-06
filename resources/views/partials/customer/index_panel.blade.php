@@ -71,7 +71,7 @@
                     <div class="col col-stats ml-3 ml-sm-0">
                         <div class="numbers">
                             <p class="card-category">Сайтов</p>
-                            <h4 class="card-title">{{ $sites }}</h4>
+                            <h4 class="card-title">{{ $sitesWorks }}</h4>
                         </div>
                     </div>
                 </div>

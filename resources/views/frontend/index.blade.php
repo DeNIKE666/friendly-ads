@@ -157,7 +157,7 @@
 
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="count-facts">
-                        <h4>{{ number_format($sumTasks , 0 , ', ' , '') }}</h4>
+                        <h4>{{ $sumTasks }}</h4>
                         <span>Заданий на сумму</span>
                     </div>
                 </div>

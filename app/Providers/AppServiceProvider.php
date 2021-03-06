@@ -2,13 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Site;
-use App\Models\Task;
-use App\Models\User;
-use App\Repositories\CategoryRepository;
+use App\Views\StatsAllProjects;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,16 +34,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-        view()->composer(['frontend.*', 'cabinets.*'], function ($view) {
-            $view->with('customers', User::customerAccounts()->count());
-            $view->with('executors', User::executorAccounts()->count());
-            $view->with('activeTasks', Task::statusActive()->count());
-            $view->with('sumTasks', number_format(Task::statusActive()->sum('sum_pay') , 0 , ', ' , ' '));
-            $view->with('sumTasksAvg', number_format(Task::statusActive()->avg('sum_pay') , 0 , ', ' , ' '));
-            $view->with('sites', Site::IsActive()->count());
-            $view->with('categories' , (new CategoryRepository())->getAll());
-        });
+        View::composer('*', StatsAllProjects::class);
 
         Paginator::useBootstrap();
     }
