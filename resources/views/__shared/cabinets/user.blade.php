@@ -22,7 +22,7 @@
 
         <hr>
 
-        <span class="text-center text-black-50">Баланс аккаунта: <b>{{ auth()->user()->balance }}</b> руб. </span>
+        <span class="text-center balance-label">Баланс аккаунта: <b>{{ auth()->user()->balance }}</b> руб. </span>
 
         @can('customer')
             <a href="{{ route('balance') }}">пополнить</a>

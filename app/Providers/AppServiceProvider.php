@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Site;
 use App\Models\Task;
 use App\Models\User;
 use App\Repositories\CategoryRepository;
@@ -34,11 +35,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('frontend.*', function ($view) {
+        view()->composer(['frontend.*', 'cabinets.*'], function ($view) {
             $view->with('customers', User::customerAccounts()->count());
             $view->with('executors', User::executorAccounts()->count());
             $view->with('activeTasks', Task::statusActive()->count());
-            $view->with('sumTasks', Task::statusActive()->sum('sum_pay'));
+            $view->with('sumTasks', number_format(Task::statusActive()->sum('sum_pay') , 0 , ', ' , ' '));
+            $view->with('sumTasksAvg', number_format(Task::statusActive()->avg('sum_pay') , 0 , ', ' , ' '));
+            $view->with('sites', Site::IsActive()->count());
             $view->with('categories' , (new CategoryRepository())->getAll());
         });
 

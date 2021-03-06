@@ -5,23 +5,10 @@
 @section('content')
 
     <div class="page-inner">
-        //
+        @can('customer')
+            @include('partials.customer.index_panel')
+        @elsecan('executor')
+            @include('partials.executor.index_panel')
+        @endcan
     </div>
-
-    @push('scripts')
-        <script>
-            /*$.notify({
-                icon: 'flaticon-alarm-1',
-                title: 'Ошибка',
-                message: 'Произошла ошибка, при выполнении действия.',
-            },{
-                type: 'danger',
-                placement: {
-                    from: "top",
-                    align: "center"
-                },
-                time: 1000,
-            });*/
-        </script>
-    @endpush
 @endsection

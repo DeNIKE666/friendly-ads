@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
@@ -146,5 +147,16 @@ class Task extends Model
     public function subscribeAccepted()
     {
         return $this->subscribe()->whereStatus(1)->get();
+    }
+
+    /**
+     * @param Builder $builder
+     * @return mixed
+     * Задания текущего пользователя
+     */
+
+    public function scopeYours(Builder $builder)
+    {
+        return $builder->statusActive()->get();
     }
 }
