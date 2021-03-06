@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         view()->composer(['frontend.*', 'cabinets.*'], function ($view) {
             $view->with('customers', User::customerAccounts()->count());
             $view->with('executors', User::executorAccounts()->count());
